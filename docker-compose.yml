@@ -30,6 +30,6 @@ services:
 volumes:
   postgres_data: 
     external:
-        name: ~/hello_world_service_db
+        name: /root/hello_world_service_db
       
     
