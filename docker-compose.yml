@@ -29,7 +29,10 @@ services:
 
 volumes:
   postgres_data: 
-    external:
-        name: /root/hello_world_service_db
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /root/hello_world_service_db
       
     
