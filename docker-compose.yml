@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  api:
+    build: ./hello_world_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./hello_world_backend/:/usr/src/hello_world_backend/
+    ports:
+      - 8001:8000
+    env_file:
+      - ./.env.dev
+
+  web:
+    build: ./hello_world_frontend
+    ports:
+      - '80:80'
