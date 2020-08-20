@@ -28,6 +28,6 @@ services:
       - '80:80'
 
 volumes:
-  postgres_data: ./hello_world_service_db
+  postgres_data: ~/hello_world_service_db
       
     
