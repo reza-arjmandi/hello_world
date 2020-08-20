@@ -6,6 +6,7 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./hello_world_backend/:/usr/src/hello_world_backend/
+      - ./hello_world_backend/photos:/usr/src/hello_world_backend/photos
     ports:
       - 8001:8000
     env_file:
@@ -15,3 +16,4 @@ services:
     build: ./hello_world_frontend
     ports:
       - '80:80'
+    
