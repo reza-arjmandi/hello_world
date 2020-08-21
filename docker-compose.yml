@@ -28,7 +28,7 @@ services:
     ports:
       - 8001:8002
     depends_on:
-      - web
+      - api
 
 volumes:
   postgres_data: 
