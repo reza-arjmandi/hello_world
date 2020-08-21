@@ -52,10 +52,19 @@ RUN mkdir $APP_HOME/staticfiles
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apk update && apk add libpq
+RUN apk update
+RUN apk add libpq
+RUN apk add zlib-dev
+RUN apk add jpeg-dev
+RUN apk add build-base
+RUN apk add postgresql-dev
+RUN apk add python3-dev
+RUN apk add musl-dev
+
 COPY --from=builder /usr/src/hello_world_backend/wheels /wheels
 COPY --from=builder /usr/src/hello_world_backend/requirements.txt .
 RUN pip install --no-cache /wheels/*
+RUN pip install Pillow
 
 # copy entrypoint-prod.sh
 COPY ./entrypoint.sh $APP_HOME
