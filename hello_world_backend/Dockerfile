@@ -48,6 +48,7 @@ RUN addgroup -S hello_world_backend && adduser -S hello_world_backend -G hello_w
 ENV HOME=/home/hello_world_backend
 ENV APP_HOME=/home/hello_world_backend/api
 RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
 WORKDIR $APP_HOME
 
 # install dependencies
