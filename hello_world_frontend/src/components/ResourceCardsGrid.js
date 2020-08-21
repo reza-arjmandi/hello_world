@@ -45,7 +45,7 @@ function DotsMobileStepper(classes, page_number, page_data, change_page) {
       activeStep={page_number}
       className={classes.root}
       nextButton={
-        <Button size="small" onClick={handleNext} disabled={page_number === 5}>
+        <Button size="small" onClick={handleNext} disabled={page_data["next"] === null}>
           Next
           {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
         </Button>
