@@ -1,5 +1,9 @@
+###########
+# BUILDER #
+###########
+
 # pull official base image
-FROM python:3.8.3-alpine
+FROM python:3.8.3-alpine as builder
 
 # set work directory
 WORKDIR /usr/src/hello_world_backend
@@ -17,14 +21,52 @@ RUN apk add postgresql-dev
 RUN apk add python3-dev
 RUN apk add musl-dev
 
+# lint
 RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install flake8
+COPY . .
+RUN flake8 --ignore=E501,F401 .
 
-# copy entrypoint.sh
-COPY ./entrypoint.sh .
+# install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3.8.3-alpine
+
+# create directory for the app user
+RUN mkdir -p /home/hello_world_backend
+
+# create the app user
+RUN addgroup -S hello_world_backend && adduser -S hello_world_backend -G hello_world_backend
+
+# create the appropriate directories
+ENV HOME=/home/hello_world_backend
+ENV APP_HOME=/home/hello_world_backend/api
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+# install dependencies
+RUN apk update && apk add libpq
+COPY --from=builder /usr/src/hello_world_backend/wheels /wheels
+COPY --from=builder /usr/src/hello_world_backend/requirements.txt .
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint-prod.sh
+COPY ./entrypoint.sh $APP_HOME
 
 # copy project
-COPY . .
+COPY . $APP_HOME
 
-ENTRYPOINT ["/usr/src/hello_world_backend/entrypoint.sh"]
+# chown all the files to the app user
+RUN chown -R hello_world_backend:hello_world_backend $APP_HOME
+
+# change to the app user
+USER hello_world_backend
+
+# run entrypoint.prod.sh
+ENTRYPOINT ["/home/hello_world_backend/api/entrypoint.sh"]
