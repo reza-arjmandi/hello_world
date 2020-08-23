@@ -12,6 +12,7 @@ services:
       - db
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
+      - photos_volume:/home/hello_world_backend/api/photos
 
   db:
     image: postgres:12.0-alpine
@@ -36,7 +37,6 @@ services:
       - api
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
-      - photos_volume:/home/hello_world_backend/api/photos
     environment:
       - "VIRTUAL_HOST=api.hi-english.ir"
       - "VIRTUAL_PORT=8081"
