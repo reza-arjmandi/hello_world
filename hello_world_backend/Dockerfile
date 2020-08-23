@@ -49,6 +49,7 @@ ENV HOME=/home/hello_world_backend
 ENV APP_HOME=/home/hello_world_backend/api
 RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/photos
 WORKDIR $APP_HOME
 
 # install dependencies
