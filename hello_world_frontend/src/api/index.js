@@ -33,7 +33,7 @@ import {
 
 import fileDownload from 'js-file-download';
 
-const api_address = 'http://hi-english.ir:8001';
+const api_address = 'http://api.hi-english.ir';
 
 export function fetch_logs() {
   
