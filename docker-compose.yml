@@ -36,6 +36,7 @@ services:
       - api
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
+      - photos_volume:/home/hello_world_backend/api/photos
     environment:
       - "VIRTUAL_HOST=api.hi-english.ir"
       - "VIRTUAL_PORT=8081"
@@ -54,7 +55,14 @@ volumes:
       o: bind
       type: none
       device: /root/hello_world_service_db
-
+  
+  photos_volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /root/hello_world_backend_photos
+      
   static_volume:
       
     
