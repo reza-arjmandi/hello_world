@@ -22,17 +22,30 @@ services:
 
   web:
     build: ./hello_world_frontend
-    ports:
-      - '80:80'
+    expose:
+      - 8080
+    environment:
+      - "VIRTUAL_HOST=www.hi-english.ir"
+      - "VIRTUAL_PORT=8080"
 
-  nginx:
+  api_nginx_server:
     build: ./nginx
-    ports:
-      - 8001:80
+    expose:
+      - 8081
     depends_on:
       - api
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
+    environment:
+      - "VIRTUAL_HOST=api.hi-english.ir"
+      - "VIRTUAL_PORT=8081"
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
 
 volumes:
   postgres_data: 
