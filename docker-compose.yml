@@ -33,10 +33,12 @@ services:
     build: ./api_nginx_server
     expose:
       - 8081
+      - 443
     depends_on:
       - api
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
+      - ssl_cert_volume:/etc/nginx/certs
 
     environment:
       - "VIRTUAL_HOST=api.hi-english.ir,api.halloenglish.com"
