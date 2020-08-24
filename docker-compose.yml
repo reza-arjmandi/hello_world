@@ -26,7 +26,7 @@ services:
     expose:
       - 80
     environment:
-      - "VIRTUAL_HOST=www.hi-english.ir"
+      - "VIRTUAL_HOST=www.hi-english.ir,www.halloenglish.com"
       - "VIRTUAL_PORT=80"
 
   api_nginx_server:
@@ -38,7 +38,7 @@ services:
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
     environment:
-      - "VIRTUAL_HOST=api.hi-english.ir"
+      - "VIRTUAL_HOST=api.hi-english.ir,api.halloenglish.com"
       - "VIRTUAL_PORT=8081"
 
   nginx_proxy:
