@@ -33,7 +33,6 @@ services:
     build: ./api_nginx_server
     expose:
       - 8081
-      - 443
     depends_on:
       - api
     volumes:
