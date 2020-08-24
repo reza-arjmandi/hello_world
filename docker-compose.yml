@@ -45,7 +45,7 @@ services:
     image: jwilder/nginx-proxy
     ports:
       - "80:80"
-      - "443":"443"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - ssl_cert_volume:/etc/nginx/certs
@@ -73,5 +73,3 @@ volumes:
       device: /root/halloenglish.com.ssl.certificate
 
   static_volume:
-      
-    
