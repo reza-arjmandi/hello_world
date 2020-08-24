@@ -3,9 +3,10 @@ version: '3.7'
 services:
   api:
     build: ./hello_world_backend
-    command: gunicorn hello_world_backend.wsgi:application --bind 0.0.0.0:1234 
+    command: gunicorn hello_world_backend.wsgi:application --certfile /etc/nginx/certs/api.halloenglish.com.crt --keyfile /etc/nginx/certs/api.halloenglish.com.key --bind 0.0.0.0:1234
     expose:
       - 1234
+      - 443
     env_file:
       - ./.env.prod
     depends_on:
@@ -13,6 +14,7 @@ services:
     volumes:
       - static_volume:/home/hello_world_backend/api/staticfiles
       - photos_volume:/home/hello_world_backend/api/photos
+      - ssl_cert_volume:/etc/nginx/certs
 
   db:
     image: postgres:12.0-alpine
