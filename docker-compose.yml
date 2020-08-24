@@ -3,7 +3,7 @@ version: '3.7'
 services:
   api:
     build: ./hello_world_backend
-    command: gunicorn hello_world_backend.wsgi:application --bind 0.0.0.0:1234 --certfile=/home/hello_world_backend/certs/api.halloenglish.com.crt --keyfile=/home/hello_world_backend/certs/api.halloenglish.com.key
+    command: gunicorn hello_world_backend.wsgi:application --bind 0.0.0.0:1234
     expose:
       - 1234
       - 443
