@@ -33,8 +33,10 @@ export default function HomePage({
                 }
             }}
             style={{
-              width: '100%',
-              backgroundImage: background_image 
+              backgroundImage: background_image ,
+              'background-size': 'cover',
+              'background-position': 'center',
+              'background-repeat':'no-repeat',
             }}/>
         </div>
     );
