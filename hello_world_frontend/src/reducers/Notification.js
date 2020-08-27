@@ -35,45 +35,45 @@ const initial_state = {
 
 export default function Notification(state=initial_state, action) {
     switch(action.type) {
-        case FETCH_RESOURCES_REQUEST:
-        case FETCH_SERVER_STATUS_REQUEST:
-        case INSERT_RESOURCE_REQUEST:
-        case DELETE_LOG_REQUEST:
-        case DOWNLOAD_LOG_FILE_REQUEST:
-        case start_server_REQUEST:
-        case stop_server_REQUEST:
-        case FETCH_MENU_LIST_REQUEST:
-        case FETCH_MENU_RESOURCES_OPTIONS_REQUEST:
-            return {
-                message: action.description, 
-                type: 'info'
-            };
-        case FETCH_RESOURCES_FAILURE:
-        case FETCH_SERVER_STATUS_FAILURE:
-        case INSERT_RESOURCE_FAILURE:
-        case DELETE_LOG_FAILURE:
-        case DOWNLOAD_LOG_FILE_FAILURE:
-        case start_server_FAILURE:
-        case stop_server_FAILURE:
-        case FETCH_MENU_LIST_FAILURE:
-        case FETCH_MENU_RESOURCES_OPTIONS_FAILURE:
-            return {
-                message: `${action.description} ${action.error}`, 
-                type: 'error'
-            };
-        case FETCH_RESOURCES_SUCCESS:
-        case FETCH_SERVER_STATUS_SUCCESS:
-        case INSERT_RESOURCE_SUCCESS:
-        case DELETE_LOG_SUCCESS:
-        case DOWNLOAD_LOG_FILE_SUCCESS:
-        case start_server_SUCCESS:
-        case stop_server_SUCCESS:
-        case FETCH_MENU_LIST_SUCCESS:
-        case FETCH_MENU_RESOURCES_OPTIONS_SUCCESS:
-            return {
-                message: action.description, 
-                type:'success'
-            };
+        // case FETCH_RESOURCES_REQUEST:
+        // case FETCH_SERVER_STATUS_REQUEST:
+        // case INSERT_RESOURCE_REQUEST:
+        // case DELETE_LOG_REQUEST:
+        // case DOWNLOAD_LOG_FILE_REQUEST:
+        // case start_server_REQUEST:
+        // case stop_server_REQUEST:
+        // case FETCH_MENU_LIST_REQUEST:
+        // case FETCH_MENU_RESOURCES_OPTIONS_REQUEST:
+        //     return {
+        //         message: action.description, 
+        //         type: 'info'
+        //     };
+        // case FETCH_RESOURCES_FAILURE:
+        // case FETCH_SERVER_STATUS_FAILURE:
+        // case INSERT_RESOURCE_FAILURE:
+        // case DELETE_LOG_FAILURE:
+        // case DOWNLOAD_LOG_FILE_FAILURE:
+        // case start_server_FAILURE:
+        // case stop_server_FAILURE:
+        // case FETCH_MENU_LIST_FAILURE:
+        // case FETCH_MENU_RESOURCES_OPTIONS_FAILURE:
+        //     return {
+        //         message: `${action.description} ${action.error}`, 
+        //         type: 'error'
+        //     };
+        // case FETCH_RESOURCES_SUCCESS:
+        // case FETCH_SERVER_STATUS_SUCCESS:
+        // case INSERT_RESOURCE_SUCCESS:
+        // case DELETE_LOG_SUCCESS:
+        // case DOWNLOAD_LOG_FILE_SUCCESS:
+        // case start_server_SUCCESS:
+        // case stop_server_SUCCESS:
+        // case FETCH_MENU_LIST_SUCCESS:
+        // case FETCH_MENU_RESOURCES_OPTIONS_SUCCESS:
+        //     return {
+        //         message: action.description, 
+        //         type:'success'
+        //     };
         default:
             return state;
     }
