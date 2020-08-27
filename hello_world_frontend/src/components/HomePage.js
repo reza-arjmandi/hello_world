@@ -9,9 +9,6 @@ export default function HomePage({
     return (
         <div style={{
             backgroundImage: background_image ,
-            'background-size': 'cover',
-            'background-position': 'center',
-            'background-repeat':'no-repeat',
           }}>
           <HomePageCard 
             video_url={video_url} 
