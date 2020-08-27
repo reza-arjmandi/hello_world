@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
       
       [theme.breakpoints.down('sm')]: {
         width: window.innerWidth,
+        padding: theme.spacing(2),
       },
       [theme.breakpoints.up('sm')]: {
         width: 576,
