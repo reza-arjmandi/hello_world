@@ -8,8 +8,12 @@ import ReactPlayer from 'react-player'
 
 const useStyles = makeStyles((theme) => ({
     main_card: {
-      width: 576,
-      maxWidth: 576,
+      [theme.breakpoints.down('sm')]: {
+        width: 192,
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: 576,
+      },
       position: 'absolute',
       left: '50%',
       transform: 'translate(-50%, -50%)',
