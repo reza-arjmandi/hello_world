@@ -7,7 +7,12 @@ export default function HomePage({
     background_image, video_url, video_title, video_desciption }) {
         
     return (
-        <div>
+        <div style={{
+            backgroundImage: background_image ,
+            'background-size': 'cover',
+            'background-position': 'center',
+            'background-repeat':'no-repeat',
+          }}>
           <HomePageCard 
             video_url={video_url} 
             video_title={video_title} 
@@ -32,12 +37,7 @@ export default function HomePage({
                     }
                 }
             }}
-            style={{
-              backgroundImage: background_image ,
-              'background-size': 'cover',
-              'background-position': 'center',
-              'background-repeat':'no-repeat',
-            }}/>
+            />
         </div>
     );
 };
