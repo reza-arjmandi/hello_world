@@ -8,9 +8,8 @@ import ReactPlayer from 'react-player'
 
 const useStyles = makeStyles((theme) => ({
     main_card: {
-      
       [theme.breakpoints.down('sm')]: {
-        width: window.innerWidth - 5,
+        width: window.innerWidth - 10,
       },
       [theme.breakpoints.up('sm')]: {
         width: 576,
