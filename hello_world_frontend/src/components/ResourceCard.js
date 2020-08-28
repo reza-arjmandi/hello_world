@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   main_card: {
     [theme.breakpoints.down('sm')]: {
-      width: window.innerWidth - 10,
+      width: window.innerWidth,
+      padding: 10
     },
     [theme.breakpoints.up('sm')]: {
       width: 576,
