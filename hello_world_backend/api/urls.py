@@ -9,7 +9,7 @@ from api.views import HomePageViewSet
 from api.views import PhotoDetail
 
 router = routers.DefaultRouter()
-router.register(r'home_page', HomePageViewSet)
+router.register(r'home', HomePageViewSet)
 router.register(r'stream', StreamViewSet)
 
 urlpatterns = [
