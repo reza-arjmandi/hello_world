@@ -27,13 +27,15 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  avatar: {
-    backgroundColor: red[500],
+  main_card: {
+    [theme.breakpoints.down('sm')]: {
+      width: window.innerWidth - 10,
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 576,
+    },
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
+  
 }));
 
 export default function ResourceCard({title, description, stream_url}) {
@@ -45,7 +47,7 @@ export default function ResourceCard({title, description, stream_url}) {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.main_card}>
       <div style={{
                   position: 'relative',
                   'padding-top': "56.25%" 
@@ -56,6 +58,7 @@ export default function ResourceCard({title, description, stream_url}) {
                 top: '0',
                 left: '0',
             }}
+            controls={true}
             width='100%'
             height='100%'
             url={stream_url} />

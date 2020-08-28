@@ -69,7 +69,7 @@ export default function ResourceCardsGrid({
       <Grid container spacing={3}>
       {page_data ? page_data["results"].map((data) => {
         return(
-            <Grid item xs={4}>
+            <Grid item xs>
                 <ResourceCard 
                   className={classes.card} 
                   {...data} />
