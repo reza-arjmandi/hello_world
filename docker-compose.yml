@@ -2,78 +2,32 @@ version: '3.7'
 
 services:
   api:
-    build: ./hello_world_backend
-    command: gunicorn hello_world_backend.wsgi:application --certfile /etc/nginx/certs/api.halloenglish.com.crt --keyfile /etc/nginx/certs/api.halloenglish.com.key --bind 0.0.0.0:1234
-    expose:
-      - 1234
-      - 443
+    build:
+      context: ./hello_world_backend
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./hello_world_backend/:/usr/src/hello_world_backend/
+    ports:
+      - 8000:8000
     env_file:
-      - ./.env.prod
+      - ./.env.dev
     depends_on:
       - db
-    volumes:
-      - static_volume:/home/hello_world_backend/api/staticfiles
-      - photos_volume:/home/hello_world_backend/api/photos
-      - ssl_cert_volume:/etc/nginx/certs
-
+        
   db:
     image: postgres:12.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - ./.env.prod.db
-
-  web:
-    build: ./hello_world_frontend
-    expose:
-      - 80
     environment:
-      - "VIRTUAL_HOST=www.hi-english.ir,www.halloenglish.com,halloenglish.com,hi-english.ir"
-      - "VIRTUAL_PORT=80"
-
-  api_nginx_server:
-    build: ./api_nginx_server
-    expose:
-      - 80
-      - 443
-    depends_on:
-      - api
-    volumes:
-      - static_volume:/home/hello_world_backend/api/staticfiles
-      - ssl_cert_volume:/etc/nginx/certs
-    environment:
-      - "VIRTUAL_HOST=api.hi-english.ir,api.halloenglish.com"
-      - "VIRTUAL_PORT=80"
-
-  nginx_proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-      - ssl_cert_volume:/etc/nginx/certs
-
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+  
 volumes:
-  postgres_data: 
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /root/hello_world_service_db
-  
-  photos_volume:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /root/hello_world_backend_photos
-  
-  ssl_cert_volume:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /root/halloenglish.com.ssl.certificate
-
-  static_volume:
+    postgres_data:
+        driver: local
+        driver_opts:
+          o: bind
+          type: none
+          device: /home/arjmandi/hello_world_service_db
