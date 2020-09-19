@@ -15,5 +15,4 @@ router.register(r'stream', StreamViewSet)
 urlpatterns = [
     url(r'^photos/(.*)/$', PhotoDetail.as_view()),
     path('', include(router.urls)),
-    url(r'^api-token-auth/', views.obtain_auth_token),
 ]
