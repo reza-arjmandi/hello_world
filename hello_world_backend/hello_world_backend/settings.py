@@ -143,7 +143,7 @@ CORS_EXPOSE_HEADERS = ['Allow']
 
 PASSWORDLESS_AUTH = {
    'PASSWORDLESS_AUTH_TYPES': ['EMAIL', ],
-   'PASSWORDLESS_EMAIL_NOREPLY_ADDRESS': 'HalloEnglish@halloenglish.com',
+   'PASSWORDLESS_EMAIL_NOREPLY_ADDRESS': 'HelloWorld@halloenglish.com',
 }
 
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
