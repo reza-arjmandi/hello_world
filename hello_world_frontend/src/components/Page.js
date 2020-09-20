@@ -32,7 +32,6 @@ export default function Page({
     }
 
     if(page_name == "home") {
-        console.log(page_data['results'][0]['background_image'])
         const home_page_card_data = {
             video_url: page_data['results'][0]['introduction_video_url'],
             video_title: page_data['results'][0]['introduction_video_title'],

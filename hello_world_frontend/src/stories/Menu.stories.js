@@ -8,10 +8,9 @@ import {menu_drawer_action_data} from './MenuDrawer.stories'
 
 import {menu_actions_data} from './ButtonAppBar.stories'
 import {button_app_bar_data} from './ButtonAppBar.stories'
-import {server_started_data} from './LoginButton.stories'
-import {server_not_started_data} from './LoginButton.stories'
-import {server_button_actions_data} from './LoginButton.stories'
-import {fetching_data} from './LoginButton.stories';
+import {log_in_data} from './LoginButton.stories'
+import {log_out_data} from './LoginButton.stories'
+import {login_logout_actions_data} from './LoginButton.stories'
 
 export default {
     component: Menu,
@@ -19,65 +18,42 @@ export default {
     excludeStories: /.*_data$/, 
 };
 
-export const OpenMenuAndRecordStarted = () => {
+export const OpenMenuAndNotLoging = () => {
     return <Menu 
         {...open_menu_data} 
         {...menu_drawer_action_data} 
-        {...server_started_data}
+        {...log_out_data}
         {...button_app_bar_data}
         {...menu_actions_data}
-        {...server_button_actions_data}/>
+        {...login_logout_actions_data}/>
 }
 
-export const CloseMenuAndRecordStarted = () => {
+export const CloseMenuAndNotLogin = () => {
     return <Menu 
         {...close_menu_data} 
         {...menu_drawer_action_data}
-        {...server_started_data}
+        {...log_out_data}
         {...button_app_bar_data}
         {...menu_actions_data}
-        {...server_button_actions_data}/>
+        {...login_logout_actions_data}/>
 }
 
-export const OpenMenuAndRecordNotStarted = () => {
+export const OpenMenuAndLogin = () => {
     return <Menu 
         {...open_menu_data} 
         {...menu_drawer_action_data} 
-        {...server_not_started_data}
+        {...log_in_data}
         {...button_app_bar_data}
         {...menu_actions_data}
-        {...server_button_actions_data}/>
+        {...login_logout_actions_data}/>
 }
 
-export const CloseMenuAndRecordNotStarted = () => {
+export const CloseMenuAndLogin = () => {
     return <Menu 
         {...close_menu_data} 
         {...menu_drawer_action_data}
-        {...server_not_started_data}
+        {...log_in_data}
         {...button_app_bar_data}
         {...menu_actions_data}
-        {...server_button_actions_data}/>
-}
-
-
-export const OpenMenuAndRecordIsFetching = () => {
-    return <Menu 
-        {...open_menu_data} 
-        {...menu_drawer_action_data} 
-        {...server_not_started_data}
-        {...button_app_bar_data}
-        {...menu_actions_data}
-        {...server_button_actions_data}
-        {...fetching_data}/>
-}
-
-export const CloseMenuAndRecordIsFetching = () => {
-    return <Menu 
-        {...close_menu_data} 
-        {...menu_drawer_action_data}
-        {...server_not_started_data}
-        {...button_app_bar_data}
-        {...menu_actions_data}
-        {...server_button_actions_data}
-        {...fetching_data}/>
+        {...login_logout_actions_data}/>
 }

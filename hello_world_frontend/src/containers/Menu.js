@@ -4,17 +4,18 @@ import {
     close_menu, 
     open_menu,
     click_menu,
-    login,
+    logout,
+    open_login_dialog,
     } from '../actions'
 import {
     fetch_menu_resources,
     fetch_menu_resources_options,
-    } from '../api'
+} from '../api'
 
 const map_state_to_props = state => ({
     title: state.MenuTitle, 
     is_log_in: state.IsLogin, 
-    profile: state.Profile, 
+    email: state.Email, 
     menu_list: state.MenuList,
     menu_is_open: state.MenuIsOpen, 
 });
@@ -27,7 +28,8 @@ const map_dispatch_to_props = dispatch => ({
         dispatch(fetch_menu_resources_options(resource_link));
         dispatch(fetch_menu_resources(resource_link));
     },
-    login: (response) => dispatch(login(response)),
+    open_login_dialog: () => dispatch(open_login_dialog()),
+    logout: (response) => dispatch(logout(response)),
 });
 
 export default connect(

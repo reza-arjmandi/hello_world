@@ -9,8 +9,9 @@ export default function Menu({
     menu_list,
     title, 
     is_log_in, 
-    profile, 
-    login,  
+    email, 
+    open_login_dialog,  
+    logout,  
     open_menu,
 
 }) {
@@ -21,8 +22,9 @@ export default function Menu({
                 menu_is_open={menu_is_open}
                 title={title}
                 is_log_in={is_log_in}
-                profile={profile}
-                login={login}
+                email={email}
+                open_login_dialog={open_login_dialog}
+                logout={logout}
                 open_menu={open_menu}
                 />
             <MenuDrawer 

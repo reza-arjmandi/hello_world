@@ -10,10 +10,16 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 
 import reducer from './reducers';
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 import { 
   fetch_menu_list,
 } from './api';
+
+import {
+  set_auth_token,
+  set_email,
+} from './actions'
 
 const store = createStore(
   reducer,
@@ -22,6 +28,12 @@ const store = createStore(
 ));
 
 store.dispatch(fetch_menu_list());
+
+const token = reactLocalStorage.get("token", null, true)
+store.dispatch(set_auth_token(token));
+
+const email = reactLocalStorage.get("email", null, true)
+store.dispatch(set_email(email));
 
 ReactDOM.render(
   <React.StrictMode>

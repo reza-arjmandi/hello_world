@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-
-import GoogleLogin from 'react-google-login';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -27,38 +27,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginButton({
-  is_log_in, profile, login}) {
+  is_log_in, email, open_login_dialog, logout}) {
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logout();
+  };
 
   if(is_log_in) {
     return (
       <div className={classes.root}>
-        <Avatar 
-          alt={profile['name']} 
-          src={profile['imageUrl']} 
-          className={classes.large} />
+        <Button variant="contained" color="secondary" onClick={handleClick}>{email}</Button>
+          <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </div>
     );
   }
 
-  const responseGoogle = (response) => {
-    login(response);
-  }
-
-  const responseGoogle2 = (response) => {
-    // login(response);
-  }
-
   return (
     <div>
-      <GoogleLogin
-        clientId="550922846907-2110437f6a9666fb823mj6ki3l7tm1s1.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle2}
-        cookiePolicy={'single_host_origin'}
-        isSignedIn={true}
-      />
+      <Button variant="contained" onClick={()=>open_login_dialog()}>Login</Button>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Menu from './containers/Menu';
 import Page from './containers/Page';
 import AddResourceButton from './containers/AddResourceButton';
 import AddNewResourceDialog from './containers/AddNewResourceDialog';
+import LoginDialog from './containers/LoginDialog';
 import Notification from './containers/Notification';
 import { SnackbarProvider } from 'notistack';
 
@@ -17,6 +18,7 @@ function App() {
         <Menu />
         {/* <ButtonAppBar /> */}
         <AddNewResourceDialog />
+        <LoginDialog />
         <Page />
         <AddResourceButton />
         <Notification />

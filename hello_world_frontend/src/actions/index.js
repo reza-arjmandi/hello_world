@@ -8,6 +8,14 @@ export const close_add_new_resource_dialog = () => ({
     type: types.CLOSE_ADD_NEW_RESOURCE_DIALOG 
 });
 
+export const open_login_dialog = () => ({ 
+    type: types.OPEN_LOGIN_DIALOG 
+});
+
+export const close_login_dialog = () => ({ 
+    type: types.CLOSE_LOGIN_DIALOG 
+});
+
 export const fetch_logs_request = () => ({
     type: types.FETCH_RESOURCES_REQUEST,
     description: 'Fetching logs...'
@@ -186,12 +194,61 @@ export const fetch_resources_success = (response) => ({
     response
 });
 
-export const login = (response) => ({
-    type: types.LOGIN,
+export const logout = (response) => ({
+    type: types.LOGOUT,
     response
 });
 
 export const change_page_number = (number) => ({
     type: types.CHANGE_PAGE_NUMBER,
     number
+});
+
+export const set_auth_token = (token) => ({
+    type: types.SET_AUTH_TOKEN,
+    token
+});
+
+export const set_email = (email) => ({
+    type: types.SET_EMAIL,
+    email
+});
+
+export const login_request = (email) => ({ 
+    type: types.LOGIN_REQUEST,
+    description: 'Request login...',
+    email
+});
+
+export const login_request_success = (result) => ({ 
+    type: types.LOGIN_REQUEST_SUCCESS,
+    description: 'Login request is succeeded.',
+    result
+});
+
+export const login_request_failure = (error) => ({ 
+    type: types.LOGIN_REQUEST_FAILURE,
+    description: 'Login request is failed.',
+    error
+});
+
+export const email_verification_request = () => ({ 
+    type: types.EMAIL_VERIFICATION_REQUEST,
+    description: 'Request email verification...'
+});
+
+export const email_verification_request_success = (result) => ({ 
+    type: types.EMAIL_VERIFICATION_REQUEST_SUCCESS,
+    description: 'Email verification request is succeeded.',
+    result
+});
+
+export const email_verification_failure = (error) => ({ 
+    type: types.EMAIL_VERIFICATION_REQUEST_FAILURE,
+    description: 'Email verification request  is failed.',
+    error
+});
+
+export const clear_login_request_result = () => ({ 
+    type: types.CLEAR_LOGIN_REQUEST_RESULT,
 });

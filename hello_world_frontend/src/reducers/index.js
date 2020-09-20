@@ -11,8 +11,13 @@ import MenuIsOpen from './MenuIsOpen';
 import IsEnableAddResource from './IsEnableAddResource';
 import PostOptions from './PostOptions';
 import IsLogin from './IsLogin';
-import Profile from './Profile';
+import Email from './Email';
 import PageNumber from './PageNumber';
+import AuthToken from './AuthToken';
+import LoginDialogVisibility from './LoginDialogVisibility';
+import LoginStep from './LoginStep';
+import LoginRequestResult from './LoginRequestResult';
+import LoginRequestIsFetching from './LoginRequestIsFetching';
 
 const root_reducer = combineReducers({ 
     AddNewResourceDialogVisibility,
@@ -27,8 +32,13 @@ const root_reducer = combineReducers({
     IsEnableAddResource,
     PostOptions,
     IsLogin,
-    Profile,
+    Email,
     PageNumber,
+    AuthToken,
+    LoginDialogVisibility,
+    LoginStep,
+    LoginRequestResult,
+    LoginRequestIsFetching,
  });
 
 export default root_reducer;

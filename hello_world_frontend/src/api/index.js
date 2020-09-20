@@ -29,6 +29,12 @@ import {
     fetch_resources_request,
     fetch_resources_failure,
     fetch_resources_success,
+    login_request,
+    login_request_success,
+    login_request_failure,
+    email_verification_request,
+    email_verification_request_success,
+    email_verification_failure,
 } from '../actions';
 
 import fileDownload from 'js-file-download';
@@ -266,5 +272,69 @@ export function fetch_menu_resources_options(resource_link) {
       ).catch(error => 
         dispatch(fetch_menu_resources_options_failure(error))
       );
+  }
+}
+
+export function login(email) {
+
+  const post_data = {email};
+  
+  return function (dispatch) {
+
+    dispatch(login_request(email))
+
+    return fetch(`${api_address}/auth/email/`, {
+      method: 'POST',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(post_data)
+    })
+    .then(
+      response => response.json()
+    )
+    .then(
+      json => {
+        dispatch(login_request_success(json))
+      }
+    ).catch(error => 
+      dispatch(login_request_failure(error))
+    );
+  }
+}
+
+export function send_verification_code(email, token) {
+
+  const post_data = {email,token};
+  
+  return function (dispatch) {
+
+    dispatch(email_verification_request())
+
+    return fetch(`${api_address}/auth/token/`, {
+      method: 'POST',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(post_data)
+    })
+    .then(
+      response => response.json()
+    )
+    .then(
+      json => {
+        dispatch(email_verification_request_success(json))
+      }
+    ).catch(error => 
+      dispatch(email_verification_failure(error))
+    );
   }
 }

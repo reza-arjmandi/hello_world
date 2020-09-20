@@ -52,19 +52,21 @@ const toolbar = (
   classes, 
   title, 
   is_log_in, 
-  profile,
-  login, 
+  email,
+  open_login_dialog, 
+  logout, 
   open_menu,
   menu_is_open) => {
   return (
     <Toolbar>
       {menu_button(classes, open_menu, menu_is_open)}
       {app_title(classes, title)}
-      {/* <LoginButton 
+      <LoginButton 
         is_log_in={is_log_in} 
-        profile={profile}
-        login={login}
-      /> */}
+        email={email}
+        open_login_dialog={open_login_dialog}
+        logout={logout}
+      />
     </Toolbar>
   );
 }
@@ -72,16 +74,17 @@ const toolbar = (
 export default function ButtonAppBar({ 
   title, 
   is_log_in, 
-  profile, 
-  login, 
+  email, 
+  open_login_dialog, 
+  logout, 
   open_menu,
   menu_is_open }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        {toolbar(classes, title, is_log_in, profile,
-           login, open_menu, menu_is_open)}
+        {toolbar(classes, title, is_log_in, email,
+           open_login_dialog, logout, open_menu, menu_is_open)}
       </AppBar>
     </div>
   );
