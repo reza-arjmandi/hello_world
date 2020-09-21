@@ -34,7 +34,12 @@ const dialog_title = () => {
   );
 };
 
-const dialog_actions = (login_step, login_handle, verify_handle, close_handle, login_request_is_fetching) => {
+const dialog_actions = (
+  login_step, 
+  login_handle, 
+  verify_handle, 
+  close_handle, 
+  login_request_is_fetching) => {
 
   if(login_request_is_fetching) {
     return (
@@ -121,7 +126,7 @@ const dialog_content = (classes, login_step, on_value_change, login_request_resu
         {login_step === steps.length ? (
 
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
+            <Typography className={classes.instructions}>You've logined successfully</Typography>
           </div>
 
         ) : (

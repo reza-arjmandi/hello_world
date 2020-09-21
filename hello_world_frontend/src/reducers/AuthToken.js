@@ -10,9 +10,6 @@ export default function AuthToken(state = null, action) {
         case SET_AUTH_TOKEN :
             return action.token;
         case EMAIL_VERIFICATION_REQUEST_SUCCESS :
-            if(Object.keys(action.result) !== "token") {
-                return state;
-            }
             reactLocalStorage.set('token', Object.values(action.result)[0]);
             return Object.values(action.result)[0];
         default:

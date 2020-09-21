@@ -295,11 +295,13 @@ export function login(email) {
       body: JSON.stringify(post_data)
     })
     .then(
-      response => response.json()
-    )
-    .then(
-      json => {
-        dispatch(login_request_success(json))
+      response => {
+        if(response['status'] == 200) {
+            response.json().then(json => dispatch(login_request_success(json)));
+        }
+        else{
+          response.json().then(json => dispatch(login_request_success(json)));
+        }
       }
     ).catch(error => 
       dispatch(login_request_failure(error))
@@ -327,11 +329,13 @@ export function send_verification_code(email, token) {
       body: JSON.stringify(post_data)
     })
     .then(
-      response => response.json()
-    )
-    .then(
-      json => {
-        dispatch(email_verification_request_success(json))
+      response => {
+        if(response['status'] == 200) {
+          response.json().then(json => dispatch(email_verification_request_success(json)));
+        }
+        else {
+          response.json().then(json => dispatch(dispatch(email_verification_failure(json))));
+        }
       }
     ).catch(error => 
       dispatch(email_verification_failure(error))
