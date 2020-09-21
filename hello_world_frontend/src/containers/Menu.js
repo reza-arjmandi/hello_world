@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
 import Menu from '../components/Menu';
+import {reactLocalStorage} from 'reactjs-localstorage';
+
 import {
     close_menu, 
     open_menu,
     click_menu,
-    logout,
+    set_auth_token,
+    set_email,
     open_login_dialog,
     } from '../actions'
 import {
@@ -29,7 +32,12 @@ const map_dispatch_to_props = dispatch => ({
         dispatch(fetch_menu_resources(resource_link));
     },
     open_login_dialog: () => dispatch(open_login_dialog()),
-    logout: (response) => dispatch(logout(response)),
+    logout: (response) => {
+        reactLocalStorage.remove("token");
+        reactLocalStorage.remove("email");
+        dispatch(set_auth_token(null));
+        dispatch(set_email(null));
+    },
 });
 
 export default connect(

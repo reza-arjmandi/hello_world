@@ -299,6 +299,9 @@ export function login(email) {
         if(response['status'] == 200) {
             response.json().then(json => dispatch(login_request_success(json)));
         }
+        else if(response['status'] == 500) {
+            dispatch(login_request_success({result: "Server Internal Error"}));
+        }
         else{
           response.json().then(json => dispatch(login_request_success(json)));
         }
@@ -334,7 +337,7 @@ export function send_verification_code(email, token) {
           response.json().then(json => dispatch(email_verification_request_success(json)));
         }
         else {
-          response.json().then(json => dispatch(dispatch(email_verification_failure(json))));
+          response.json().then(json => dispatch(email_verification_failure(json)));
         }
       }
     ).catch(error => 
