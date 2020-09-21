@@ -145,6 +145,7 @@ PASSWORDLESS_AUTH = {
    'PASSWORDLESS_AUTH_TYPES': ['EMAIL', ],
    'PASSWORDLESS_EMAIL_NOREPLY_ADDRESS': 'HelloWorld@halloenglish.com',
    'PASSWORDLESS_REGISTER_NEW_USERS': True,
+   'PASSWORDLESS_USER_EMAIL_FIELD_NAME': 'email',
 }
 
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
