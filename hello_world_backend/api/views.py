@@ -17,14 +17,14 @@ from api.serializers import HomePageSerializer
 import os
 
 class StreamViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Stream.objects.all().order_by('-id')
     serializer_class = StreamSerializer
 
 class HomePageViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     
     queryset = HomePage.objects.all()
