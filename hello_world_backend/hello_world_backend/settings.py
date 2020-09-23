@@ -148,6 +148,7 @@ PASSWORDLESS_AUTH = {
    'PASSWORDLESS_USER_EMAIL_FIELD_NAME': 'email',
 }
 
+UNAUTHENTICATED_USER: 'django.contrib.auth.models.AnonymousUser'
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", None)
 EMAIL_HOST = os.environ.get("EMAIL_HOST", None)
