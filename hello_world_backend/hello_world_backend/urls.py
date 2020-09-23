@@ -21,6 +21,4 @@ from django.conf.urls import url
 urlpatterns = [
     path('', include('drfpasswordless.urls')),
     path('', include('api.urls')),
-    url(r'^api-auth/', 
-        include('rest_framework.urls', namespace='rest_framework'))
 ]
