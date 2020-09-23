@@ -13,12 +13,50 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-from django.urls import include
 from django.conf.urls import url
+from django.urls import path, include
+from django.contrib.auth.models import User, Group
+from django.contrib import admin
+admin.autodiscover()
 
+from rest_framework import generics, permissions, serializers
+
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+
+# first we define the serializers
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', "first_name", "last_name")
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ("name", )
+
+# Create the API views
+class UserList(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetails(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class GroupList(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+    required_scopes = ['groups']
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+# Setup the URLs and include login URLs for the browsable API.
 urlpatterns = [
-    path('', include('drfpasswordless.urls')),
     path('', include('api.urls')),
+    path('admin/', admin.site.urls),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('users/', UserList.as_view()),
+    path('users/<pk>/', UserDetails.as_view()),
+    path('groups/', GroupList.as_view()),
 ]
