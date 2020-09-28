@@ -22,10 +22,12 @@ import random
 class LoginTokenView(APIView):
     def post(self, request, format=None):
         token = str(random.randint(100000, 999999))
+        print(request.data)
         email = request.data['email']
         _data = {
             'email' : email,
             'token': token }
+        print(_data)
         serializer = LoginTokenSerializer(data=_data)
         if serializer.is_valid():
             send_mail(
