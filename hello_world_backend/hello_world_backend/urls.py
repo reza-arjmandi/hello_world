@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.urls import path, include
 from django.contrib.auth.models import User, Group
 from django.contrib import admin
+
+
 admin.autodiscover()
 
 from rest_framework import generics, permissions, serializers
@@ -51,6 +53,26 @@ class GroupList(generics.ListAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email
+        })
+
+
+
 # Setup the URLs and include login URLs for the browsable API.
 urlpatterns = [
     path('', include('api.urls')),
@@ -59,4 +81,5 @@ urlpatterns = [
     path('users/', UserList.as_view()),
     path('users/<pk>/', UserDetails.as_view()),
     path('groups/', GroupList.as_view()),
+    url(r'^api-token-auth/', CustomAuthToken.as_view()),
 ]
