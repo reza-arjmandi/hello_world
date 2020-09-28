@@ -15,19 +15,20 @@ from api.models import HomePage
 from api.serializers import StreamSerializer
 from api.serializers import HomePageSerializer
 from api.serializers import LoginTokenSerializer
+from api.models import LoginToken
+from rest_framework import status
 
 import os
 import random
+import datetime
 
-class LoginTokenView(APIView):
+class LoginEmailView(APIView):
     def post(self, request, format=None):
         token = str(random.randint(100000, 999999))
-        print(request.data)
         email = request.data['email']
         _data = {
             'email' : email,
             'token': token }
-        print(_data)
         serializer = LoginTokenSerializer(data=_data)
         if serializer.is_valid():
             send_mail(
@@ -38,7 +39,25 @@ class LoginTokenView(APIView):
                 fail_silently=False,
             )
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response("Your login token is sent to your email", status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TokenView(APIView):
+    def post(self, request, format=None):
+        token = LoginToken.objects.get(email=request.data['email'])
+        print(token)
+        now = datetime.datetime.now()
+        duration = now - token['created']
+        if duration < 15:
+            send_mail(
+                'Your Login Token',
+                'Use this code to log in: ' + token,
+                'HelloWorld@halloenglish.com',
+                [email],
+                fail_silently=False,
+            )
+            serializer.save()
+            return Response("Your login token is sent to your email", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class StreamViewSet(ModelViewSet):
