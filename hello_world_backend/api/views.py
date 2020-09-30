@@ -77,7 +77,7 @@ class TokenView(APIView):
             if User.objects.filter(username=token.email).exists():
                 if token.token != request.data['token']:
                     return Response("Login token is not valid", status=status.HTTP_400_BAD_REQUEST)
-                    
+
                 user_ = User.objects.get(username=token.email)
                 created_token = Token.objects.get_or_create(user=user_)
                 result = {"token" : str(created_token[0])}
@@ -97,14 +97,14 @@ class TokenView(APIView):
         
 
 class StreamViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Stream.objects.all().order_by('-id')
     serializer_class = StreamSerializer
 
 class HomePageViewSet(ModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     
     queryset = HomePage.objects.all()
