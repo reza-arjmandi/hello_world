@@ -97,14 +97,14 @@ class TokenView(APIView):
         
 
 class StreamViewSet(ModelViewSet):
-    authentication_classes = [BasicAuthentication, TokenAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Stream.objects.all().order_by('-id')
     serializer_class = StreamSerializer
 
 class HomePageViewSet(ModelViewSet):
-    authentication_classes = [BasicAuthentication, TokenAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     
     queryset = HomePage.objects.all()
