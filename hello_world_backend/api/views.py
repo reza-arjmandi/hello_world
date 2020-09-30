@@ -44,7 +44,8 @@ class LoginEmailView(APIView):
                     [request.data['email']],
                     fail_silently=False,
                 )
-            return Response("Your login token is sent to your email", status=status.HTTP_201_CREATED)
+            result = {"detail" : "A login token has been sent to your email."}
+            return Response(result, status=status.HTTP_200_OK)
         else:
             token = str(random.randint(100000, 999999))
             email = request.data['email']
@@ -61,7 +62,8 @@ class LoginEmailView(APIView):
                     fail_silently=False,
                 )
                 serializer.save()
-                return Response("Your login token is sent to your email", status=status.HTTP_201_CREATED)
+                result = {"detail" : "A login token has been sent to your email."}
+                return Response(result, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TokenView(APIView):
@@ -71,12 +73,14 @@ class TokenView(APIView):
             now = timezone.now()
             duration = (now - token.created).seconds
             if duration > 15 * 60:
-                return Response("The token is expired", 
+                result = {"detail" : "The token is expired."}
+                return Response(result, 
                     status=status.HTTP_408_REQUEST_TIMEOUT)
 
             if User.objects.filter(username=token.email).exists():
                 if token.token != request.data['token']:
-                    return Response("Login token is not valid", status=status.HTTP_400_BAD_REQUEST)
+                    result = {"detail" : "Login token is not valid."}
+                    return Response(result, status=status.HTTP_400_BAD_REQUEST)
 
                 user_ = User.objects.get(username=token.email)
                 created_token = Token.objects.get_or_create(user=user_)
@@ -91,9 +95,11 @@ class TokenView(APIView):
                 created_token = Token.objects.create(user=created_user)
                 result = {"token" : str(created_token)}
                 return Response(result, status=status.HTTP_200_OK)
-            return Response("Login token is not valid", status=status.HTTP_400_BAD_REQUEST)
+            result = {"detail" : "Login token is not valid."}
+            return Response(result, status=status.HTTP_400_BAD_REQUEST)
         except LoginToken.DoesNotExist:
-            return Response("Login token does not exist", status=status.HTTP_404_NOT_FOUND)
+            result = {"detail" : "Login token does not exist."}
+            return Response(result, status=status.HTTP_404_NOT_FOUND)
         
 
 class StreamViewSet(ModelViewSet):
