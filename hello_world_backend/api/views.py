@@ -89,7 +89,7 @@ class TokenView(APIView):
                     email=token.email, 
                     password=User.objects.make_random_password())
                 created_token = Token.objects.create(user=created_user)
-                result = {"token" : str(created_token[0])}
+                result = {"token" : str(created_token)}
                 return Response(result, status=status.HTTP_200_OK)
             return Response("Login token is not valid", status=status.HTTP_400_BAD_REQUEST)
         except LoginToken.DoesNotExist:
