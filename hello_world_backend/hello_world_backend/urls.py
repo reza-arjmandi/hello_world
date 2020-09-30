@@ -18,68 +18,8 @@ from django.urls import path, include
 from django.contrib.auth.models import User, Group
 from django.contrib import admin
 
-
-# admin.autodiscover()
-
-# from rest_framework import generics, permissions, serializers
-
-# from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
-
-# # first we define the serializers
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('username', 'email', "first_name", "last_name")
-
-# class GroupSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Group
-#         fields = ("name", )
-
-# # Create the API views
-# class UserList(generics.ListCreateAPIView):
-#     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class UserDetails(generics.RetrieveAPIView):
-#     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class GroupList(generics.ListAPIView):
-#     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
-#     required_scopes = ['groups']
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
-
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-
-class CustomAuthToken(ObtainAuthToken):
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({
-            'token': token.key,
-            'user_id': user.pk,
-            'email': user.email
-        })
-
-
-
 # Setup the URLs and include login URLs for the browsable API.
 urlpatterns = [
     path('', include('api.urls')),
-    path('admin/', admin.site.urls),
-    # path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    # path('users/', UserList.as_view()),
-    # path('users/<pk>/', UserDetails.as_view()),
-    # path('groups/', GroupList.as_view()),
-    url(r'^api-token-auth/', CustomAuthToken.as_view()),
+    path('api-auth/', include('rest_framework.urls')),
 ]
