@@ -4,17 +4,9 @@ from django.db.models import CharField
 from django.db.models import ImageField
 from django.db.models import CharField
 from django.db.models import TextField
+from django.db.models import EmailField
+from django.db.models import DateTimeField
 
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
-        
 class Stream(Model):
 
     title = CharField(blank=False, max_length=100)
@@ -23,6 +15,11 @@ class Stream(Model):
 
     def __str__(self):
         return self.title
+
+class LoginToken(Model):
+    email = EmailField(blank=False)
+    token = CharField(blank=False, max_length=10)
+    created = DateTimeField(auto_now_add=True)
 
 class HomePage(Model):
 

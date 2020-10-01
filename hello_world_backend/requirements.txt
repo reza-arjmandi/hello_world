@@ -6,4 +6,3 @@ django-cors-headers==3.4.0
 Pillow==7.2.0
 gunicorn==20.0.4
 psycopg2-binary==2.8.5
-drfpasswordless==1.5.6
