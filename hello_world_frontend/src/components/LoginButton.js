@@ -48,7 +48,7 @@ export default function LoginButton({
   if(is_log_in) {
     return (
       <div className={classes.root}>
-        <Button variant="contained" color="secondary" onClick={handleClick}>{email}</Button>
+        <Button color="inherit" onClick={handleClick}>{email}</Button>
           <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -64,7 +64,7 @@ export default function LoginButton({
 
   return (
     <div>
-      <Button variant="contained" onClick={()=>open_login_dialog()}>Login</Button>
+      <Button color="inherit" onClick={()=>open_login_dialog()}>Login</Button>
     </div>
   );
 }
