@@ -29,6 +29,23 @@ import os
 import random
 import datetime
 
+from rest_framework import permissions
+
+
+class IsAdminOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Write permissions are only allowed to the owner of the snippet.
+        return request.user.is_superuser
+
 class LoginEmailView(APIView):
     def post(self, request, format=None):
         if LoginToken.objects.filter(email=request.data['email']).exists():
@@ -104,14 +121,14 @@ class TokenView(APIView):
 
 class StreamViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAdminOrReadOnly]
 
     queryset = Stream.objects.all().order_by('-id')
     serializer_class = StreamSerializer
 
 class HomePageViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAdminOrReadOnly]
     
     queryset = HomePage.objects.all()
     serializer_class = HomePageSerializer
