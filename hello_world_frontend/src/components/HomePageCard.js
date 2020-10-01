@@ -5,7 +5,16 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ReactPlayer from 'react-player'
+import Typed from 'react-typed';
+import 'fontsource-roboto';
+import WebFont from 'webfontloader';
+import 'react-typed/dist/animatedCursor.css';
 
+WebFont.load({
+  google: {
+    families: ['Roboto:300,400,700', 'sans-serif']
+  }
+});
 const useStyles = makeStyles((theme) => ({
     main_card: {
       [theme.breakpoints.down('sm')]: {
@@ -18,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
       left: '50%',
       transform: 'translate(-50%, -50%)',
       top: '50%',
+      color:'#000000',
+      background:'#ffb515',
+      'font-family': 'Roboto',
+      
+      
     },
 }));
 
@@ -27,32 +41,24 @@ export default function HomePageCard({
 
     return (
         <div>
-          <Card className={classes.main_card}>
-            <CardActionArea>
-            <div style={{
-                  position: 'relative',
-                  'padding-top': "56.25%" 
-                }}>
-                     <ReactPlayer 
-                         style={{
-                             position: 'absolute',
-                             top: '0',
-                             left: '0',
-                         }}
-                         width='100%'
-                         height='100%'
-                         url={video_url} />
-             </div>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {video_title}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {video_desciption}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+
+          <Typography 
+            className={classes.main_card} 
+            gutterBottom 
+            variant="h4" 
+            component="h5">
+            <Typed
+              strings={[
+                  'Hello World!',
+                  'Would you like to learn english with people from all around the world?',
+                  'Would you like to be an international english teacher?',
+                  'OK, just login in our website'
+                ]}
+              typeSpeed={40}
+              backSpeed={50}
+              loop 
+              />
+          </Typography>
         </div>
     );
 };
