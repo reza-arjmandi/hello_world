@@ -13,6 +13,7 @@ import {
 import {
     fetch_menu_resources,
     fetch_menu_resources_options,
+    fetch_profile_info,
 } from '../api'
 
 const map_state_to_props = state => ({
@@ -28,6 +29,12 @@ const map_dispatch_to_props = dispatch => ({
     open_menu: () => dispatch(open_menu()),
     on_menu_clicked: (menu_title, resource_link) => {
         dispatch(click_menu(menu_title));
+
+        if(menu_title == "profile") {
+            dispatch(fetch_profile_info("profile"));
+            return;
+        }
+        
         dispatch(fetch_menu_resources_options(resource_link));
         dispatch(fetch_menu_resources(resource_link));
     },

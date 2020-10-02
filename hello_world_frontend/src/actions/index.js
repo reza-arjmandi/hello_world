@@ -252,3 +252,37 @@ export const email_verification_failure = (error) => ({
 export const clear_login_request_result = () => ({ 
     type: types.CLEAR_LOGIN_REQUEST_RESULT,
 });
+
+export const send_profile_info_request = () => ({ 
+    type: types.SEND_PROFILE_INFO_REQUEST,
+    description: 'Sending profile info...'
+});
+
+export const send_profile_info_request_success = (result) => ({ 
+    type: types.SEND_PROFILE_INFO_REQUEST_SUCCESS,
+    description: 'Sending profile info is succeeded.',
+    result
+});
+
+export const send_profile_info_request_failure = (error) => ({ 
+    type: types.SEND_PROFILE_INFO_REQUEST_FAILURE,
+    description: 'Sending profile info is failed.',
+    error
+});
+
+export const fetch_profile_info_request = () => ({ 
+    type: types.FETCH_PROFILE_INFO_REQUEST,
+    description: 'Fetching profile info...'
+});
+
+export const fetch_profile_info_request_success = (result) => ({ 
+    type: types.FETCH_PROFILE_INFO_REQUEST_SUCCESS,
+    description: 'Fetching profile info is succeeded.',
+    result
+});
+
+export const fetch_profile_info_request_failure = (error) => ({ 
+    type: types.FETCH_PROFILE_INFO_REQUEST_FAILURE,
+    description: 'Fetching profile info is failed.',
+    error
+});

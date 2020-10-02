@@ -38,8 +38,8 @@ const dialog_actions = (
   login_step, 
   login_handle, 
   verify_handle, 
-  close_handle, 
-  login_request_is_fetching) => {
+  login_request_is_fetching,
+  open_profile_menu) => {
 
   if(login_request_is_fetching) {
     return (
@@ -62,7 +62,7 @@ const dialog_actions = (
   }
 
   if(login_step === 2) {
-    handle = close_handle;
+    handle = open_profile_menu;
   }
 
   return (
@@ -172,7 +172,8 @@ export default function LoginDialog({
   login_step, 
   login_request_result,
   login_request_is_fetching,
-  email}) {
+  email,
+  open_profile_menu}) {
   const classes = useStyles();
 
   var submit_email = email;
@@ -209,7 +210,7 @@ export default function LoginDialog({
         aria-labelledby="form-dialog-title">
           {dialog_title()}
           {dialog_content(classes, login_step, on_value_change, login_request_result)}
-          {dialog_actions(login_step, login_handle, verify_handle, on_close, login_request_is_fetching)}
+          {dialog_actions(login_step, login_handle, verify_handle, login_request_is_fetching, open_profile_menu)}
       </Dialog>
     </div>
   );

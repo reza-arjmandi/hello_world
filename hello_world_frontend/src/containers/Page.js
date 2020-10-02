@@ -4,9 +4,11 @@ import {
     update_log,
     delete_log,
     fetch_menu_resources,
+    send_profile_info,
 } from '../api';
 
-import {change_page_number} from '../actions';
+import {
+    change_page_number} from '../actions';
 
 const map_state_to_props = state => ({
     is_fetching: state.IsFetchingResources,
@@ -14,6 +16,9 @@ const map_state_to_props = state => ({
     post_options: state.PostOptions,
     page_data: state.PageData,
     page_number: state.PageNumber,
+    is_login: state.IsLogin,
+    profile_request_is_fetching: state.IsFetchingProfileRequest,
+    profile_info: state.ProfileInfo
 });
 
 const map_dispatch_to_props = dispatch => ({
@@ -23,6 +28,12 @@ const map_dispatch_to_props = dispatch => ({
         dispatch(change_page_number(number));
         dispatch(fetch_menu_resources(resource_link));
     },
+    send_profile_info_handle: (
+        profile_url, user_type, timezone, skype_link, Avatar) => {
+        dispatch(
+            send_profile_info(
+                profile_url, user_type, timezone, skype_link, Avatar));
+    }
 });
 
 export default connect(

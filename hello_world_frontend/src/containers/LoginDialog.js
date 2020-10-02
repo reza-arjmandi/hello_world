@@ -2,10 +2,13 @@ import { connect } from 'react-redux';
 import LoginDialog from "../components/LoginDialog";
 import { 
     close_login_dialog,
-    clear_login_request_result } from '../actions';
+    clear_login_request_result,
+    click_menu,
+ } from '../actions';
 import { 
     login,
-    send_verification_code 
+    send_verification_code,
+    fetch_profile_info,
 } from '../api';
 
 const map_state_to_props = state => ({
@@ -24,6 +27,11 @@ const map_dispatch_to_props = (dispatch) => ({
     send_verification_code: (eamil, token) => {
         dispatch(send_verification_code(eamil, token));
         dispatch(clear_login_request_result());},
+    open_profile_menu: () => {
+        dispatch(close_login_dialog());
+        dispatch(click_menu("profile"));
+        dispatch(fetch_profile_info("profile"));
+    },
 });
 
 export default connect(

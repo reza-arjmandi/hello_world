@@ -5,17 +5,26 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+from rest_framework.generics import RetrieveAPIView
 from django.contrib.auth.models import User, Group
+from django.shortcuts import get_object_or_404
 
 from django.core.mail import send_mail
 from django.http import FileResponse
 
 from api.models import Stream
 from api.models import HomePage
+from api.models import ProfileInfo
+from api.models import ProfileAvatar
 
 from api.serializers import StreamSerializer
 from api.serializers import HomePageSerializer
 from api.serializers import LoginTokenSerializer
+from api.serializers import ProfileInfoSerializer
+from api.serializers import ProfileAvatarSerializer
+from api.serializers import UserSerializer
 from api.models import LoginToken
 from rest_framework import status
 
@@ -29,22 +38,17 @@ import os
 import random
 import datetime
 
-from rest_framework import permissions
+from api.permissions import IsAdminOrReadOnly
+from api.permissions import IsAdminOrOwner
+
+class UserList(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
-class IsAdminOrReadOnly(permissions.BasePermission):
-    """
-    Custom permission to only allow owners of an object to edit it.
-    """
-
-    def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
-            return True
-
-        # Write permissions are only allowed to the owner of the snippet.
-        return request.user.is_superuser
+class UserDetail(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class LoginEmailView(APIView):
     def post(self, request, format=None):
@@ -106,9 +110,22 @@ class TokenView(APIView):
 
             if token.token == request.data['token']:
                 created_user = User.objects.create_user(
-                    token.email, 
+                    token.email,
                     email=token.email, 
                     password=User.objects.make_random_password())
+                
+                profile_info = created_user.ProfileInfo.create(
+                    owner=created_user,
+                    user_type="learner", 
+                    timezone="invalid", 
+                    skype_link="invalid", 
+                    is_completed=False
+                )
+                profile_info.save()
+                     
+                avatar = profile_info.Avatar.create(avatar="photos/user.png")
+                avatar.save()
+
                 created_token = Token.objects.create(user=created_user)
                 result = {"token" : str(created_token)}
                 return Response(result, status=status.HTTP_200_OK)
@@ -132,6 +149,26 @@ class HomePageViewSet(ModelViewSet):
     
     queryset = HomePage.objects.all()
     serializer_class = HomePageSerializer
+
+class ProfileInfoViewSet(ModelViewSet):
+    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminOrOwner]
+    
+    queryset = ProfileInfo.objects.all()
+    serializer_class = ProfileInfoSerializer
+    
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return ProfileInfo.objects.all()
+        return self.request.user.ProfileInfo.all()
+
+
+class ProfileAvatarViewSet(ModelViewSet):
+    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminOrOwner]
+    
+    queryset = ProfileAvatar.objects.all()
+    serializer_class = ProfileAvatarSerializer
 
 class PhotoDetail(APIView):
 

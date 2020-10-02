@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import HomePage from './HomePage'
+import ProfilePage from './ProfilePage'
 import ResourceCardsGrid from './ResourceCardsGrid'
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Page({ 
     is_fetching, page_name, post_options, page_data, update_resource, 
-    delete_resource, change_page, page_number }) {
+    delete_resource, change_page, page_number, is_login, 
+    profile_request_is_fetching, send_profile_info_handle, profile_info}) {
 
     const classes = useStyles();
     
@@ -41,6 +43,16 @@ export default function Page({
         return (
           <HomePage {...home_page_card_data}/>
         );
+    }
+    else if(page_name == "profile") {
+      return (
+        <ProfilePage 
+          is_login={is_login}
+          profile_request_is_fetching={profile_request_is_fetching}
+          send_profile_info_handle={send_profile_info_handle}
+          profile_info={profile_info}
+          />
+      );
     }
     else {
         return (

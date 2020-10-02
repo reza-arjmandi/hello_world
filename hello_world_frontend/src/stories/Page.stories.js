@@ -18,7 +18,7 @@ export const actions_data = {
 
 export const home_page_data = {
     is_fetching: false,
-    page_name: "home_page",
+    page_name: "home",
     page_data: {
         "count": 1,
         "next": null,
@@ -36,6 +36,12 @@ export const home_page_data = {
     }
 }
 
+export const login_profile_page_data = {
+    is_fetching: false,
+    page_name: "profile",
+    is_login: true
+}
+
 export const Fetching = () => {
     return <Page is_fetching={true} {...actions_data} />;
 };
@@ -48,3 +54,6 @@ export const ResourcePage = () => {
     return <Page {...grid_data} {...actions_data} />;
 };
 
+export const LoginProfilePage = () => {
+    return <Page {...login_profile_page_data}  />;
+};
