@@ -18,6 +18,7 @@ import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min
 
 import AuthRequiredCard from './AuthRequiredCard';
 import TextBox from './TextBox';
+import ProfilePageCard from './ProfilePageCard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,6 +92,9 @@ export default function ProfilePage({
     profile_request_is_fetching,
     send_profile_info_handle,
     profile_info,
+    update_profile_info, 
+    is_updating_profile_info,
+    is_updating_profile_info_success
      }) {
 
     const classes = useStyles();
@@ -111,7 +115,12 @@ export default function ProfilePage({
     if (profile_info['is_completed']) {
       return (
         <div>
-
+          <ProfilePageCard 
+            profile_info={profile_info} 
+            update_profile_info={update_profile_info}
+            is_updating_profile_info={is_updating_profile_info}
+            is_updating_profile_info_success={is_updating_profile_info_success}
+          />
         </div>
       )
     }

@@ -18,7 +18,8 @@ const map_state_to_props = state => ({
     page_number: state.PageNumber,
     is_login: state.IsLogin,
     profile_request_is_fetching: state.IsFetchingProfileRequest,
-    profile_info: state.ProfileInfo
+    profile_info: state.ProfileInfo,
+    is_updating_profile_info_success: state.IsFetchingProfileRequestSucceeded,
 });
 
 const map_dispatch_to_props = dispatch => ({

@@ -20,6 +20,7 @@ import LoginRequestResult from './LoginRequestResult';
 import LoginRequestIsFetching from './LoginRequestIsFetching';
 import IsFetchingProfileRequest from './IsFetchingProfileRequest';
 import ProfileInfo from './ProfileInfo';
+import IsFetchingProfileRequestSucceeded from './IsFetchingProfileRequestSucceeded';
 
 const root_reducer = combineReducers({ 
     AddNewResourceDialogVisibility,
@@ -43,6 +44,7 @@ const root_reducer = combineReducers({
     LoginRequestIsFetching,
     IsFetchingProfileRequest,
     ProfileInfo,
+    IsFetchingProfileRequestSucceeded,
  });
 
 export default root_reducer;

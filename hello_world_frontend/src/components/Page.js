@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Page({ 
     is_fetching, page_name, post_options, page_data, update_resource, 
     delete_resource, change_page, page_number, is_login, 
-    profile_request_is_fetching, send_profile_info_handle, profile_info}) {
+    profile_request_is_fetching, send_profile_info_handle, profile_info,
+    is_updating_profile_info_success}) {
 
     const classes = useStyles();
     
@@ -51,6 +52,9 @@ export default function Page({
           profile_request_is_fetching={profile_request_is_fetching}
           send_profile_info_handle={send_profile_info_handle}
           profile_info={profile_info}
+          update_profile_info={send_profile_info_handle}
+          is_updating_profile_info={profile_request_is_fetching}
+          is_updating_profile_info_success={is_updating_profile_info_success}
           />
       );
     }
