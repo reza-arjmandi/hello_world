@@ -1,7 +1,15 @@
 import React from 'react';
 
+import { muiTheme } from 'storybook-addon-material-ui';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import ShareButton from '../../shared/components/ShareButton';
+
+import { CssBaseline } from "@material-ui/core";
+
+import theme from "../../../theme";
+import GlobalStyles from "../../../GlobalStyles";
+
+import ShareButton from '../../../shared/components/ShareButton';
 
 export default {
     component: ShareButton,
@@ -23,38 +31,53 @@ export const shared_button_data = {
     },
 };
 
-export const Facebook = () => {
-    return <ShareButton
+storiesOf('Shared/components/ShareButton', module)
+  .addDecorator(muiTheme(theme))
+  .add('Facebook', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ShareButton
         {...actions_data}
         {...shared_button_data}
         disableElevation
         type="Facebook"
-  />;
-}
-
-export const Twitter = () => {
-    return <ShareButton
+      />
+    </div>
+  ))
+  .add('Twitter', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ShareButton
         {...actions_data}
         {...shared_button_data}
         disableElevation
         type="Twitter"
-  />;
-}
-
-export const Reddit = () => {
-    return <ShareButton
+      />
+    </div>
+  ))
+  .add('Reddit', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ShareButton
         {...actions_data}
         {...shared_button_data}
         disableElevation
         type="Reddit"
-  />;
-}
-
-export const Tumblr = () => {
-    return <ShareButton
+      />
+    </div>
+  ))
+  .add('Tumblr', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ShareButton
         {...actions_data}
         {...shared_button_data}
         disableElevation
         type="Tumblr"
-  />;
-}
+       />
+    </div>
+  ))
