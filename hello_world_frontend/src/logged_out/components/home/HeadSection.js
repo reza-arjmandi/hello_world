@@ -12,8 +12,11 @@ import {
   withWidth,
   isWidthUp,
 } from "@material-ui/core";
+import Typed from 'react-typed';
+
 import WaveBorder from "../../../shared/components/WaveBorder";
 import ZoomImage from "../../../shared/components/ZoomImage";
+import ReactPlayer from 'react-player'
 
 const styles = (theme) => ({
   extraLargeButtonLabel: {
@@ -123,8 +126,7 @@ function HeadSection(props) {
                         <Typography
                           variant={isWidthUp("lg", width) ? "h3" : "h4"}
                         >
-                          Free Template for building an SaaS app using
-                          Material-UI
+                          Learn English With People From All Around The World
                         </Typography>
                       </Box>
                       <div>
@@ -133,8 +135,16 @@ function HeadSection(props) {
                             variant={isWidthUp("lg", width) ? "h6" : "body1"}
                             color="textSecondary"
                           >
-                            Lorem ipsum dolor sit amet, consetetur sadipscing
-                            elitr, sed diam nonumy eirmod tempor invidunt
+                            <Typed
+                            strings={[
+                                'Would you like to learn English with people from all around the world?',
+                                'Would you like to be an international English teacher?',
+                                'OK, just login into our website',
+                              ]}
+                            typeSpeed={40}
+                            backSpeed={50}
+                            loop 
+                            />
                           </Typography>
                         </Box>
                         <Button
@@ -145,18 +155,22 @@ function HeadSection(props) {
                           classes={{ label: classes.extraLargeButtonLabel }}
                           href="https://github.com/dunky11/react-saas-template"
                         >
-                          Download from GitHub
+                          Login
                         </Button>
                       </div>
                     </Box>
                   </Grid>
                   <Hidden smDown>
                     <Grid item md={6}>
-                      <ZoomImage
+                      {/* <ZoomImage
                         src={`${process.env.PUBLIC_URL}/images/logged_out/headerImage.jpg`}
                         className={classes.image}
                         alt="header example"
-                      />
+                      /> */}
+                      <ReactPlayer 
+                        controls={true}
+                        url="https://youtu.be/b-hsULQuasI" 
+                        />
                     </Grid>
                   </Hidden>
                 </Box>

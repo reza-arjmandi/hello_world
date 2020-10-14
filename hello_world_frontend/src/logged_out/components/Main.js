@@ -31,13 +31,13 @@ function Main({classes, blog_posts_data}) {
   const selectHome = useCallback(() => {
     smoothScrollTop();
     document.title =
-      "WaVer - Free template for building an SaaS or admin application";
+      "HelloWorld - Learn English With People From All Around The World";
     setSelectedTab("Home");
   }, [setSelectedTab]);
 
   const selectBlog = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Blog";
+    document.title = "HelloWorld - Blog";
     setSelectedTab("Blog");
   }, [setSelectedTab]);
 

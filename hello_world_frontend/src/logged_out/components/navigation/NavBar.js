@@ -61,7 +61,7 @@ function NavBar(props) {
       icon: <BookIcon className="text-white" />
     },
     {
-      name: "Register",
+      name: "Videos",
       onClick: openRegisterDialog,
       icon: <HowToRegIcon className="text-white" />
     },
@@ -82,7 +82,7 @@ function NavBar(props) {
               display="inline"
               color="primary"
             >
-              Wa
+              Hello
             </Typography>
             <Typography
               variant="h4"
@@ -90,7 +90,7 @@ function NavBar(props) {
               display="inline"
               color="secondary"
             >
-              Ver
+              World
             </Typography>
           </div>
           <div>

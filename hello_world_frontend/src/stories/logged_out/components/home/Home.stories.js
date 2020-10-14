@@ -33,7 +33,7 @@ storiesOf('LoggedOut/components/home/Home', module)
         const selectHome = useCallback(() => {
             smoothScrollTop();
             document.title =
-              "WaVer - Free template for building an SaaS or admin application";
+              "HelloWorld - Free template for building an SaaS or admin application";
             setSelectedTab("Home");
           }, [setSelectedTab]);
         
