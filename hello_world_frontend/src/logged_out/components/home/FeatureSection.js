@@ -1,99 +1,99 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography, isWidthUp, withWidth } from "@material-ui/core";
-import CodeIcon from "@material-ui/icons/Code";
-import BuildIcon from "@material-ui/icons/Build";
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import PeopleIcon from '@material-ui/icons/People';
 import ComputerIcon from "@material-ui/icons/Computer";
 import BarChartIcon from "@material-ui/icons/BarChart";
-import HeadsetMicIcon from "@material-ui/icons/HeadsetMic";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import CloudIcon from "@material-ui/icons/Cloud";
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import MeassageIcon from "@material-ui/icons/Message";
-import CancelIcon from "@material-ui/icons/Cancel";
+import PublicIcon from '@material-ui/icons/Public';
 import calculateSpacing from "./calculateSpacing";
 import FeatureCard from "./FeatureCard";
+import VideoCallIcon from '@material-ui/icons/VideoCall';
 
 const iconSize = 30;
 
 const features = [
   {
     color: "#00C853",
-    headline: "Feature 1",
+    headline: "Free Discussion",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-    icon: <BuildIcon style={{ fontSize: iconSize }} />,
+      "Join an international free discussion class with people from all around the world.",
+    icon: <PeopleIcon style={{ fontSize: iconSize }} />,
     mdDelay: "0",
     smDelay: "0"
   },
   {
     color: "#6200EA",
-    headline: "Feature 2",
+    headline: "Calendar",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
+      "All of the classes will be scheduled through your calendar in order to notify you very easily.",
     icon: <CalendarTodayIcon style={{ fontSize: iconSize }} />,
     mdDelay: "200",
     smDelay: "200"
   },
   {
     color: "#0091EA",
-    headline: "Feature 3",
+    headline: "Messsage",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
+      "You can text all of the students and also teachers through our service.",
     icon: <MeassageIcon style={{ fontSize: iconSize }} />,
     mdDelay: "400",
     smDelay: "0"
   },
   {
     color: "#d50000",
-    headline: "Feature 4",
+    headline: "Online",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
+      "You just need a Skype account to join to the classes.",
     icon: <ComputerIcon style={{ fontSize: iconSize }} />,
     mdDelay: "0",
     smDelay: "200"
   },
   {
     color: "#DD2C00",
-    headline: "Feature 5",
+    headline: "Speaking Class",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
+      "Teachers prepare you to have an international discussion in speaking classes.",
     icon: <BarChartIcon style={{ fontSize: iconSize }} />,
     mdDelay: "200",
     smDelay: "0"
   },
   {
     color: "#64DD17",
-    headline: "Feature 6",
+    headline: "Record Classes",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-    icon: <HeadsetMicIcon style={{ fontSize: iconSize }} />,
+      "All of the classes will be recorded and you can access the videos after classes.",
+    icon: <VideoCallIcon style={{ fontSize: iconSize }} />,
     mdDelay: "400",
     smDelay: "200"
   },
   {
     color: "#304FFE",
-    headline: "Feature 7",
+    headline: "Learning Videos",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-    icon: <CloudIcon style={{ fontSize: iconSize }} />,
+      "You can also access all of the premium learning videos with international teachers.",
+    icon: <OndemandVideoIcon style={{ fontSize: iconSize }} />,
     mdDelay: "0",
     smDelay: "0"
   },
   {
     color: "#C51162",
-    headline: "Feature 8",
+    headline: "Learning Podcasts",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-    icon: <CodeIcon style={{ fontSize: iconSize }} />,
+      "You can also access all of the premium learning podcasts with international teachers.",
+    icon: <MusicNoteIcon style={{ fontSize: iconSize }} />,
     mdDelay: "200",
     smDelay: "200"
   },
   {
     color: "#00B8D4",
-    headline: "Feature 9",
+    headline: "International Teacher",
     text:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et.",
-    icon: <CancelIcon style={{ fontSize: iconSize }} />,
+      "We help you to become an international teacher, just set your classes through our website.",
+    icon: <PublicIcon style={{ fontSize: iconSize }} />,
     mdDelay: "400",
     smDelay: "0"
   }

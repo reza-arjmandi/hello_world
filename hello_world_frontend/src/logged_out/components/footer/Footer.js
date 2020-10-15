@@ -78,11 +78,11 @@ const styles = theme => ({
 const infos = [
   {
     icon: <PhoneIcon />,
-    description: "+1 555 123456"
+    description: "+98 937 8562103"
   },
   {
     icon: <MailIcon />,
-    description: "support@company.com"
+    description: "support@halloenglish.com"
   }
 ];
 
@@ -101,7 +101,7 @@ const socialIcons = [
       </svg>
     ),
     label: "Github",
-    href: "https://github.com/dunky11/react-saas-template"
+    // href: "https://github.com/dunky11/react-saas-template"
   },
   {
     icon: (
@@ -226,8 +226,8 @@ function Footer(props) {
               About the Company
             </Typography>
             <Typography style={{ color: "#8f9296" }} paragraph>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-              euismod convallis velit, eu auctor lacus vehicula sit amet.
+              Our intention to create this website is just boost your learning curve
+              and speaking skills.
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (

@@ -70,11 +70,11 @@ function PricingSection(props) {
               title="Starter"
               pricing={
                 <span>
-                  $14.99
+                  $4.99
                   <Typography display="inline"> / month</Typography>
                 </span>
               }
-              features={["Feature 1", "Feature 2", "Feature 3"]}
+              features={["1 Session Per Week", "Free Discussion", "Record Classes"]}
             />
           </Grid>
           <Grid
@@ -91,11 +91,11 @@ function PricingSection(props) {
               title="Premium"
               pricing={
                 <span>
-                  $29.99
+                  $9.99
                   <Typography display="inline"> / month</Typography>
                 </span>
               }
-              features={["Feature 1", "Feature 2", "Feature 3"]}
+              features={["2 Sessions Per Week", "Free Discussion", "Speaking Class"]}
             />
           </Grid>
           <Grid
@@ -111,11 +111,11 @@ function PricingSection(props) {
               title="Business"
               pricing={
                 <span>
-                  $49.99
+                  $14.99
                   <Typography display="inline"> / month</Typography>
                 </span>
               }
-              features={["Feature 1", "Feature 2", "Feature 3"]}
+              features={["3 Sessions Per Week", "Free Discussion", "Speaking Class"]}
             />
           </Grid>
           <Grid
@@ -131,11 +131,11 @@ function PricingSection(props) {
               title="Tycoon"
               pricing={
                 <span>
-                  $99.99
+                  $19.99
                   <Typography display="inline"> / month</Typography>
                 </span>
               }
-              features={["Feature 1", "Feature 2", "Feature 3"]}
+              features={["4 Sessions Per Week", "Free Discussion", "Speaking Class"]}
             />
           </Grid>
         </Grid>

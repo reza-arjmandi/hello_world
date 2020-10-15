@@ -100,11 +100,11 @@ function Main({classes, blog_posts_data}) {
 
   return (
     <div className={classes.wrapper}>
-      {!isCookieRulesDialogOpen && (
+      {/* {!isCookieRulesDialogOpen && (
         <CookieConsent
           handleCookieRulesDialogOpen={handleCookieRulesDialogOpen}
         />
-      )}
+      )} */}
       <DialogSelector
         openLoginDialog={openLoginDialog}
         dialogOpen={dialogOpen}
@@ -113,10 +113,10 @@ function Main({classes, blog_posts_data}) {
         openRegisterDialog={openRegisterDialog}
         openChangePasswordDialog={openChangePasswordDialog}
       />
-      <CookieRulesDialog
+      {/* <CookieRulesDialog
         open={isCookieRulesDialogOpen}
         onClose={handleCookieRulesDialogClose}
-      />
+      /> */}
       <NavBar
         selectedTab={selectedTab}
         selectTab={setSelectedTab}
