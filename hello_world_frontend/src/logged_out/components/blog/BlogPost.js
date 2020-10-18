@@ -32,7 +32,7 @@ const styles = (theme) => ({
 });
 
 function BlogPost(props) {
-  const { classes, date, title, src, content, otherArticles } = props;
+  const { classes, date, title, image, content, otherArticles } = props;
 
   useEffect(() => {
     document.title = `HelloWorld - ${title}`;
@@ -54,12 +54,13 @@ function BlogPost(props) {
                   <b>{title}</b>
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
-                  {format(new Date(date * 1000), "PPP", {
+                  {/* {format(new Date(date * 1000), "PPP", {
                     awareOfUnicodeTokens: true,
-                  })}
+                  })} */}
+                  {date}
                 </Typography>
               </Box>
-              <ZoomImage className={classes.img} src={src} alt="" />
+              <ZoomImage className={classes.img} src={image} alt="" />
               <Box p={3}>
                 {content}
                 <Box pt={2}>

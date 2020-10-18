@@ -50,20 +50,21 @@ const styles = (theme) => ({
 });
 
 function BlogCard(props) {
-  const { classes, url, src, date, title, snippet } = props;
+  const { classes, url, image, date, title, snippet } = props;
 
   return (
     <Card className={classes.card}>
-      {src && (
+      {image && (
         <Link to={url} tabIndex={-1}>
-          <img src={src} className={classes.img} alt="" />
+          <img src={image} className={classes.img} alt="" />
         </Link>
       )}
       <Box p={2}>
         <Typography variant="body2" color="textSecondary">
-          {format(new Date(date * 1000), "PPP", {
+          {/* {format(new Date(date * 1000), "PPP", {
             awareOfUnicodeTokens: true,
-          })}
+          })} */}
+          {date}
         </Typography>
         <Link
           to={url}

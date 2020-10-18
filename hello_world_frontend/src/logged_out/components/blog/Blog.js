@@ -42,7 +42,7 @@ function getVerticalBlogPosts(width, blogPosts) {
       <Grid key={blogPost.id} item xs={12}>
         <Box mb={3}>
           <BlogCard
-            src={blogPost.src}
+            image={blogPost.image}
             title={blogPost.title}
             snippet={blogPost.snippet}
             date={blogPost.date}

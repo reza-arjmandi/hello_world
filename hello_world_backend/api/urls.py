@@ -8,6 +8,7 @@ from api.views import StreamViewSet
 from api.views import HomePageViewSet
 from api.views import ProfileInfoViewSet
 from api.views import ProfileAvatarViewSet
+from api.views import BlogPostViewSet
 
 from api.views import PhotoDetail
 from api.views import LoginEmailView
@@ -19,6 +20,7 @@ router = routers.DefaultRouter()
 router.register(r'home', HomePageViewSet)
 router.register(r'stream', StreamViewSet)
 router.register(r'profile', ProfileInfoViewSet)
+router.register(r'blog_post', BlogPostViewSet)
 
 profile_avatar_list = ProfileAvatarViewSet.as_view({
     'get': 'list',

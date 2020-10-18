@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+
 import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import PropsRoute from "../../shared/components/PropsRoute";
@@ -16,7 +17,7 @@ function Routing(props) {
           component={BlogPost}
           title={post.title}
           key={post.title}
-          src={post.src}
+          image={post.image}
           date={post.date}
           content={post.content}
           otherArticles={blogPosts.filter(

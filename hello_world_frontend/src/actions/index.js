@@ -286,3 +286,20 @@ export const fetch_profile_info_request_failure = (error) => ({
     description: 'Fetching profile info is failed.',
     error
 });
+
+export const fetch_blog_posts_request = () => ({ 
+    type: types.FETCH_BLOG_POSTS_REQUEST,
+    description: 'Fetching blog posts...'
+});
+
+export const fetch_blog_posts_request_success = (result) => ({ 
+    type: types.FETCH_BLOG_POSTS_REQUEST_SUCCESS,
+    description: 'Fetching blog posts is succeeded.',
+    result
+});
+
+export const fetch_blog_posts_request_failure = (error) => ({ 
+    type: types.FETCH_BLOG_POSTS_REQUEST_FAILURE,
+    description: 'Fetching blog posts is failed.',
+    error
+});

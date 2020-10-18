@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import Page from '../components/Page';
 import {
-    update_log,
-    delete_log,
     fetch_menu_resources,
     send_profile_info,
 } from '../api';
@@ -23,8 +21,8 @@ const map_state_to_props = state => ({
 });
 
 const map_dispatch_to_props = dispatch => ({
-    update_resource: (device_name, log) => dispatch(update_log(device_name, log)),
-    delete_resource: (device) => dispatch(delete_log(device)),
+    // update_resource: (device_name, log) => dispatch(update_log(device_name, log)),
+    // delete_resource: (device) => dispatch(delete_log(device)),
     change_page: (number, resource_link) => {
         dispatch(change_page_number(number));
         dispatch(fetch_menu_resources(resource_link));

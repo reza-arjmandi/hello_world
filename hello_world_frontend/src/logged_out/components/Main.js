@@ -21,13 +21,16 @@ const styles = (theme) => ({
   },
 });
 
-function Main({classes, blog_posts_data}) {
+function Main({
+  classes, 
+  blog_posts_data,
+  fetch_blog_posts}) {
   const [selectedTab, setSelectedTab] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(null);
   const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
-
+  
   const selectHome = useCallback(() => {
     smoothScrollTop();
     document.title =
@@ -36,6 +39,8 @@ function Main({classes, blog_posts_data}) {
   }, [setSelectedTab]);
 
   const selectBlog = useCallback(() => {
+    console.log("11111111111111111111");
+
     smoothScrollTop();
     document.title = "HelloWorld - Blog";
     setSelectedTab("Blog");
@@ -71,23 +76,6 @@ function Main({classes, blog_posts_data}) {
     setDialogOpen("changePassword");
   }, [setDialogOpen]);
 
-  const fetchBlogPosts = useCallback(() => {
-    const blogPosts = blog_posts_data.map((blogPost) => {
-      let title = blogPost.title;
-      title = title.toLowerCase();
-      /* Remove unwanted characters, only accept alphanumeric and space */
-      title = title.replace(/[^A-Za-z0-9 ]/g, "");
-      /* Replace multi spaces with a single space */
-      title = title.replace(/\s{2,}/g, " ");
-      /* Replace space with a '-' symbol */
-      title = title.replace(/\s/g, "-");
-      blogPost.url = `/blog/post/${title}`;
-      blogPost.params = `?id=${blogPost.id}`;
-      return blogPost;
-    });
-    setBlogPosts(blogPosts);
-  }, [setBlogPosts]);
-
   const handleCookieRulesDialogOpen = useCallback(() => {
     setIsCookieRulesDialogOpen(true);
   }, [setIsCookieRulesDialogOpen]);
@@ -96,7 +84,7 @@ function Main({classes, blog_posts_data}) {
     setIsCookieRulesDialogOpen(false);
   }, [setIsCookieRulesDialogOpen]);
 
-  useEffect(fetchBlogPosts, []);
+  useEffect(fetch_blog_posts, []);
 
   return (
     <div className={classes.wrapper}>
@@ -127,7 +115,7 @@ function Main({classes, blog_posts_data}) {
         handleMobileDrawerClose={handleMobileDrawerClose}
       />
       <Routing
-        blogPosts={blogPosts}
+        blogPosts={blog_posts_data}
         selectHome={selectHome}
         selectBlog={selectBlog}
       />

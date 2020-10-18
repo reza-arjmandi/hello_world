@@ -40,8 +40,6 @@ storiesOf('LoggedOut/components/blog/BlogPost', module)
           return blogPost;
         });
 
-        console.log(blogPosts)
-
         return (<div>
           <CssBaseline />
           <GlobalStyles />
@@ -49,7 +47,7 @@ storiesOf('LoggedOut/components/blog/BlogPost', module)
             <BlogPost
             title={post.title}
             key={post.title}
-            src={post.src}
+            image={post.image}
             date={post.date}
             content={post.content}
             otherArticles={blogPosts.filter(

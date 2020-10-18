@@ -9,6 +9,7 @@ from api.models import HomePage
 from api.models import LoginToken
 from api.models import ProfileInfo
 from api.models import ProfileAvatar
+from api.models import BlogPost
 
 class UserSerializer(HyperlinkedModelSerializer):
     ProfileInfo = HyperlinkedRelatedField(many=True, queryset=ProfileInfo.objects.all(), view_name="profileinfo-detail")
@@ -54,3 +55,12 @@ class ProfileAvatarSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = ProfileAvatar
         fields = ['url', 'id', 'avatar']
+
+class BlogPostSerializer(HyperlinkedModelSerializer):
+
+    class Meta:
+        model = BlogPost
+        fields = [
+            'url', 'id', 'owner', 'title', 
+            'date', 'image', 'snippet', 'content']
+

@@ -18,6 +18,7 @@ from api.models import Stream
 from api.models import HomePage
 from api.models import ProfileInfo
 from api.models import ProfileAvatar
+from api.models import BlogPost
 
 from api.serializers import StreamSerializer
 from api.serializers import HomePageSerializer
@@ -25,6 +26,7 @@ from api.serializers import LoginTokenSerializer
 from api.serializers import ProfileInfoSerializer
 from api.serializers import ProfileAvatarSerializer
 from api.serializers import UserSerializer
+from api.serializers import BlogPostSerializer
 from api.models import LoginToken
 from rest_framework import status
 
@@ -175,3 +177,10 @@ class PhotoDetail(APIView):
     def get(self, request, pk, format=None):
         photo = open(os.path.join(os.getcwd(), 'photos', pk), 'rb')
         return FileResponse(photo)
+
+class BlogPostViewSet(ModelViewSet):
+    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAdminOrReadOnly]
+    
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
