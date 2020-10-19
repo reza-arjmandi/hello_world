@@ -14,15 +14,26 @@ function DialogSelector(props) {
     openLoginDialog,
     openChangePasswordDialog,
     onClose,
+    login,
+    send_verification_code,
+    login_step,
+    login_request_result,
+    login_request_is_fetching,
+    email,
+    open_profile_menu,
   } = props;
   const [loginStatus, setLoginStatus] = useState(null);
+  const [loginCodeStatus, setLoginCodeStatus] = useState(null);
   const [registerStatus, setRegisterStatus] = useState(null);
 
   const _onClose = useCallback(() => {
     setLoginStatus(null);
     setRegisterStatus(null);
+    setLoginCodeStatus(null);
     onClose();
-  }, [onClose, setLoginStatus, setRegisterStatus]);
+  }, [onClose, setLoginStatus, setRegisterStatus, setLoginCodeStatus]);
+
+  
 
   const printDialog = useCallback(() => {
     switch (dialogOpen) {
@@ -44,6 +55,16 @@ function DialogSelector(props) {
             status={loginStatus}
             setStatus={setLoginStatus}
             openChangePasswordDialog={openChangePasswordDialog}
+
+            loginCodeStatus={loginCodeStatus}
+            setLoginCodeStatus={setLoginCodeStatus}
+            login={login} 
+            send_verification_code={send_verification_code} 
+            login_step={login_step} 
+            login_request_result={login_request_result}
+            login_request_is_fetching={login_request_is_fetching}
+            email={email}
+            open_profile_menu={open_profile_menu}
           />
         );
       case "changePassword":
@@ -67,6 +88,27 @@ function DialogSelector(props) {
     setLoginStatus,
     setRegisterStatus,
   ]);
+
+  if((login_step === 1 || login_step === 2)  && dialogOpen=== "login") {
+    return (
+      <LoginDialog
+        onClose={_onClose}
+        status={loginStatus}
+        setStatus={setLoginStatus}
+        openChangePasswordDialog={openChangePasswordDialog}
+
+        loginCodeStatus={loginCodeStatus}
+        setLoginCodeStatus={setLoginCodeStatus}
+        login={login} 
+        send_verification_code={send_verification_code} 
+        login_step={login_step} 
+        login_request_result={login_request_result}
+        login_request_is_fetching={login_request_is_fetching}
+        email={email}
+        open_profile_menu={open_profile_menu}
+      />
+    );
+  }
 
   return (
     <Fragment>

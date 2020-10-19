@@ -10,10 +10,14 @@ import {
   FormControlLabel,
   withStyles,
 } from "@material-ui/core";
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+
 import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
-import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+// import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
 
 const styles = (theme) => ({
   forgotPassword: {
@@ -36,6 +40,33 @@ const styles = (theme) => ({
   },
 });
 
+
+function getSteps() {
+  return ['Submit Email', 'Verify Email'];
+}
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return 'Enter your email address...';
+    case 1:
+      return 'Enter code...';
+    default:
+      return 'Unknown step';
+  }
+}
+
+function getStepLabel(step) {
+  switch (step) {
+    case 0:
+      return 'Email';
+    case 1:
+      return 'Code';
+    default:
+      return null;
+  }
+}
+
 function LoginDialog(props) {
   const {
     setStatus,
@@ -44,69 +75,108 @@ function LoginDialog(props) {
     onClose,
     openChangePasswordDialog,
     status,
+    loginCodeStatus,
+    setLoginCodeStatus,
+    login,
+    send_verification_code,
+    login_step,
+    login_request_result,
+    login_request_is_fetching,
+    email,
+    open_profile_menu,
   } = props;
-  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginEmail = useRef();
+  const loginCode = useRef();
   const loginPassword = useRef();
 
-  const login = useCallback(() => {
-    setIsLoading(true);
+  const submitHandler = useCallback(() => {
+    setLoginCodeStatus(null);
     setStatus(null);
-    if (loginEmail.current.value !== "test@web.com") {
-      setTimeout(() => {
-        setStatus("invalidEmail");
-        setIsLoading(false);
-      }, 1500);
-    } else if (loginPassword.current.value !== "HaRzwc") {
-      setTimeout(() => {
-        setStatus("invalidPassword");
-        setIsLoading(false);
-      }, 1500);
-    } else {
+    if (login_step === 0) {
+      login(loginEmail.current.value);
+    } else if (login_step === 1) {
+      send_verification_code(email, loginCode.current.value);
+    } else if (login_step === 2) {
+      // onClose();
       setTimeout(() => {
         history.push("/c/dashboard");
       }, 150);
     }
-  }, [setIsLoading, loginEmail, loginPassword, history, setStatus]);
+  }, [loginEmail, loginCode, login_step, loginPassword, history, setStatus]);
+
+  const steps = getSteps();
 
   return (
     <Fragment>
       <FormDialog
         open
         onClose={onClose}
-        loading={isLoading}
+        loading={login_request_is_fetching}
         onFormSubmit={(e) => {
           e.preventDefault();
-          login();
+          submitHandler();
         }}
         hideBackdrop
         headline="Login"
         content={
           <Fragment>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              error={status === "invalidEmail"}
-              required
-              fullWidth
-              label="Email Address"
-              inputRef={loginEmail}
-              autoFocus
-              autoComplete="off"
-              type="email"
-              onChange={() => {
-                if (status === "invalidEmail") {
-                  setStatus(null);
+            <Stepper activeStep={login_step} alternativeLabel>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            {login_step===0 &&
+              <TextField
+                variant="outlined"
+                margin="none"
+                error={status === "invalidEmail"}
+                required
+                fullWidth
+                label="Email Address"
+                inputRef={loginEmail}
+                autoFocus
+                autoComplete="off"
+                type="email"
+                onChange={() => {
+                  if (status === "invalidEmail") {
+                    setStatus(null);
+                  }
+                }}
+                helperText={
+                  status === "invalidEmail" &&
+                  "This email address isn't associated with an account."
                 }
-              }}
-              helperText={
-                status === "invalidEmail" &&
-                "This email address isn't associated with an account."
-              }
-              FormHelperTextProps={{ error: true }}
-            />
-            <VisibilityPasswordTextField
+                FormHelperTextProps={{ error: true }}
+              />
+            }
+            {login_step===1 &&
+              <TextField
+                variant="outlined"
+                margin="none"
+                error={login_request_result === "invalidCode"}
+                required
+                fullWidth
+                label="Login Code"
+                inputRef={loginCode}
+                autoFocus
+                autoComplete="off"
+                onChange={() => {
+                  if (login_request_result === "invalidCode") {
+                    setLoginCodeStatus(null);
+                  }
+                }}
+                helperText={
+                  login_request_result === "invalidCode" &&
+                  "This code isn't valid."
+                }
+                FormHelperTextProps={{ error: true }}
+              />
+            }
+
+            {/* <VisibilityPasswordTextField
               variant="outlined"
               margin="normal"
               required
@@ -133,13 +203,16 @@ function LoginDialog(props) {
               FormHelperTextProps={{ error: true }}
               onVisibilityChange={setIsPasswordVisible}
               isVisible={isPasswordVisible}
-            />
-            <FormControlLabel
+            /> */}
+            {login_request_result &&
+            <Typography className={classes.instructions}>{login_request_result}</Typography>
+            }
+            {/* <FormControlLabel
               className={classes.formControlLabel}
               control={<Checkbox color="primary" />}
               label={<Typography variant="body1">Remember me</Typography>}
-            />
-            {status === "verificationEmailSend" ? (
+            /> */}
+            {/* {status === "verificationEmailSend" ? (
               <HighlightedInformation>
                 We have send instructions on how to reset your password to your
                 email address
@@ -150,7 +223,7 @@ function LoginDialog(props) {
                 <br />
                 Password is: <b>HaRzwc</b>
               </HighlightedInformation>
-            )}
+            )} */}
           </Fragment>
         }
         actions={
@@ -160,13 +233,16 @@ function LoginDialog(props) {
               fullWidth
               variant="contained"
               color="secondary"
-              disabled={isLoading}
+              disabled={login_request_is_fetching}
               size="large"
             >
-              Login
-              {isLoading && <ButtonCircularProgress />}
+              {login_step === 0 && "Login"}
+              {login_step === 1 && "Send Code"}
+              {login_step === 2 && 'Finish'}
+              {login_request_is_fetching && <ButtonCircularProgress />}
             </Button>
-            <Typography
+
+            {/* <Typography
               align="center"
               className={classNames(
                 classes.forgotPassword,
@@ -187,7 +263,7 @@ function LoginDialog(props) {
               }}
             >
               Forgot Password?
-            </Typography>
+            </Typography> */}
           </Fragment>
         }
       />

@@ -20,7 +20,6 @@ export default function BlogPosts(state=[], action) {
                 return blogPost;
                 
               });
-            console.log(blogPosts);
             return blogPosts;
         case FETCH_BLOG_POSTS_REQUEST_FAILURE:
         default:

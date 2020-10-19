@@ -19,6 +19,7 @@ import { SnackbarProvider } from 'notistack';
 import Pace from "./shared/components/Pace";
 
 const LoggedOutComponent = lazy(() => import('./containers/logged_out/components/Main'));
+const LoggedInComponent = lazy(() => import('./containers/logged_in/components/Main'));
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
       <Suspense fallback={<Fragment />}>
           <Switch>
             <Route path="/c">
-              {/* <LoggedInComponent /> */}
+              <LoggedInComponent />
             </Route>
             <Route>
               <LoggedOutComponent />

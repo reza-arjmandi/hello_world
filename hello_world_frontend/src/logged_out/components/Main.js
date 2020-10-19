@@ -24,13 +24,21 @@ const styles = (theme) => ({
 function Main({
   classes, 
   blog_posts_data,
-  fetch_blog_posts}) {
+  fetch_blog_posts,
+
+  login,
+  send_verification_code,
+  login_step,
+  login_request_result,
+  login_request_is_fetching,
+  email,
+  open_profile_menu,}) {
   const [selectedTab, setSelectedTab] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(null);
   const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
-  
+
   const selectHome = useCallback(() => {
     smoothScrollTop();
     document.title =
@@ -39,8 +47,6 @@ function Main({
   }, [setSelectedTab]);
 
   const selectBlog = useCallback(() => {
-    console.log("11111111111111111111");
-
     smoothScrollTop();
     document.title = "HelloWorld - Blog";
     setSelectedTab("Blog");
@@ -100,6 +106,14 @@ function Main({
         openTermsDialog={openTermsDialog}
         openRegisterDialog={openRegisterDialog}
         openChangePasswordDialog={openChangePasswordDialog}
+
+        login={login}
+        send_verification_code={send_verification_code}
+        login_step={login_step}
+        login_request_result={login_request_result}
+        login_request_is_fetching={login_request_is_fetching}
+        email={email}
+        open_profile_menu={open_profile_menu}
       />
       {/* <CookieRulesDialog
         open={isCookieRulesDialogOpen}

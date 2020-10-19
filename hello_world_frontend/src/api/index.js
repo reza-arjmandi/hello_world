@@ -106,13 +106,9 @@ export function fetch_menu_resources_options(resource_link) {
 }
 
 export function login(email) {
-
   const post_data = {email};
-  
   return function (dispatch) {
-
     dispatch(actions.login_request(email))
-
     return fetch(`${api_address}/auth/email/`, {
       method: 'POST',
       cache: 'no-cache',

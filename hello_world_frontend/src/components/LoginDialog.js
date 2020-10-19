@@ -121,7 +121,6 @@ const dialog_content = (classes, login_step, on_value_change, login_request_resu
           ))}
         </Stepper>
 
-
       <div>
         {login_step === steps.length ? (
 
@@ -173,7 +172,7 @@ export default function LoginDialog({
   login_request_result,
   login_request_is_fetching,
   email,
-  open_profile_menu}) {
+  open_profile_menu }) {
   const classes = useStyles();
 
   var submit_email = email;
