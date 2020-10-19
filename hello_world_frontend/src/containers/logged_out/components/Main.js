@@ -33,10 +33,12 @@ const map_dispatch_to_props = dispatch => ({
     send_verification_code: (eamil, token) => {
         dispatch(send_verification_code(eamil, token));
         dispatch(clear_login_request_result());},
-    open_profile_menu: () => {
-        dispatch(close_login_dialog());
-        dispatch(click_menu("profile"));
-        dispatch(fetch_profile_info("profile"));
+    open_profile_menu: (history) => {
+        // dispatch(close_login_dialog());
+        // dispatch(click_menu("profile"));
+        // dispatch(fetch_profile_info("profile"));
+        // history.push("/c")
+        window.location.href="/c";
     },
 });
 

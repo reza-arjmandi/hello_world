@@ -316,6 +316,8 @@ function Main(props) {
     fetchRandomPosts,
   ]);
 
+  console.log(persons);
+  
   return (
     <Fragment>
       <LazyLoadAddBalanceDialog

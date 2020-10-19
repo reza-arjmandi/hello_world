@@ -25,7 +25,6 @@ function Main({
   classes, 
   blog_posts_data,
   fetch_blog_posts,
-
   login,
   send_verification_code,
   login_step,

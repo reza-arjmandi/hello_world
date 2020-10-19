@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense, lazy } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Router,  Route, Switch } from "react-router-dom";
 
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 
@@ -9,7 +9,6 @@ import GlobalStyles from "./GlobalStyles";
 
 import Menu from './containers/Menu';
 import Page from './containers/Page';
-
 
 import AddResourceButton from './containers/AddResourceButton';
 import AddNewResourceDialog from './containers/AddNewResourceDialog';
@@ -34,7 +33,7 @@ function App() {
             <Route path="/c">
               <LoggedInComponent />
             </Route>
-            <Route>
+            <Route >
               <LoggedOutComponent />
             </Route>
           </Switch>

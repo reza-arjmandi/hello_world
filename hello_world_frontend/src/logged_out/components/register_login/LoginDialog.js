@@ -88,7 +88,7 @@ function LoginDialog(props) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginEmail = useRef();
   const loginCode = useRef();
-  const loginPassword = useRef();
+  // const loginPassword = useRef();
 
   const submitHandler = useCallback(() => {
     setLoginCodeStatus(null);
@@ -98,12 +98,12 @@ function LoginDialog(props) {
     } else if (login_step === 1) {
       send_verification_code(email, loginCode.current.value);
     } else if (login_step === 2) {
-      // onClose();
+      onClose();
       setTimeout(() => {
-        history.push("/c/dashboard");
+        open_profile_menu(history);
       }, 150);
     }
-  }, [loginEmail, loginCode, login_step, loginPassword, history, setStatus]);
+  }, [loginEmail, loginCode, login_step, history, setStatus]);
 
   const steps = getSteps();
 
