@@ -25,13 +25,18 @@ function Main({
   classes, 
   blog_posts_data,
   fetch_blog_posts,
+  fetch_videos,
   login,
   send_verification_code,
   login_step,
   login_request_result,
   login_request_is_fetching,
   email,
-  open_profile_menu,}) {
+  open_profile_menu,
+  videos, 
+  page_number, 
+  change_page,
+  }) {
   const [selectedTab, setSelectedTab] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
@@ -49,6 +54,12 @@ function Main({
     smoothScrollTop();
     document.title = "HelloWorld - Blog";
     setSelectedTab("Blog");
+  }, [setSelectedTab]);
+
+  const selectVideos = useCallback(() => {
+    smoothScrollTop();
+    document.title = "HelloWorld - Videos";
+    setSelectedTab("Videos");
   }, [setSelectedTab]);
 
   const openLoginDialog = useCallback(() => {
@@ -89,7 +100,10 @@ function Main({
     setIsCookieRulesDialogOpen(false);
   }, [setIsCookieRulesDialogOpen]);
 
-  useEffect(fetch_blog_posts, []);
+  useEffect(()=> {
+    fetch_blog_posts();
+    fetch_videos();
+  }, []);
 
   return (
     <div className={classes.wrapper}>
@@ -131,6 +145,10 @@ function Main({
         blogPosts={blog_posts_data}
         selectHome={selectHome}
         selectBlog={selectBlog}
+        selectVideos={selectVideos}
+        videos={videos}
+        page_number={page_number}
+        change_page={change_page}
       />
       <Footer />
     </div>

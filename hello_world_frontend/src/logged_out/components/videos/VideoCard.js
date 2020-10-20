@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import { red } from '@material-ui/core/colors';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
@@ -28,17 +27,17 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   main_card: {
-    [theme.breakpoints.down('sm')]: {
-      width: window.innerWidth - 30,
-    },
-    [theme.breakpoints.up('sm')]: {
-      width: 576,
-    },
+    // [theme.breakpoints.down('sm')]: {
+    //   width: window.innerWidth - 30,
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   width: 576,
+    // },
   },
   
 }));
 
-export default function ResourceCard({title, description, stream_url}) {
+export default function VideoCard({title, description, stream_url}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 

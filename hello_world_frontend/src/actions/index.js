@@ -188,10 +188,10 @@ export const fetch_resources_failure = (error) => ({
     error
 });
 
-export const fetch_resources_success = (response) => ({
+export const fetch_resources_success = (result) => ({
     type: types.FETCH_RESOURCES_SUCCESS,
     description: 'Fetching resources succeeded.',
-    response
+    result
 });
 
 export const logout = (response) => ({
@@ -301,5 +301,22 @@ export const fetch_blog_posts_request_success = (result) => ({
 export const fetch_blog_posts_request_failure = (error) => ({ 
     type: types.FETCH_BLOG_POSTS_REQUEST_FAILURE,
     description: 'Fetching blog posts is failed.',
+    error
+});
+
+export const fetch_videos_request = () => ({ 
+    type: types.FETCH_VIDEOS_REQUEST,
+    description: 'Fetching videos...'
+});
+
+export const fetch_videos_request_success = (result) => ({ 
+    type: types.FETCH_VIDEOS_REQUEST_SUCCESS,
+    description: 'Fetching videos is succeeded.',
+    result
+});
+
+export const fetch_videos_request_failure = (error) => ({ 
+    type: types.FETCH_VIDEOS_REQUEST_FAILURE,
+    description: 'Fetching videos is failed.',
     error
 });

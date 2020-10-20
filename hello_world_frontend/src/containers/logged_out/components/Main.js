@@ -3,19 +3,21 @@ import Main from '../../../logged_out/components/Main'
 
 import dummyBlogPosts from "../../../stories/dummy_data/blogPosts";
 
-import { fetch_blog_posts } from '../../../api';
+import { 
+    fetch_blog_posts, 
+    fetch_menu_resources ,
+    fetch_videos,
+    login,
+    send_verification_code,
+    fetch_profile_info,
+} from '../../../api';
 
 import { 
     close_login_dialog,
     clear_login_request_result,
     click_menu,
+    change_page_number,
  } from '../../../actions';
-
-import { 
-    login,
-    send_verification_code,
-    fetch_profile_info,
-} from '../../../api';
 
 const map_state_to_props = state => ({
     blog_posts_data: state.BlogPosts,
@@ -23,10 +25,13 @@ const map_state_to_props = state => ({
     login_request_result: state.LoginRequestResult,
     login_request_is_fetching: state.LoginRequestIsFetching,
     email: state.Email,
+    videos: state.Videos,
+    page_number: state.PageNumber,
 });
 
 const map_dispatch_to_props = dispatch => ({
     fetch_blog_posts: () => dispatch(fetch_blog_posts()),
+    fetch_videos: () => dispatch(fetch_videos()),
     login: (email) => { 
         dispatch(login(email));
         dispatch(clear_login_request_result()); },
@@ -39,6 +44,10 @@ const map_dispatch_to_props = dispatch => ({
         // dispatch(fetch_profile_info("profile"));
         // history.push("/c")
         window.location.href="/c";
+    },
+    change_page: (number, resource_link) => {
+        dispatch(change_page_number(number));
+        dispatch(fetch_menu_resources(resource_link));
     },
 });
 

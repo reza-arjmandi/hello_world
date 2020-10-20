@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Grid from '@material-ui/core/Grid';
-import ResourceCard from './ResourceCard';
+import ResourceCard from '../logged_out/components/videos/VideoCard';
 
 const useStyles = makeStyles((theme) => ({
     root: {

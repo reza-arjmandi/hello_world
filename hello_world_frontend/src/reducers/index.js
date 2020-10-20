@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import AddNewResourceDialogVisibility from './AddNewResourceDialogVisibility';
-import PageData from './PageData';
+import Videos from './Videos';
 import IsFetchingResources from './IsFetchingResources';
 import Notification from './Notification';
 import IsServerStarted from './IsServerStarted';
@@ -25,7 +25,7 @@ import BlogPosts from './BlogPosts';
 
 const root_reducer = combineReducers({ 
     AddNewResourceDialogVisibility,
-    PageData,
+    Videos,
     IsFetchingResources,
     Notification,
     IsServerStarted,

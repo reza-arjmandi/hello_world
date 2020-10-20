@@ -279,3 +279,36 @@ export function fetch_blog_posts() {
     );
   }
 }
+
+export function fetch_videos() {
+
+  return function (dispatch) {
+
+    dispatch(actions.fetch_videos_request())
+
+    return fetch(`${api_address}/stream/`, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] == 200) {
+          response.json().then(
+            json => dispatch(actions.fetch_videos_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.fetch_videos_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.fetch_videos_request_failure(error))
+    );
+  }
+}

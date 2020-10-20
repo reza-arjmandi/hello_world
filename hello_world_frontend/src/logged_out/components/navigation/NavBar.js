@@ -62,7 +62,8 @@ function NavBar(props) {
     },
     {
       name: "Videos",
-      onClick: openRegisterDialog,
+      link: "/videos",
+      // onClick: openRegisterDialog,
       icon: <HowToRegIcon className="text-white" />
     },
     {
