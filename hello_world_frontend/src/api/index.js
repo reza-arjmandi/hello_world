@@ -221,6 +221,7 @@ export function fetch_profile_info() {
 
     dispatch(actions.fetch_profile_info_request())
 
+
     return fetch(`${menu_list['profile']}`, {
       method: 'GET',
       cache: 'no-cache',
@@ -241,8 +242,9 @@ export function fetch_profile_info() {
           response.json().then(json => dispatch(actions.fetch_profile_info_request_failure(json)));
         }
       }
-    ).catch(error => 
+    ).catch(error => {
       dispatch(actions.fetch_profile_info_request_failure(error))
+    }
     );
   }
 }

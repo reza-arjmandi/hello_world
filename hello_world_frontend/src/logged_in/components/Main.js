@@ -2,6 +2,7 @@ import React, { memo, useCallback, useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 import Routing from "./Routing";
 import NavBar from "./navigation/NavBar";
 import ConsecutiveSnackbarMessages from "../../shared/components/ConsecutiveSnackbarMessages";
@@ -29,7 +30,14 @@ function shuffle(array) {
 }
 
 function Main(props) {
-  const { classes, persons } = props;
+  const { 
+    classes, 
+    persons, 
+    profile_info, 
+    send_profile_info_handle,
+    is_login,
+    history,
+  } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
   const [hasFetchedCardChart, setHasFetchedCardChart] = useState(false);
@@ -308,6 +316,10 @@ function Main(props) {
     fetchRandomTransactions();
     fetchRandomMessages();
     fetchRandomPosts();
+
+    if(!profile_info.is_comleted) {
+      history.push("/c/configuration")
+    }
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
@@ -316,23 +328,28 @@ function Main(props) {
     fetchRandomPosts,
   ]);
 
-  console.log(persons);
+  if(is_login === false) {
+    return (
+      <div>
+      </div>
+    )
+  }
   
   return (
     <Fragment>
-      <LazyLoadAddBalanceDialog
+      {profile_info.is_comleted && <LazyLoadAddBalanceDialog
         open={isAddBalanceDialogOpen}
         onClose={closeAddBalanceDialog}
         onSuccess={onPaymentSuccess}
-      />
-      <NavBar
+      />}
+      {profile_info.is_comleted && <NavBar
         selectedTab={selectedTab}
         messages={messages}
         openAddBalanceDialog={openAddBalanceDialog}
-      />
-      <ConsecutiveSnackbarMessages
+      /> }
+      {profile_info.is_comleted && <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
-      />
+      /> }
       <main className={classNames(classes.main)}>
         <Routing
           isAccountActivated={isAccountActivated}
@@ -353,6 +370,8 @@ function Main(props) {
           openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}
           setPosts={setPosts}
+          profile_info={profile_info} 
+          send_profile_info_handle={send_profile_info_handle}
         />
       </main>
     </Fragment>
@@ -363,4 +382,4 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(memo(Main));
+export default withRouter(withStyles(styles, { withTheme: true })(memo(Main)));

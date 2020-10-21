@@ -17,7 +17,6 @@ export const actions_data = {
 export const not_login_profile_page_data = {
     is_login: false,
     profile_request_is_fetching: false,
-    
 }
 
 export const login_profile_page_data = {

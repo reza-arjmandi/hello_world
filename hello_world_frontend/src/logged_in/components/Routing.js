@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core";
 import Dashboard from "./dashboard/Dashboard";
 import Posts from "./posts/Posts";
 import Subscription from "./subscription/Subscription";
+import Configuration from "./configuration/Configuration";
 import PropsRoute from "../../shared/components/PropsRoute";
 
 const styles = (theme) => ({
@@ -63,6 +64,8 @@ function Routing(props) {
     selectPosts,
     selectSubscription,
     openAddBalanceDialog,
+    profile_info, 
+    send_profile_info_handle,
   } = props;
   return (
     <div className={classes.wrapper}>
@@ -86,6 +89,12 @@ function Routing(props) {
           pushMessageToSnackbar={pushMessageToSnackbar}
           selectSubscription={selectSubscription}
           openAddBalanceDialog={openAddBalanceDialog}
+        />
+        <PropsRoute
+          path="/c/configuration"
+          component={Configuration}
+          profile_info={profile_info} 
+          send_profile_info_handle={send_profile_info_handle}
         />
         <PropsRoute
           path=""

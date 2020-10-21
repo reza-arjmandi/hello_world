@@ -100,7 +100,8 @@ function LoginDialog(props) {
     } else if (login_step === 2) {
       onClose();
       setTimeout(() => {
-        open_profile_menu(history);
+        open_profile_menu();
+        history.push("/c")
       }, 150);
     }
   }, [loginEmail, loginCode, login_step, history, setStatus]);
