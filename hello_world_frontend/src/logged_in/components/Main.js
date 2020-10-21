@@ -317,18 +317,25 @@ function Main(props) {
     fetchRandomMessages();
     fetchRandomPosts();
 
-    if(!profile_info.is_comleted) {
+    if(profile_info && profile_info.is_completed === false) {
+      
       history.push("/c/configuration")
     }
+
+    if(profile_info && profile_info.is_completed === true) {
+      history.push("/c/dashboard")
+    }
+
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
     fetchRandomTransactions,
     fetchRandomMessages,
     fetchRandomPosts,
+    profile_info,
   ]);
 
-  if(is_login === false) {
+  if(is_login === false || !profile_info) {
     return (
       <div>
       </div>
@@ -337,17 +344,17 @@ function Main(props) {
   
   return (
     <Fragment>
-      {profile_info.is_comleted && <LazyLoadAddBalanceDialog
+      {profile_info.is_completed && <LazyLoadAddBalanceDialog
         open={isAddBalanceDialogOpen}
         onClose={closeAddBalanceDialog}
         onSuccess={onPaymentSuccess}
       />}
-      {profile_info.is_comleted && <NavBar
+      {profile_info.is_completed && <NavBar
         selectedTab={selectedTab}
         messages={messages}
         openAddBalanceDialog={openAddBalanceDialog}
       /> }
-      {profile_info.is_comleted && <ConsecutiveSnackbarMessages
+      {profile_info.is_completed && <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
       /> }
       <main className={classNames(classes.main)}>
