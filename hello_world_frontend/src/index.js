@@ -6,7 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 
 import reducer from './reducers';
@@ -21,11 +21,15 @@ import {
   set_email,
 } from './actions'
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   reducer,
+
+  composeEnhancers(
   applyMiddleware(
     thunkMiddleware
-));
+    )));
 
 store.dispatch(fetch_menu_list());
 

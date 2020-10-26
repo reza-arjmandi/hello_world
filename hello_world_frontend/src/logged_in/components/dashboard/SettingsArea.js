@@ -4,11 +4,19 @@ import Settings1 from "./Settings1";
 import Settings2 from "./Settings2";
 
 function SettingsArea(props) {
-  const { pushMessageToSnackbar } = props;
+  const { 
+    pushMessageToSnackbar, 
+    profile_info,
+    update_profile_info,
+   } = props;
   return (
     <Fragment>
-      <Settings1 pushMessageToSnackbar={pushMessageToSnackbar} />
-      <Settings2 pushMessageToSnackbar={pushMessageToSnackbar} />
+      <Settings1 
+      pushMessageToSnackbar={pushMessageToSnackbar} 
+      profile_info={profile_info}
+      update_profile_info={update_profile_info}
+      />
+      {/* <Settings2 pushMessageToSnackbar={pushMessageToSnackbar} /> */}
     </Fragment>
   );
 }

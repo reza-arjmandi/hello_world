@@ -66,6 +66,7 @@ function Routing(props) {
     openAddBalanceDialog,
     profile_info, 
     send_profile_info_handle,
+    update_profile_info,
   } = props;
   return (
     <div className={classes.wrapper}>
@@ -107,6 +108,8 @@ function Routing(props) {
           setTargets={setTargets}
           isAccountActivated={isAccountActivated}
           selectDashboard={selectDashboard}
+          profile_info={profile_info} 
+          update_profile_info={update_profile_info}
         />
       </Switch>
     </div>

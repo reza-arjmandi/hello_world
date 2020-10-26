@@ -3,11 +3,10 @@ import React, { memo, useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import AOS from "aos/dist/aos";
 import { withStyles } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 import NavBar from "./navigation/NavBar";
 import Footer from "./footer/Footer";
 import "aos/dist/aos.css";
-import CookieRulesDialog from "./cookies/CookieRulesDialog";
-import CookieConsent from "./cookies/CookieConsent";
 import DialogSelector from "./register_login/DialogSelector";
 import Routing from "./Routing";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
@@ -36,12 +35,12 @@ function Main({
   videos, 
   page_number, 
   change_page,
+  is_login,
+  history,
   }) {
   const [selectedTab, setSelectedTab] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
-  const [blogPosts, setBlogPosts] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(null);
-  const [isCookieRulesDialogOpen, setIsCookieRulesDialogOpen] = useState(false);
 
   const selectHome = useCallback(() => {
     smoothScrollTop();
@@ -92,26 +91,20 @@ function Main({
     setDialogOpen("changePassword");
   }, [setDialogOpen]);
 
-  const handleCookieRulesDialogOpen = useCallback(() => {
-    setIsCookieRulesDialogOpen(true);
-  }, [setIsCookieRulesDialogOpen]);
-
-  const handleCookieRulesDialogClose = useCallback(() => {
-    setIsCookieRulesDialogOpen(false);
-  }, [setIsCookieRulesDialogOpen]);
-
   useEffect(()=> {
     fetch_blog_posts();
     fetch_videos();
-  }, []);
+
+    if(is_login) {
+      setTimeout(() => {
+        open_profile_menu();
+        history.push("/c");
+      }, 150);
+    }
+  }, [is_login, history, open_profile_menu]);
 
   return (
     <div className={classes.wrapper}>
-      {/* {!isCookieRulesDialogOpen && (
-        <CookieConsent
-          handleCookieRulesDialogOpen={handleCookieRulesDialogOpen}
-        />
-      )} */}
       <DialogSelector
         openLoginDialog={openLoginDialog}
         dialogOpen={dialogOpen}
@@ -119,7 +112,6 @@ function Main({
         openTermsDialog={openTermsDialog}
         openRegisterDialog={openRegisterDialog}
         openChangePasswordDialog={openChangePasswordDialog}
-
         login={login}
         send_verification_code={send_verification_code}
         login_step={login_step}
@@ -128,10 +120,6 @@ function Main({
         email={email}
         open_profile_menu={open_profile_menu}
       />
-      {/* <CookieRulesDialog
-        open={isCookieRulesDialogOpen}
-        onClose={handleCookieRulesDialogClose}
-      /> */}
       <NavBar
         selectedTab={selectedTab}
         selectTab={setSelectedTab}
@@ -159,4 +147,4 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(memo(Main));
+export default withRouter(withStyles(styles, { withTheme: true })(memo(Main)));

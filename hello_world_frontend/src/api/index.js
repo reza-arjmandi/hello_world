@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 
-const api_address = 'http://127.0.0.1:8000';
+const api_address = 'https://api.halloenglish.com';
 
 
 export function add_new_resource(resource_name, new_resource) {
@@ -173,10 +173,10 @@ export function send_verification_code(email, token) {
 }
 
 export function send_profile_info(
-  profile_url, user_type, timezone, skype_link, Avatar) {
+  profile_url, user_type, timezone, skype_link, avatar) {
 
   const post_data = {
-    user_type, timezone, skype_link, is_completed: true, Avatar};
+    user_type, timezone, skype_link, is_completed: true, avatar};
   
   return function (dispatch, getState) {
 
@@ -221,8 +221,7 @@ export function fetch_profile_info() {
 
     dispatch(actions.fetch_profile_info_request())
 
-
-    return fetch(`${menu_list['profile']}`, {
+    return fetch(`${api_address}/profile/`, {
       method: 'GET',
       cache: 'no-cache',
       credentials: 'same-origin',
@@ -244,6 +243,42 @@ export function fetch_profile_info() {
       }
     ).catch(error => {
       dispatch(actions.fetch_profile_info_request_failure(error))
+    }
+    );
+  }
+}
+
+export function fetch_profile_avatar(avatar) {
+
+  return function (dispatch, getState) {
+
+    let state = getState();
+    const token = state.AuthToken; 
+
+    dispatch(actions.fetch_profile_avatar_request())
+
+    return fetch(`${avatar}`, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Token ${token}`
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] == 200) {
+          response.json().then(json => dispatch(actions.fetch_profile_avatar_request_success(json)));
+        }
+        else {
+          response.json().then(json => dispatch(actions.fetch_profile_avatar_request_failure(json)));
+        }
+      }
+    ).catch(error => {
+      dispatch(actions.fetch_profile_avatar_request_failure(error))
     }
     );
   }

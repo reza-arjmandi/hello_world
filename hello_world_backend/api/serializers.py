@@ -1,5 +1,6 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
 from rest_framework.serializers import HyperlinkedRelatedField
+from rest_framework.serializers import HyperlinkedIdentityField
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import ReadOnlyField
 from django.contrib.auth.models import User
@@ -42,13 +43,13 @@ class HomePageSerializer(HyperlinkedModelSerializer):
 
 class ProfileInfoSerializer(HyperlinkedModelSerializer):
 
-    Avatar = HyperlinkedRelatedField(many=True, queryset=ProfileAvatar.objects.all(), view_name="profileavatar-detail")
+    avatar = HyperlinkedIdentityField(view_name="profileavatar-detail")
     owner = ReadOnlyField(source='owner.username')
 
     class Meta:
         model = ProfileInfo
         fields = ['url', 'id', 'owner', 'user_type', 
-            'timezone', 'skype_link', 'is_completed', 'Avatar']
+            'timezone', 'skype_link', 'is_completed', 'avatar']
 
 class ProfileAvatarSerializer(HyperlinkedModelSerializer):
     

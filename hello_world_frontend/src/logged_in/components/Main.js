@@ -37,6 +37,9 @@ function Main(props) {
     send_profile_info_handle,
     is_login,
     history,
+    fetch_profile_info,
+    fetch_profile_avatar,
+    profile_avatar,
   } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
@@ -310,32 +313,44 @@ function Main(props) {
     [setPushMessageToSnackbar]
   );
 
+  const routeTo = useCallback(
+    () => {
+      if(profile_info === null) {
+        fetch_profile_info();
+      } 
+
+      if(profile_info && profile_info.is_completed === false) {
+      
+        history.push("/c/configuration")
+      }
+  
+      if(profile_info && profile_info.is_completed === true) {
+        history.push("/c/dashboard")
+      }
+    },
+    [
+      profile_info,
+      fetch_profile_info,
+    ]
+  );
+
   useEffect(() => {
     fetchRandomTargets();
     fetchRandomStatistics();
     fetchRandomTransactions();
     fetchRandomMessages();
     fetchRandomPosts();
-
-    if(profile_info && profile_info.is_completed === false) {
-      
-      history.push("/c/configuration")
-    }
-
-    if(profile_info && profile_info.is_completed === true) {
-      history.push("/c/dashboard")
-    }
-
+    routeTo();
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
     fetchRandomTransactions,
     fetchRandomMessages,
     fetchRandomPosts,
-    profile_info,
+    routeTo,
   ]);
 
-  if(is_login === false || !profile_info) {
+  if(is_login === false || profile_info === null) {
     return (
       <div>
       </div>
@@ -349,10 +364,14 @@ function Main(props) {
         onClose={closeAddBalanceDialog}
         onSuccess={onPaymentSuccess}
       />}
-      {profile_info.is_completed && <NavBar
+      {profile_info.is_completed 
+      && <NavBar
         selectedTab={selectedTab}
         messages={messages}
         openAddBalanceDialog={openAddBalanceDialog}
+        profile_info={profile_info}
+        fetch_profile_avatar={fetch_profile_avatar}
+        profile_avatar={profile_avatar}
       /> }
       {profile_info.is_completed && <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
@@ -379,6 +398,7 @@ function Main(props) {
           setPosts={setPosts}
           profile_info={profile_info} 
           send_profile_info_handle={send_profile_info_handle}
+          update_profile_info={send_profile_info_handle}
         />
       </main>
     </Fragment>

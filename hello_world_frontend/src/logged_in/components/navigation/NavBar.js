@@ -1,4 +1,9 @@
-import React, { Fragment, useRef, useCallback, useState } from "react";
+import React, { 
+  Fragment, 
+  useRef, 
+  useCallback, 
+  useState, 
+  useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -127,7 +132,16 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog } = props;
+  const { 
+    selectedTab, 
+    messages, 
+    classes, 
+    width, 
+    openAddBalanceDialog, 
+    profile_info,
+    fetch_profile_avatar,
+    profile_avatar,
+  } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -148,6 +162,11 @@ function NavBar(props) {
   const closeDrawer = useCallback(() => {
     setIsSideDrawerOpen(false);
   }, [setIsSideDrawerOpen]);
+
+  useEffect(() => {
+    fetch_profile_avatar(profile_info.avatar);
+  }, [
+  ]);
 
   const menuItems = [
     {
@@ -234,7 +253,7 @@ function NavBar(props) {
                 display="inline"
                 color="primary"
               >
-                Wa
+                Hello
               </Typography>
               <Typography
                 variant="h4"
@@ -242,7 +261,7 @@ function NavBar(props) {
                 display="inline"
                 color="secondary"
               >
-                Ver
+                World
               </Typography>
             </Hidden>
           </Box>
@@ -265,16 +284,16 @@ function NavBar(props) {
               disableGutters
               className={classNames(classes.iconListItem, classes.smBordered)}
             >
-              <Avatar
-                alt="profile picture"
-                src={`${process.env.PUBLIC_URL}/images/logged_in/profilePicture.jpg`}
+              { profile_avatar && <Avatar
+                alt={profile_info.owner}
+                src={profile_avatar.avatar}
                 className={classNames(classes.accountAvatar)}
-              />
+              />}
               {isWidthUp("sm", width) && (
                 <ListItemText
                   className={classes.username}
                   primary={
-                    <Typography color="textPrimary">Username</Typography>
+                    <Typography color="textPrimary">{profile_info.owner}</Typography>
                   }
                 />
               )}

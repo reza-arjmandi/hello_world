@@ -16,13 +16,15 @@ function Dashboard(props) {
     targets,
     setTargets,
     isAccountActivated,
+    profile_info,
+    update_profile_info,
   } = props;
 
   useEffect(selectDashboard, [selectDashboard]);
 
   return (
     <Fragment>
-      <StatisticsArea CardChart={CardChart} data={statistics} />
+      {/* <StatisticsArea CardChart={CardChart} data={statistics} /> */}
       <Box mt={4}>
         <Typography variant="subtitle1" gutterBottom>
           Your Account
@@ -37,12 +39,16 @@ function Dashboard(props) {
           Settings
         </Typography>
       </Box>
-      <SettingsArea pushMessageToSnackbar={pushMessageToSnackbar} />
-      <UserDataArea
+      <SettingsArea 
+        pushMessageToSnackbar={pushMessageToSnackbar} 
+        profile_info={profile_info}
+        update_profile_info={update_profile_info}
+      />
+      {/* <UserDataArea
         pushMessageToSnackbar={pushMessageToSnackbar}
         targets={targets}
         setTargets={setTargets}
-      />
+      /> */}
     </Fragment>
   );
 }

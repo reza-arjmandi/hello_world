@@ -42,6 +42,7 @@ import datetime
 
 from api.permissions import IsAdminOrReadOnly
 from api.permissions import IsAdminOrOwner
+from api.permissions import IsAdminOrOwnerProfileAvatar
 
 class UserList(ListAPIView):
     queryset = User.objects.all()
@@ -167,7 +168,7 @@ class ProfileInfoViewSet(ModelViewSet):
 
 class ProfileAvatarViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticated, IsAdminOrOwner]
+    permission_classes = [IsAuthenticated, IsAdminOrOwnerProfileAvatar]
     
     queryset = ProfileAvatar.objects.all()
     serializer_class = ProfileAvatarSerializer

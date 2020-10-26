@@ -27,6 +27,7 @@ const map_state_to_props = state => ({
     email: state.Email,
     videos: state.Videos,
     page_number: state.PageNumber,
+    is_login: state.IsLogin,
 });
 
 const map_dispatch_to_props = dispatch => ({
