@@ -6,7 +6,6 @@ from rest_framework.serializers import ReadOnlyField
 from django.contrib.auth.models import User
 
 from api.models import Stream
-from api.models import HomePage
 from api.models import LoginToken
 from api.models import ProfileInfo
 from api.models import ProfileAvatar
@@ -31,15 +30,6 @@ class LoginTokenSerializer(ModelSerializer):
     class Meta:
         model = LoginToken
         fields = ['email', 'token']
-
-class HomePageSerializer(HyperlinkedModelSerializer):
-    
-    class Meta:
-        model = HomePage
-        fields = [
-            'url', 'id', 'background_image', 
-            'introduction_video_url', 'introduction_video_title', 
-            'introduction_video_description']
 
 class ProfileInfoSerializer(HyperlinkedModelSerializer):
 

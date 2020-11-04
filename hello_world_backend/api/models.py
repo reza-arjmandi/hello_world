@@ -14,14 +14,8 @@ from django.db.models import TextChoices
 
 from django.contrib.auth.models import User, Group
 
-class Stream(Model):
-
-    title = CharField(blank=False, max_length=100)
-    description = TextField(blank=False)
-    stream_url = URLField(blank=False)
-
-    def __str__(self):
-        return self.title
+from api.sub_models.blog_post import BlogPost
+from api.sub_models.stream import Stream
 
 class LoginToken(Model):
     email = EmailField(blank=False)
@@ -40,25 +34,3 @@ class ProfileAvatar(Model):
     profile_info = ForeignKey(
         ProfileInfo, on_delete=CASCADE, related_name="Avatar", blank=False)
     avatar = ImageField(blank=False, upload_to='photos')
-
-class BlogPost(Model):
-    owner = ForeignKey(
-        User, on_delete=CASCADE, related_name="BlogPost", blank=False)
-    title = CharField(blank=False, max_length=100)
-    date = DateField(blank=False, auto_now_add=True)
-    image = ImageField(blank=False, upload_to='photos')
-    snippet = CharField(blank=False, max_length=400)
-    content = TextField(blank=False)
-
-class HomePage(Model):
-
-    background_image = ImageField(blank=False, upload_to='photos')
-    introduction_video_url = URLField(blank=False)
-    introduction_video_title = CharField(blank=False, max_length=100)
-    introduction_video_description = TextField(blank=False)
-
-    def __str__(self):
-        return\
-            self.introduction_video_title\
-            + "\n"\
-            + self.introduction_video_description

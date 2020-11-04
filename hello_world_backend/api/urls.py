@@ -5,7 +5,6 @@ from django.urls import include
 from rest_framework.authtoken import views
 
 from api.views import StreamViewSet
-from api.views import HomePageViewSet
 from api.views import ProfileInfoViewSet
 from api.views import ProfileAvatarViewSet
 from api.views import BlogPostViewSet
@@ -17,9 +16,8 @@ from api.views import UserList
 from api.views import UserDetail
 
 router = routers.DefaultRouter()
-router.register(r'home', HomePageViewSet)
 router.register(r'stream', StreamViewSet)
-router.register(r'profile', ProfileInfoViewSet)
+router.register(r'profile', ProfileInfoViewSet, basename='profile')
 router.register(r'blog_post', BlogPostViewSet)
 
 profile_avatar_list = ProfileAvatarViewSet.as_view({

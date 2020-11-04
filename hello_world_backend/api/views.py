@@ -15,13 +15,11 @@ from django.core.mail import send_mail
 from django.http import FileResponse
 
 from api.models import Stream
-from api.models import HomePage
 from api.models import ProfileInfo
 from api.models import ProfileAvatar
 from api.models import BlogPost
 
 from api.serializers import StreamSerializer
-from api.serializers import HomePageSerializer
 from api.serializers import LoginTokenSerializer
 from api.serializers import ProfileInfoSerializer
 from api.serializers import ProfileAvatarSerializer
@@ -145,13 +143,6 @@ class StreamViewSet(ModelViewSet):
 
     queryset = Stream.objects.all().order_by('-id')
     serializer_class = StreamSerializer
-
-class HomePageViewSet(ModelViewSet):
-    authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsAdminOrReadOnly]
-    
-    queryset = HomePage.objects.all()
-    serializer_class = HomePageSerializer
 
 class ProfileInfoViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication, SessionAuthentication]
