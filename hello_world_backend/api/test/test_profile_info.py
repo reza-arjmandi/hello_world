@@ -11,7 +11,7 @@ from hamcrest import assert_that
 from hamcrest import equal_to
 
 from api.serializers import UserSerializer
-from api.test.random_generator import RandomGenerator
+from utils.test.random_generator import RandomGenerator
 
 class TestProfileInfo(APITestCase):
     

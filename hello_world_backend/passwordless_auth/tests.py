@@ -1,3 +1,4 @@
 from django.test import TestCase
 
-# Create your tests here.
+from passwordless_auth.test.test_email_login import TestEmailLogin
+from passwordless_auth.test.test_token import TestToken

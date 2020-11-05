@@ -10,7 +10,7 @@ from django.urls import reverse
 from hamcrest import assert_that
 from hamcrest import equal_to
 
-from api.test.random_generator import RandomGenerator
+from utils.test.random_generator import RandomGenerator
 
 class TestStream(APITestCase):
     

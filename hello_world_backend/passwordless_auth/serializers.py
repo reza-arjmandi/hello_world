@@ -1,9 +1,2 @@
-from rest_framework.serializers import ModelSerializer
-
-from passwordless_auth.models import LoginToken
-
-class LoginTokenSerializer(ModelSerializer):
-    
-    class Meta:
-        model = LoginToken
-        fields = ['email', 'token']
+from passwordless_auth.sub_serializers.login_token_serializer import \
+    LoginTokenSerializer

@@ -29,10 +29,9 @@ class RandomGenerator:
 
     def generate_user(self):
         username = self.generate_string(2, 10)
-        server = self.generate_string(2, 10)
         return User.objects.create_user(
             username,
-            email=f'{username}@{server}.com',
+            email=self.generate_email(),
             password=User.objects.make_random_password())
     
     def generate_admin_user(self):
@@ -43,3 +42,9 @@ class RandomGenerator:
     def generate_file(self, path):
         with open(path, 'w') as file:
             file.write(self.generate_string(10, 1000))
+
+    def generate_email(self):
+        user = self.generate_string(2, 10)
+        host = self.generate_string(2, 5)
+        domin = self.generate_string(2, 4)
+        return f'{user}@{host}.{domin}'
