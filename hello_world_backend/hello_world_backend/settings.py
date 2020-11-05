@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
+    'passwordless_auth.apps.PasswordlessAuthConfig',
     'rest_framework',
     'rest_framework.authtoken'
 ]

@@ -21,5 +21,6 @@ from django.contrib import admin
 # Setup the URLs and include login URLs for the browsable API.
 urlpatterns = [
     path('', include('api.urls')),
+    path('auth/', include('passwordless_auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]

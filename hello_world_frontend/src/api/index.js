@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 
-const api_address = 'https://api.halloenglish.com';
+const api_address = 'http://127.0.0.1:8000';
 
 
 export function add_new_resource(resource_name, new_resource) {

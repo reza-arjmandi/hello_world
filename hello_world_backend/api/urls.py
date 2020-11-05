@@ -10,14 +10,12 @@ from api.views import ProfileAvatarViewSet
 from api.views import BlogPostViewSet
 
 from api.views import PhotoDetail
-from api.views import LoginEmailView
-from api.views import TokenView
 from api.views import UserList
 from api.views import UserDetail
 
 router = routers.DefaultRouter()
 router.register(r'stream', StreamViewSet)
-router.register(r'profile', ProfileInfoViewSet, basename='profile')
+router.register(r'profile', ProfileInfoViewSet, basename='profileinfo')
 router.register(r'blog_post', BlogPostViewSet)
 
 profile_avatar_list = ProfileAvatarViewSet.as_view({
@@ -33,8 +31,6 @@ profile_avatar_detail = ProfileAvatarViewSet.as_view({
 })
 
 urlpatterns = [
-    path('auth/email/', LoginEmailView.as_view()),
-    path('auth/token/', TokenView.as_view()),
     path('avatar/', profile_avatar_list, name='profileavatar-list'),
     path('avatar/<int:pk>/', profile_avatar_detail, name='profileavatar-detail'),
     url(r'^photos/(.*)/$', PhotoDetail.as_view()),
