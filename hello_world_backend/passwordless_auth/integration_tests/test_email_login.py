@@ -21,8 +21,3 @@ class TestEmailLogin(APITestCase):
         response = self.client.post(url, data, format='json')
         Utils.assert_login_token_is_created(response)
         Utils.assert_email_box(2)
-
-        
-
-        
-

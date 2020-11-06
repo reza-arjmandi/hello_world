@@ -48,3 +48,13 @@ class RandomGenerator:
         host = self.generate_string(2, 5)
         domin = self.generate_string(2, 4)
         return f'{user}@{host}.{domin}'
+
+    def generate_url(self):
+        host = self.generate_string(2, 5)
+        domin = self.generate_string(2, 4)
+        url = f'http://{host}.{domin}'
+        number_of_res = random.randint(2, 100)
+        for i in range(number_of_res):
+            res = self.generate_string(2, 10)
+            url += f'/{res}'
+        return url

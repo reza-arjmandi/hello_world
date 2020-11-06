@@ -1,4 +1,5 @@
 import io
+import re
 
 from django.core import mail 
 from django.urls import reverse
@@ -40,3 +41,31 @@ class Utils:
     def get_email_url():
         url = reverse('email')
         return url
+
+    def get_login_token_from_mailbox():
+        result = re.findall('\d{6}', mail.outbox[len(mail.outbox)-1].body) 
+        return result[0]
+
+    def get_token_url():
+        url = reverse('token')
+        return url
+
+    def submit_an_email(client):
+        url = Utils.get_email_url()
+        data = Utils.create_email_data()
+        email_numbers = len(mail.outbox)
+        response = client.post(url, data, format='json')
+        Utils.assert_login_token_is_created(response)
+        Utils.assert_email_box(email_numbers + 1)
+        return (data['email'], Utils.get_login_token_from_mailbox())
+
+    def create_auth_token(client, email, login_token):
+        url = Utils.get_token_url()
+        data = {
+            'email': email,
+            'token': login_token
+        }
+        response = client.post(url, data, format='json')
+        json_parser = JSONParser()
+        return {'response': response, 
+            'json_content': json_parser.parse(io.BytesIO(response.content))}
