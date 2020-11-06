@@ -14,7 +14,7 @@ from hamcrest import assert_that
 
 from freezegun import freeze_time
 
-from passwordless_auth.test.utils import Utils
+from passwordless_auth.integration_tests.utils import Utils
 from utils.test.random_generator import RandomGenerator
 
 class TestToken(APITestCase):

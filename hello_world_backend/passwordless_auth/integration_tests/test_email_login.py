@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from passwordless_auth.test.utils import Utils
+from passwordless_auth.integration_tests.utils import Utils
 
 class TestEmailLogin(APITestCase):
 
