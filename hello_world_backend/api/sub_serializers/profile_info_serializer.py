@@ -1,12 +1,10 @@
 from rest_framework.serializers import HyperlinkedModelSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
 from rest_framework.serializers import ReadOnlyField
 
 from api.models import ProfileInfo
 
 class ProfileInfoSerializer(HyperlinkedModelSerializer):
 
-    avatar = HyperlinkedIdentityField(view_name="profileavatar-detail")
     owner = ReadOnlyField(source='owner.username')
 
     class Meta:

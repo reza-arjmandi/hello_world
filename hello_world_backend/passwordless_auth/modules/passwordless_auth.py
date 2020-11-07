@@ -86,14 +86,11 @@ class PasswordlessAuth:
                     user_type="learner", 
                     timezone="invalid", 
                     skype_link="invalid", 
-                    is_completed=False
+                    is_completed=False,
+                    avatar="photos/user.png"
                 )
         profile_info.save()
         return profile_info
-
-    def __create_avatar__(profile_info):
-        avatar = profile_info.Avatar.create(avatar="photos/user.png")
-        avatar.save()
 
     def __get_or_create_user__(email):
         if PasswordlessAuth.__is_user_exists__(email):
@@ -101,7 +98,6 @@ class PasswordlessAuth:
         
         created_user = PasswordlessAuth.__create_user__(email)
         profile_info = PasswordlessAuth.__create_profile_info__(created_user)
-        PasswordlessAuth.__create_avatar__(profile_info)
         return created_user
 
     def __create_token__(user):

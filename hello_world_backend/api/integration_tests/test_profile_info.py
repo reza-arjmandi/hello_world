@@ -124,6 +124,7 @@ class TestProfileInfo(APITestCase):
             self.random_generator.generate_url()
         profile_info_json['is_completed'] = \
             self.random_generator.generate_bool()
+        del profile_info_json['avatar']
         return profile_info_json
 
     def assert_profile_info(self, response, expected_profile_info):
@@ -198,7 +199,8 @@ class TestProfileInfo(APITestCase):
         (email_list, creds) = self.create_random_users_credentials()
         response = self.retrieve_profile_info_list(
             authenticate_with_admin=True)
-        self.assert_profile_infos_owners(response, len(email_list), email_list)
+        self.assert_profile_infos_owners(
+            response, len(email_list), email_list)
 
     def test_patching_profile_info_with_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
