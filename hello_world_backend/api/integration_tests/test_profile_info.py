@@ -2,19 +2,16 @@ import io
 import random
 
 from rest_framework.test import APITestCase
-from rest_framework.parsers import JSONParser
-from rest_framework import status
 
 from django.urls import reverse
 
 from hamcrest import assert_that
 from hamcrest import contains_inanyorder
 from hamcrest import equal_to
-from hamcrest import has_length
 
-from api.serializers import UserSerializer
 from utils.test.random_generator import RandomGenerator
-from passwordless_auth.integration_tests.utils import Utils
+from utils.test.utils import Utils
+from api.integration_tests.utils import Utils as IntegrationTestsUtils
 
 class TestProfileInfo(APITestCase):
     
@@ -24,55 +21,22 @@ class TestProfileInfo(APITestCase):
     def get_profile_info_list_url(self):
         return reverse('profileinfo-list')
 
-    def to_json(self, str):
-        json_parser = JSONParser()
-        return json_parser.parse(io.BytesIO(str))
-
-    def assert_is_unauthorized(self, response):
-        assert_that(response.status_code, 
-            equal_to(status.HTTP_401_UNAUTHORIZED))
-    
-    def assert_method_is_not_allowed(self, response):
-        assert_that(response.status_code, 
-            equal_to(status.HTTP_405_METHOD_NOT_ALLOWED))
-
-    def authenticate_with_a_user(self, is_admin=False):
-        user = self.random_generator.generate_admin_user() if is_admin \
-            else self.random_generator.generate_user()
-        self.client.force_authenticate(user=user)
-
-    def assert_ok(self, response):
-        assert_that(response.status_code, 
-            equal_to(status.HTTP_200_OK))
-
     def assert_profile_infos_owners(self, response, numbers, email_list):
-        self.assert_ok(response)
-        json = self.to_json(response.content)
+        IntegrationTestsUtils.assert_is_ok(response)
+        json = Utils.to_json(response.content)
         assert_that(json['count'], equal_to(numbers))
         ownsers = [ element['owner'] for element in json['results']]
         assert_that(ownsers, contains_inanyorder(*email_list))
 
-    def create_random_users_credentials(self, 
-        number_of_users=random.randint(2, 6)):
-        email_list = []
-        credentials = []
-        for i in range(number_of_users):
-            (email, login_token) = Utils.submit_an_email(self.client)
-            result = Utils.create_auth_token(self.client, email, login_token)
-            email_list.append(email)
-            credentials.append(result)
-            assert_that(result['response'].status_code, 
-            equal_to(status.HTTP_201_CREATED))
-            assert_that(result['json_content']['token'], has_length(40))
-        return (email_list, credentials)
-
     def retrieve_profile_info_list(
         self, token=None, authenticate_with_admin=False):
-        self.clear_client_auth_h()
+        IntegrationTestsUtils.clear_client_auth_h(self.client)
+        self.client.logout()
         if token:
-            self.set_client_auth_h(token)
+            IntegrationTestsUtils.set_client_auth_h(self.client, token)
         if authenticate_with_admin:
-            self.authenticate_with_a_user(is_admin=True)
+            IntegrationTestsUtils.authenticate_with_a_user(
+                self.client, is_admin=True)
         url = self.get_profile_info_list_url()
         response = self.client.get(url, format='json')
         return response
@@ -84,11 +48,13 @@ class TestProfileInfo(APITestCase):
 
     def delete_profile_info(
         self, url, token=None, authenticate_with_admin=False):
-        self.clear_client_auth_h()
+        IntegrationTestsUtils.clear_client_auth_h(self.client)
+        self.client.logout()
         if token:
-            self.set_client_auth_h(token)
+            IntegrationTestsUtils.set_client_auth_h(self.client, token)
         if authenticate_with_admin:
-            self.authenticate_with_a_user(is_admin=True)
+            IntegrationTestsUtils.authenticate_with_a_user(
+                self.client, is_admin=True)
         response = self.client.delete(url, format='json')
         return response
     
@@ -98,20 +64,23 @@ class TestProfileInfo(APITestCase):
         return response
 
     def patch_profile_info_list(self, data, token=None):
-        self.clear_client_auth_h()
+        IntegrationTestsUtils.clear_client_auth_h(self.client)
+        self.client.logout()
         if token:
-            self.set_client_auth_h(token)
+            IntegrationTestsUtils.set_client_auth_h(self.client, token)
         url = self.get_profile_info_list_url()
         response = self.client.patch(url, data, format='json')
         return response
 
     def patch_profile_info(
         self, url, data, token=None, authenticate_with_admin=False):
-        self.clear_client_auth_h()
+        IntegrationTestsUtils.clear_client_auth_h(self.client)
+        self.client.logout()
         if token:
-            self.set_client_auth_h(token)
+            IntegrationTestsUtils.set_client_auth_h(self.client, token)
         if authenticate_with_admin:
-            self.authenticate_with_a_user(is_admin=True)
+            IntegrationTestsUtils.authenticate_with_a_user(
+                self.client, is_admin=True)
         response = self.client.patch(url, data, format='json')
         return response
 
@@ -128,8 +97,8 @@ class TestProfileInfo(APITestCase):
         return profile_info_json
 
     def assert_profile_info(self, response, expected_profile_info):
-        assert_that(response.status_code, equal_to(status.HTTP_200_OK))
-        json = self.to_json(response.content)
+        IntegrationTestsUtils.assert_is_ok(response)
+        json = Utils.to_json(response.content)
         assert_that(json['user_type'], 
             equal_to(expected_profile_info['user_type']))
         assert_that(json['timezone'], 
@@ -139,64 +108,65 @@ class TestProfileInfo(APITestCase):
         assert_that(json['is_completed'], 
             equal_to(expected_profile_info['is_completed']))
 
-    def set_client_auth_h(self, token):
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
-
-    def clear_client_auth_h(self):
-        self.client.credentials(HTTP_AUTHORIZATION='')
-
     def retrieve_a_random_profile_info(self):
-        (emails, credentials) = self.create_random_users_credentials(1)
+        (emails, credentials) = \
+            IntegrationTestsUtils.create_random_users_credentials(
+                self.client, 1)
         response = self.retrieve_profile_info_list(
             token=credentials[0]['json_content']['token'])
         self.assert_profile_infos_owners(response, 1, emails)
         return (credentials[0]['json_content']['token'], 
-            self.to_json(response.content)['results'][0])
+            Utils.to_json(response.content)['results'][0])
 
     def test_retrieving_profile_info_list_without_auth_must_be_failed(self):
         response = self.retrieve_profile_info_list()
-        self.assert_is_unauthorized(response)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
         
     def test_creating_profile_info_without_auth_must_be_failed(self):
         response = self.create_profile_info({})
-        self.assert_is_unauthorized(response)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
     
     def test_deleting_profile_info_list_without_auth_must_be_failed(self):
         response = self.delete_profile_info_list()
-        self.assert_is_unauthorized(response)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_patching_profile_list_info_without_auth_must_be_failed(self):
         response = self.patch_profile_info_list({})
-        self.assert_is_unauthorized(response)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
     
     def test_creating_profile_info_with_auth_must_be_failed(self):
-        self.authenticate_with_a_user()
+        IntegrationTestsUtils.authenticate_with_a_user(self.client)
         response = self.create_profile_info({})
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_deleting_profile_info_list_with_auth_must_be_failed(self):
-        self.authenticate_with_a_user()
+        IntegrationTestsUtils.authenticate_with_a_user(self.client)
         response = self.delete_profile_info_list()
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_creating_profile_info_with_admin_auth_must_be_failed(self):
-        self.authenticate_with_a_user(is_admin=True)
+        IntegrationTestsUtils.authenticate_with_a_user(
+            self.client, is_admin=True)
         response = self.create_profile_info({})
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_deleting_profile_info_list_with_auth_must_be_failed(self):
-        self.authenticate_with_a_user(is_admin=True)
+        IntegrationTestsUtils.authenticate_with_a_user(
+            self.client, is_admin=True)
         response = self.delete_profile_info_list()
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_retrieving_profile_info_list_with_auth(self):
-        (emails, credentials) = self.create_random_users_credentials(1)
+        (emails, credentials) = \
+            IntegrationTestsUtils.create_random_users_credentials(
+                self.client, 1)
         response = self.retrieve_profile_info_list(
             token=credentials[0]['json_content']['token'])
         self.assert_profile_infos_owners(response, 1, emails)
 
     def test_retrieving_profile_info_list_with_admin_auth(self):
-        (email_list, creds) = self.create_random_users_credentials()
+        (email_list, creds) = \
+            IntegrationTestsUtils.create_random_users_credentials(self.client)
         response = self.retrieve_profile_info_list(
             authenticate_with_admin=True)
         self.assert_profile_infos_owners(
@@ -214,7 +184,7 @@ class TestProfileInfo(APITestCase):
         (token, profile_info) = self.retrieve_a_random_profile_info()
         response = self.patch_profile_info(
             url=profile_info['url'], data=profile_info)
-        self.assert_is_unauthorized(response)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_patching_profile_info_with_admin_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
@@ -229,11 +199,11 @@ class TestProfileInfo(APITestCase):
         (token, profile_info) = self.retrieve_a_random_profile_info()
         response = self.delete_profile_info(
             url=profile_info['url'], token=token)
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_deleting_profile_info_with_admin_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
         response = self.delete_profile_info(
             url=profile_info['url'], authenticate_with_admin=True)
-        self.assert_method_is_not_allowed(response)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
     
