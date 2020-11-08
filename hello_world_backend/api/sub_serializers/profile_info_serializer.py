@@ -10,4 +10,4 @@ class ProfileInfoSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = ProfileInfo
         fields = ['url', 'id', 'owner', 'user_type', 
-            'timezone', 'skype_link', 'is_completed', 'avatar']
+            'timezone', 'skype_link', 'is_completed', 'avatar', 'classes']

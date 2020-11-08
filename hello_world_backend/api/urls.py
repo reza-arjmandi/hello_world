@@ -7,7 +7,7 @@ from api.views import StreamViewSet
 from api.views import ProfileInfoViewSet
 from api.views import BlogPostViewSet
 from api.views import UserViewSet
-
+from api.views import EnglishClassViewSet
 from api.views import PhotoDetail
 
 router = routers.DefaultRouter()
@@ -15,6 +15,7 @@ router.register(r'stream', StreamViewSet)
 router.register(r'profile', ProfileInfoViewSet, basename='profileinfo')
 router.register(r'blog_post', BlogPostViewSet)
 router.register(r'user', UserViewSet)
+router.register(r'english_class', EnglishClassViewSet)
 
 urlpatterns = [
     url(r'^photos/(.*)/$', PhotoDetail.as_view()),
