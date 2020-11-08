@@ -48,56 +48,12 @@ class TestBlogPost(APITestCase):
         self.temp_images.append(image_path)
         return data
 
-    def create_blog_post(
-        self, data, token=None, authenticate_with_admin=False):
-        IntegrationTestsUtils.clear_client_auth_h(self.client)
-        self.client.logout()
-        admin_user = None
-        if token:
-            IntegrationTestsUtils.set_client_auth_h(self.client, token)
-        if authenticate_with_admin:
-            admin_user = IntegrationTestsUtils.authenticate_with_a_user(
-                self.client, is_admin=True)
-        url = self.get_blog_post_list_url()
-        response = self.client.post(url, data, format='multipart')
-        return (response, admin_user)
-
-    def retrieve_blog_post_list(self):
-        IntegrationTestsUtils.clear_client_auth_h(self.client)
-        self.client.logout()
-        url = self.get_blog_post_list_url()
-        response = self.client.get(url, format='json')
-        return response
-
-    def patch_blog_post(self, url, data, 
-        token=None, authenticate_with_admin=False):
-        IntegrationTestsUtils.clear_client_auth_h(self.client)
-        self.client.logout()
-        if token:
-            IntegrationTestsUtils.set_client_auth_h(self.client, token)
-        if authenticate_with_admin:
-            IntegrationTestsUtils.authenticate_with_a_user(
-                self.client, is_admin=True)
-        response = self.client.patch(url, data, format='json')
-        return response
-
-    def delete_blog_post(self, url, 
-        token=None, authenticate_with_admin=False):
-        IntegrationTestsUtils.clear_client_auth_h(self.client)
-        self.client.logout()
-        if token:
-            IntegrationTestsUtils.set_client_auth_h(self.client, token)
-        if authenticate_with_admin:
-            IntegrationTestsUtils.authenticate_with_a_user(
-                self.client, is_admin=True)
-        response = self.client.delete(url, format='json')
-        return response
-
     def generate_random_blog_posts(self, number=random.randint(2,6)):
         result = {}
         for i in range(number):
             data= self.generate_random_blog_post_data()
-            (response, admin_user) = self.create_blog_post(
+            (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_blog_post_list_url(),
                 data=data, authenticate_with_admin=True)
             result[admin_user.username] = data
         return result
@@ -131,12 +87,14 @@ class TestBlogPost(APITestCase):
 
     def generate_some_posts_and_choose_one(self):
         self.generate_random_blog_posts()
-        response = self.retrieve_blog_post_list()
+        response = IntegrationTestsUtils.retrieve_res(
+            self.client, self.get_blog_post_list_url())
         return Utils.to_json(response.content)['results'][0]
 
     def test_creating_blog_post_without_auth_must_be_failed(self):
         data= self.generate_random_blog_post_data()
-        (response, admin_user) = self.create_blog_post(data=data)
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_blog_post_list_url(), data=data)
         IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_creating_blog_post_with_auth_must_be_failed(self):
@@ -144,26 +102,30 @@ class TestBlogPost(APITestCase):
             IntegrationTestsUtils.create_random_users_credentials(
                 self.client, 1)
         data = self.generate_random_blog_post_data()
-        (response, admin_user) = self.create_blog_post(
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_blog_post_list_url(),
             data=data, token=credentials[0]['json_content']['token'])
         IntegrationTestsUtils.assert_is_forbidden(response)
 
     def test_creating_blog_post_with_admin_auth(self):
         data = self.generate_random_blog_post_data()
-        (response, admin_user) = self.create_blog_post(
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_blog_post_list_url(),
             data=data, authenticate_with_admin=True)
         IntegrationTestsUtils.assert_is_created(response)
         self.assert_blog_post(response, admin_user.username, data)
 
     def test_retrieving_blog_post_list_witout_auth_must_not_be_failed(self):
         expected = self.generate_random_blog_posts()
-        response = self.retrieve_blog_post_list()
+        response = IntegrationTestsUtils.retrieve_res(
+            self.client, self.get_blog_post_list_url())
         IntegrationTestsUtils.assert_is_ok(response)
         self.assert_blog_posts(response, expected)
 
     def test_patching_blog_post_witout_auth_must_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()
-        response = self.patch_blog_post(selected_post['url'], {})
+        response = IntegrationTestsUtils.patch_res(
+            self.client, selected_post['url'], {})
         IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_patching_blog_post_with_auth_must_be_failed(self):
@@ -171,7 +133,8 @@ class TestBlogPost(APITestCase):
         (email_list, credentials) = \
             IntegrationTestsUtils.create_random_users_credentials(
                 self.client, 1)
-        response = self.patch_blog_post(
+        response = IntegrationTestsUtils.patch_res(
+            self.client,
             url=selected_post['url'], 
             data={}, 
             token=credentials[0]['json_content']['token'])
@@ -180,7 +143,8 @@ class TestBlogPost(APITestCase):
     def test_patching_blog_post_with_admin_auth_must_not_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()
         updated_json = self.update_blog_post_with_random_data(selected_post)
-        response = self.patch_blog_post(
+        response = IntegrationTestsUtils.patch_res(
+            self.client,
            url=selected_post['url'], 
            data=updated_json, 
            authenticate_with_admin=True)
@@ -189,7 +153,8 @@ class TestBlogPost(APITestCase):
 
     def test_deleting_blog_post_witout_auth_must_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()
-        response = self.delete_blog_post(selected_post['url'])
+        response = IntegrationTestsUtils.delete_res(
+            self.client, selected_post['url'])
         IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_deleting_blog_post_with_auth_must_be_failed(self):
@@ -197,17 +162,20 @@ class TestBlogPost(APITestCase):
         (email_list, credentials) = \
             IntegrationTestsUtils.create_random_users_credentials(
                 self.client, 1)
-        response = self.delete_blog_post(
+        response = IntegrationTestsUtils.delete_res(
+            self.client,
             url=selected_post['url'], 
             token=credentials[0]['json_content']['token'])
         IntegrationTestsUtils.assert_is_forbidden(response)
 
     def test_deleting_blog_post_with_admin_auth_must_not_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()
-        response = self.delete_blog_post(
+        response = IntegrationTestsUtils.delete_res(
+            self.client,
            url=selected_post['url'], 
            authenticate_with_admin=True)
         assert_that(response.status_code, equal_to(status.HTTP_204_NO_CONTENT))
-        response = self.retrieve_blog_post_list()
+        response = IntegrationTestsUtils.retrieve_res(
+            self.client, self.get_blog_post_list_url())
         posts = Utils.to_json(response.content)['results']
         assert_that(selected_post, not_(is_in(posts)))

@@ -61,3 +61,51 @@ class Utils:
     def assert_method_is_not_allowed(response):
         assert_that(response.status_code, 
             equal_to(status.HTTP_405_METHOD_NOT_ALLOWED))
+
+    def patch_res(client, url, data, 
+        token=None, authenticate_with_admin=False):
+        Utils.clear_client_auth_h(client)
+        client.logout()
+        if token:
+            Utils.set_client_auth_h(client, token)
+        if authenticate_with_admin:
+            Utils.authenticate_with_a_user(
+                client, is_admin=True)
+        response = client.patch(url, data, format='json')
+        return response
+
+    def retrieve_res(client, url, token=None, authenticate_with_admin=False):
+        Utils.clear_client_auth_h(client)
+        client.logout()
+        if token:
+            Utils.set_client_auth_h(client, token)
+        if authenticate_with_admin:
+            Utils.authenticate_with_a_user(
+                client, is_admin=True)
+        response = client.get(url, format='json')
+        return response
+
+    def create_res(
+        client, url, data, token=None, authenticate_with_admin=False):
+        Utils.clear_client_auth_h(client)
+        client.logout()
+        admin_user = None
+        if token:
+            Utils.set_client_auth_h(client, token)
+        if authenticate_with_admin:
+            admin_user = Utils.authenticate_with_a_user(
+                client, is_admin=True)
+        response = client.post(url, data, format='multipart')
+        return (response, admin_user)
+
+    def delete_res(client, url, 
+        token=None, authenticate_with_admin=False):
+        Utils.clear_client_auth_h(client)
+        client.logout()
+        if token:
+            Utils.set_client_auth_h(client, token)
+        if authenticate_with_admin:
+            Utils.authenticate_with_a_user(
+                client, is_admin=True)
+        response = client.delete(url, format='json')
+        return response
