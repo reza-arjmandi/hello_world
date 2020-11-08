@@ -51,6 +51,7 @@ class TestProfileInfo(APITestCase):
         profile_info_json['is_completed'] = \
             self.random_generator.generate_bool()
         del profile_info_json['avatar']
+        del profile_info_json['classes']
         return profile_info_json
 
     def assert_profile_info(self, response, expected_profile_info):
