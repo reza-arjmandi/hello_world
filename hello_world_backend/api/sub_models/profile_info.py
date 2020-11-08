@@ -7,7 +7,7 @@ from django.db.models import ForeignKey
 from django.db.models import ImageField
 from django.db.models import CASCADE
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 
 class ProfileInfo(Model):
     owner = ForeignKey(

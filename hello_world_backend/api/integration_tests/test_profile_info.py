@@ -27,11 +27,6 @@ class TestProfileInfo(APITestCase):
         ownsers = [ element['owner'] for element in json['results']]
         assert_that(ownsers, contains_inanyorder(*email_list))
 
-    def delete_profile_info_list(self):
-        url = self.get_profile_info_list_url()
-        response = self.client.delete(url, format='json')
-        return response
-
     def create_profile_info(self, data):
         url = self.get_profile_info_list_url()
         response = self.client.post(url, data, format='json')
@@ -81,44 +76,30 @@ class TestProfileInfo(APITestCase):
         return (credentials[0]['json_content']['token'], 
             Utils.to_json(response.content)['results'][0])
 
+    def test_creating_profile_info_without_auth_must_be_failed(self):
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+            self.client, self.get_profile_info_list_url(), {})
+        IntegrationTestsUtils.assert_is_unauthorized(response)
+
+    def test_creating_profile_info_with_auth_must_be_failed(self):
+        (email_list, credentials) = \
+            IntegrationTestsUtils.create_random_users_credentials(
+                self.client, 1)
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_profile_info_list_url(),
+            data={}, token=credentials[0]['json_content']['token'])
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
+
+    def test_creating_profile_info_with_admin_auth_must_be_failed(self):
+        (response, admin_user) = IntegrationTestsUtils.create_res(
+                self.client, self.get_profile_info_list_url(),
+            data={}, authenticate_with_admin=True)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
+
     def test_retrieving_profile_info_list_without_auth_must_be_failed(self):
         response = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url())
         IntegrationTestsUtils.assert_is_unauthorized(response)
-        
-    def test_creating_profile_info_without_auth_must_be_failed(self):
-        response = self.create_profile_info({})
-        IntegrationTestsUtils.assert_is_unauthorized(response)
-    
-    def test_deleting_profile_info_list_without_auth_must_be_failed(self):
-        response = self.delete_profile_info_list()
-        IntegrationTestsUtils.assert_is_unauthorized(response)
-
-    def test_patching_profile_list_info_without_auth_must_be_failed(self):
-        response = self.patch_profile_info_list({})
-        IntegrationTestsUtils.assert_is_unauthorized(response)
-    
-    def test_creating_profile_info_with_auth_must_be_failed(self):
-        IntegrationTestsUtils.authenticate_with_a_user(self.client)
-        response = self.create_profile_info({})
-        IntegrationTestsUtils.assert_method_is_not_allowed(response)
-
-    def test_deleting_profile_info_list_with_auth_must_be_failed(self):
-        IntegrationTestsUtils.authenticate_with_a_user(self.client)
-        response = self.delete_profile_info_list()
-        IntegrationTestsUtils.assert_method_is_not_allowed(response)
-
-    def test_creating_profile_info_with_admin_auth_must_be_failed(self):
-        IntegrationTestsUtils.authenticate_with_a_user(
-            self.client, is_admin=True)
-        response = self.create_profile_info({})
-        IntegrationTestsUtils.assert_method_is_not_allowed(response)
-
-    def test_deleting_profile_info_list_with_auth_must_be_failed(self):
-        IntegrationTestsUtils.authenticate_with_a_user(
-            self.client, is_admin=True)
-        response = self.delete_profile_info_list()
-        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_retrieving_profile_info_list_with_auth(self):
         (emails, credentials) = \
@@ -137,6 +118,12 @@ class TestProfileInfo(APITestCase):
             authenticate_with_admin=True)
         self.assert_profile_infos_owners(
             response, len(email_list), email_list)
+    
+    def test_patching_profile_info_without_auth_must_be_failed(self):
+        (token, profile_info) = self.retrieve_a_random_profile_info()
+        response = IntegrationTestsUtils.patch_res(self.client,
+            url=profile_info['url'], data=profile_info)
+        IntegrationTestsUtils.assert_is_unauthorized(response)
 
     def test_patching_profile_info_with_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
@@ -146,12 +133,6 @@ class TestProfileInfo(APITestCase):
             url=profile_info['url'], data=updated_profile_info, token=token)
         self.assert_profile_info(response, updated_profile_info)
 
-    def test_patching_profile_info_without_auth_must_be_failed(self):
-        (token, profile_info) = self.retrieve_a_random_profile_info()
-        response = IntegrationTestsUtils.patch_res(self.client,
-            url=profile_info['url'], data=profile_info)
-        IntegrationTestsUtils.assert_is_unauthorized(response)
-
     def test_patching_profile_info_with_admin_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
         updated_profile_info = \
@@ -160,6 +141,13 @@ class TestProfileInfo(APITestCase):
             url=profile_info['url'], 
             data=updated_profile_info, authenticate_with_admin=True)
         self.assert_profile_info(response, updated_profile_info)
+
+    def test_deleting_profile_info_witout_auth_must_be_failed(self):
+        (token, profile_info) = self.retrieve_a_random_profile_info()
+        response = IntegrationTestsUtils.delete_res(
+            self.client,
+            url=profile_info['url'], token=token)
+        IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_deleting_profile_info_with_auth(self):
         (token, profile_info) = self.retrieve_a_random_profile_info()
