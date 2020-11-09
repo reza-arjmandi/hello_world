@@ -1,3 +1,4 @@
+from api.sub_models.profile_info import ProfileInfo
 from rest_framework import permissions
 
 class IsAdminOrReadOnly(permissions.BasePermission):
@@ -34,3 +35,18 @@ class IsOwnerOrAdminOrReadOnly(permissions.BasePermission):
 
         return False
 
+class IsTeacherOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        
+        if request.user.is_superuser:
+            return True
+
+        if not hasattr(request.user, 'ProfileInfo'):
+            return False
+
+        if request.user.ProfileInfo.all()[0].user_type == 'teacher':
+            return True
+
+        return False
