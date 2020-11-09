@@ -70,7 +70,7 @@ class TestProfileInfo(APITestCase):
         (emails, credentials) = \
             IntegrationTestsUtils.create_random_users_credentials(
                 self.client, 1)
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url(),
             token=credentials[0]['json_content']['token'])
         self.assert_profile_infos_owners(response, 1, emails)
@@ -98,7 +98,7 @@ class TestProfileInfo(APITestCase):
         IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_retrieving_profile_info_list_without_auth_must_be_failed(self):
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url())
         IntegrationTestsUtils.assert_is_unauthorized(response)
 
@@ -106,7 +106,7 @@ class TestProfileInfo(APITestCase):
         (emails, credentials) = \
             IntegrationTestsUtils.create_random_users_credentials(
                 self.client, 1)
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url(),
             token=credentials[0]['json_content']['token'])
         self.assert_profile_infos_owners(response, 1, emails)
@@ -114,7 +114,7 @@ class TestProfileInfo(APITestCase):
     def test_retrieving_profile_info_list_with_admin_auth(self):
         (email_list, creds) = \
             IntegrationTestsUtils.create_random_users_credentials(self.client)
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url(),
             authenticate_with_admin=True)
         self.assert_profile_infos_owners(

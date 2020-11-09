@@ -32,9 +32,6 @@ class stream_matcher(BaseMatcher):
 
 class TestStream(APITestCase):
     
-    def setUp(self):
-        self.random_generator = RandomGenerator()
-
     def get_stream_list_url(sel):
         return reverse('stream-list') 
 
@@ -60,10 +57,13 @@ class TestStream(APITestCase):
         return data
 
     def update_stream_with_random_data(self, stream_json):
-        stream_json['title'] = self.random_generator.generate_string(2, 20)
-        stream_json['description'] = self.random_generator.generate_string(
+        stream_json['title'] = \
+            IntegrationTestsUtils.random_generator.generate_string(2, 20)
+        stream_json['description'] = \
+            IntegrationTestsUtils.random_generator.generate_string(
             10, 100)
-        stream_json['stream_url'] = self.random_generator.generate_url()
+        stream_json['stream_url'] = \
+            IntegrationTestsUtils.random_generator.generate_url()
         return stream_json
 
     def generate_random_sterams(self, number=random.randint(2,6)):
@@ -78,7 +78,7 @@ class TestStream(APITestCase):
 
     def generate_some_streams_and_choose_one(self):
         self.generate_random_sterams()
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_stream_list_url())
         return Utils.to_json(response.content)['results'][0]
 
@@ -114,7 +114,7 @@ class TestStream(APITestCase):
 
     def test_retrieving_stream_list_witout_auth_must_not_be_failed(self):
         expected = self.generate_random_sterams()
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_stream_list_url())
         IntegrationTestsUtils.assert_is_ok(response)
         self.assert_streams(response, expected)
@@ -174,7 +174,7 @@ class TestStream(APITestCase):
            url=selected_stream['url'], 
            authenticate_with_admin=True)
         assert_that(response.status_code, equal_to(status.HTTP_204_NO_CONTENT))
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_stream_list_url())
         posts = Utils.to_json(response.content)['results']
         assert_that(selected_stream, not_(is_in(posts)))

@@ -77,13 +77,14 @@ class Utils:
     def retrieve_res(client, url, token=None, authenticate_with_admin=False):
         Utils.clear_client_auth_h(client)
         client.logout()
+        admin_user = None
         if token:
             Utils.set_client_auth_h(client, token)
         if authenticate_with_admin:
-            Utils.authenticate_with_a_user(
+            admin_user = Utils.authenticate_with_a_user(
                 client, is_admin=True)
         response = client.get(url, format='json')
-        return response
+        return (response, admin_user)
 
     def create_res(
         client, url, data, token=None, authenticate_with_admin=False):

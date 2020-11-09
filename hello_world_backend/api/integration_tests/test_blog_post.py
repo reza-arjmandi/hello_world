@@ -87,7 +87,7 @@ class TestBlogPost(APITestCase):
 
     def generate_some_posts_and_choose_one(self):
         self.generate_random_blog_posts()
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_blog_post_list_url())
         return Utils.to_json(response.content)['results'][0]
 
@@ -117,7 +117,7 @@ class TestBlogPost(APITestCase):
 
     def test_retrieving_blog_post_list_witout_auth_must_not_be_failed(self):
         expected = self.generate_random_blog_posts()
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_blog_post_list_url())
         IntegrationTestsUtils.assert_is_ok(response)
         self.assert_blog_posts(response, expected)
@@ -175,7 +175,7 @@ class TestBlogPost(APITestCase):
            url=selected_post['url'], 
            authenticate_with_admin=True)
         assert_that(response.status_code, equal_to(status.HTTP_204_NO_CONTENT))
-        response = IntegrationTestsUtils.retrieve_res(
+        (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_blog_post_list_url())
         posts = Utils.to_json(response.content)['results']
         assert_that(selected_post, not_(is_in(posts)))
