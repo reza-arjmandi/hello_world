@@ -9,7 +9,6 @@ from hamcrest import equal_to
 from hamcrest import contains_inanyorder
 
 from api.integration_tests.utils import Utils as IntegrationTestsUtils
-from utils.test.utils import Utils
 
 class TestUser(APITestCase):
 
@@ -18,7 +17,7 @@ class TestUser(APITestCase):
 
     def assert_users(self, response, email_list):
         IntegrationTestsUtils.assert_is_ok(response)
-        json = Utils.to_json(response.content)
+        json = response.json()
         assert_that(json['count'], equal_to(len(email_list)))
         usernames = [ element['username'] for element in json['results']]
         assert_that(usernames, contains_inanyorder(*email_list))
@@ -30,7 +29,7 @@ class TestUser(APITestCase):
         (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_user_list_url(),
             authenticate_with_admin=True)
-        json = Utils.to_json(response.content)
+        json = response.json()
         return json['results'][0]
         
     def test_creating_user_without_auth_must_be_failed(self):

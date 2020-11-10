@@ -9,7 +9,6 @@ from hamcrest import contains_inanyorder
 from hamcrest import equal_to
 
 from utils.test.random_generator import RandomGenerator
-from utils.test.utils import Utils
 from api.integration_tests.utils import Utils as IntegrationTestsUtils
 
 class TestProfileInfo(APITestCase):
@@ -22,7 +21,7 @@ class TestProfileInfo(APITestCase):
 
     def assert_profile_infos_owners(self, response, numbers, email_list):
         IntegrationTestsUtils.assert_is_ok(response)
-        json = Utils.to_json(response.content)
+        json = response.json()
         assert_that(json['count'], equal_to(numbers))
         ownsers = [ element['owner'] for element in json['results']]
         assert_that(ownsers, contains_inanyorder(*email_list))
@@ -56,7 +55,7 @@ class TestProfileInfo(APITestCase):
 
     def assert_profile_info(self, response, expected_profile_info):
         IntegrationTestsUtils.assert_is_ok(response)
-        json = Utils.to_json(response.content)
+        json = response.json()
         assert_that(json['user_type'], 
             equal_to(expected_profile_info['user_type']))
         assert_that(json['timezone'], 
@@ -75,7 +74,7 @@ class TestProfileInfo(APITestCase):
             token=credentials[0])
         self.assert_profile_infos_owners(response, 1, emails)
         return (credentials[0], 
-            Utils.to_json(response.content)['results'][0])
+            response.json()['results'][0])
 
     def test_creating_profile_info_without_auth_must_be_failed(self):
         (response, admin_user) = IntegrationTestsUtils.create_res(

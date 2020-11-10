@@ -14,7 +14,6 @@ from hamcrest.core.base_matcher import BaseMatcher
 
 from utils.test.random_generator import RandomGenerator
 from api.integration_tests.utils import Utils as IntegrationTestsUtils
-from utils.test.utils import Utils
 
 class stream_matcher(BaseMatcher):
 
@@ -36,7 +35,7 @@ class TestStream(APITestCase):
         return reverse('stream-list') 
 
     def assert_stream(self, response, expected_data):
-        json = Utils.to_json(response.content)
+        json = response.json()
         assert_that(json['title'], equal_to(expected_data['title']))
         assert_that(json['description'], 
             equal_to(expected_data['description']))
@@ -80,10 +79,10 @@ class TestStream(APITestCase):
         self.generate_random_sterams()
         (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_stream_list_url())
-        return Utils.to_json(response.content)['results'][0]
+        return response.json()['results'][0]
 
     def assert_streams(self, response, expected_data):
-        json = Utils.to_json(response.content)
+        json = response.json()
         assert_that(json['count'], equal_to(len(expected_data)))
         matchers = [stream_matcher(data) for data in expected_data]
         assert_that(json['results'], contains_inanyorder(*matchers))
@@ -176,5 +175,5 @@ class TestStream(APITestCase):
         assert_that(response.status_code, equal_to(status.HTTP_204_NO_CONTENT))
         (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_stream_list_url())
-        posts = Utils.to_json(response.content)['results']
+        posts = response.json()['results']
         assert_that(selected_stream, not_(is_in(posts)))

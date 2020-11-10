@@ -58,6 +58,10 @@ class Utils:
         assert_that(response.status_code, 
             equal_to(status.HTTP_200_OK))
     
+    def assert_is_deleted(response):
+        assert_that(response.status_code, 
+            equal_to(status.HTTP_204_NO_CONTENT))
+
     def assert_method_is_not_allowed(response):
         assert_that(response.status_code, 
             equal_to(status.HTTP_405_METHOD_NOT_ALLOWED))
@@ -71,7 +75,7 @@ class Utils:
         if authenticate_with_admin:
             Utils.authenticate_with_a_user(
                 client, is_admin=True)
-        response = client.patch(url, data, format='json')
+        response = client.patch(url, data, format='multipart')
         return response
 
     def retrieve_res(client, url, token=None, authenticate_with_admin=False):
