@@ -44,7 +44,7 @@ class TestUser(APITestCase):
                 self.client, 1)
         (response, admin_user) = IntegrationTestsUtils.create_res(
                 self.client, self.get_user_list_url(),
-            data={}, token=credentials[0]['json_content']['token'])
+            data={}, token=credentials[0])
         IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_creating_user_with_admin_auth_must_be_failed(self):
@@ -64,7 +64,7 @@ class TestUser(APITestCase):
                 self.client, 1)
         (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_user_list_url(),
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         self.assert_users(response, emails)
 
     def test_retrieving_user_list_with_admin_auth(self):
@@ -92,7 +92,7 @@ class TestUser(APITestCase):
         response = IntegrationTestsUtils.delete_res(
             self.client,
             url=selected_user['url'], 
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_deleting_user_with_admin_auth_must_be_failed(self):
@@ -112,7 +112,7 @@ class TestUser(APITestCase):
             self.client,
             url=selected_user['url'], 
             data={}, 
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         IntegrationTestsUtils.assert_method_is_not_allowed(response)
 
     def test_patching_user_witout_auth_must_be_failed(self):

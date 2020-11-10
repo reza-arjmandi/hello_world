@@ -69,9 +69,9 @@ class TestEnglishClass(APITestCase):
                 self.client, 1)
         (response, admin_user) = IntegrationTestsUtils.retrieve_res(
             self.client, self.get_profile_info_list_url(),
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         self.assert_profile_infos_owners(response, 1, emails)
-        return (credentials[0]['json_content']['token'], 
+        return (credentials[0], 
             Utils.to_json(response.content)['results'][0])
 
     def assert_english_class(self, response, expected_data):

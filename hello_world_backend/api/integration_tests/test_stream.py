@@ -101,7 +101,7 @@ class TestStream(APITestCase):
         data = self.generate_random_stream_data()
         (response, admin_user) = IntegrationTestsUtils.create_res(
                 self.client, self.get_stream_list_url(),
-            data=data, token=credentials[0]['json_content']['token'])
+            data=data, token=credentials[0])
         IntegrationTestsUtils.assert_is_forbidden(response)
 
     def test_creating_stream_with_admin_auth(self):
@@ -136,7 +136,7 @@ class TestStream(APITestCase):
             self.client,
             url=selected_stream['url'], 
             data={}, 
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         IntegrationTestsUtils.assert_is_forbidden(response)
 
     def test_patching_stream_with_admin_auth_must_not_be_failed(self):
@@ -164,7 +164,7 @@ class TestStream(APITestCase):
         response = IntegrationTestsUtils.delete_res(
             self.client,
             url=selected_steram['url'], 
-            token=credentials[0]['json_content']['token'])
+            token=credentials[0])
         IntegrationTestsUtils.assert_is_forbidden(response)
 
     def test_deleting_stream_with_admin_auth_must_not_be_failed(self):

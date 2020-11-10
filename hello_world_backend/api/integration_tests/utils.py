@@ -24,10 +24,10 @@ class Utils:
             result = PasswordlessAuthUtils.create_auth_token(
                 client, email, login_token)
             email_list.append(email)
-            credentials.append(result)
             assert_that(result['response'].status_code, 
             equal_to(status.HTTP_201_CREATED))
             assert_that(result['json_content']['token'], has_length(40))
+            credentials.append(result['json_content']['token'])
         return (email_list, credentials)
 
     def clear_client_auth_h(client):
