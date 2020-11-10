@@ -26,13 +26,22 @@ class english_class_matcher(BaseMatcher):
         self.expected = expected
 
     def _matches(self, item):
-        return \
+        result = True
+        if(hasattr(self.expected, 'image')):
+            print('***************************************')
+            response = self.client.get(item['image'], follow=True)
+            result =  result and\
+                FileResponse(self.expected['image'].open()).streaming_content \
+                    == response.streaming_content
+
+        return result and\
             self.expected['title'] == item['title']\
             and self.expected['description'] == item['description']\
             and self.expected['capacity'] == item['capacity']\
             and self.expected['skype_link'] == item['skype_link']\
             and self.expected['date_time'] == \
                 make_naive(parse_datetime(item['date_time']))
+            
 
     def describe_to(self, description):
         pass
