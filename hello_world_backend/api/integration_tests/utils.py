@@ -12,7 +12,9 @@ from hamcrest import contains_inanyorder
 from utils.test.random_generator import RandomGenerator
 from passwordless_auth.integration_tests.utils import Utils as \
     PasswordlessAuthUtils
-
+from api.integration_tests.profile_info_owner_equal_to import \
+    ProfileInfoOwnerEqualTo
+    
 class Utils:
 
     random_generator = RandomGenerator()
@@ -118,13 +120,6 @@ class Utils:
         response = client.delete(url, format='json')
         return response
 
-    def assert_profile_infos_owners(response, numbers, email_list):
-        Utils.assert_is_ok(response)
-        json = response.json()
-        assert_that(json['count'], equal_to(numbers))
-        ownsers = [ element['owner'] for element in json['results']]
-        assert_that(ownsers, contains_inanyorder(*email_list))
-
     def get_profile_info_list_url():
         return reverse('profileinfo-list')
 
@@ -135,6 +130,7 @@ class Utils:
         (response, admin_user) = Utils.retrieve_res(
             client, Utils.get_profile_info_list_url(),
             token=credentials[0])
-        Utils.assert_profile_infos_owners(response, 1, emails)
+        Utils.assert_is_ok(response)
+        assert_that(emails, ProfileInfoOwnerEqualTo(response.json()))
         return (credentials[0], 
             response.json()['results'][0])
