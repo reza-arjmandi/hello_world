@@ -1,5 +1,4 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.authentication import TokenAuthentication
 
@@ -8,8 +7,7 @@ from api.serializers import StreamSerializer
 from api.permissions import IsAdminOrReadOnly
 
 class StreamViewSet(ModelViewSet):
-    authentication_classes = [
-        BasicAuthentication, TokenAuthentication, SessionAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAdminOrReadOnly]
 
     queryset = Stream.objects.all().order_by('-id')

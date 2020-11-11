@@ -2,9 +2,12 @@ import random
 
 from rest_framework import status
 
+from django.urls import reverse
+
 from hamcrest import assert_that
 from hamcrest import equal_to
 from hamcrest import has_length
+from hamcrest import contains_inanyorder
 
 from utils.test.random_generator import RandomGenerator
 from passwordless_auth.integration_tests.utils import Utils as \
@@ -114,3 +117,24 @@ class Utils:
                 client, is_admin=True)
         response = client.delete(url, format='json')
         return response
+
+    def assert_profile_infos_owners(response, numbers, email_list):
+        Utils.assert_is_ok(response)
+        json = response.json()
+        assert_that(json['count'], equal_to(numbers))
+        ownsers = [ element['owner'] for element in json['results']]
+        assert_that(ownsers, contains_inanyorder(*email_list))
+
+    def get_profile_info_list_url():
+        return reverse('profileinfo-list')
+
+    def retrieve_a_random_profile_info(client):
+        (emails, credentials) = \
+            Utils.create_random_users_credentials(
+                client, 1)
+        (response, admin_user) = Utils.retrieve_res(
+            client, Utils.get_profile_info_list_url(),
+            token=credentials[0])
+        Utils.assert_profile_infos_owners(response, 1, emails)
+        return (credentials[0], 
+            response.json()['results'][0])

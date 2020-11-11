@@ -5,7 +5,6 @@ from rest_framework.test import APITestCase
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from django.http import FileResponse
 
 from hamcrest import assert_that
 from hamcrest import equal_to
@@ -13,6 +12,8 @@ from hamcrest import is_in
 from hamcrest import not_
 
 from api.integration_tests.utils import Utils as TestsUtils
+from api.integration_tests.blog_post_equal_to import BlogPostEqualTo
+from api.integration_tests.blog_posts_equal_to import BlogPostsEqualTo
 
 class TestBlogPost(APITestCase):
 
@@ -49,26 +50,7 @@ class TestBlogPost(APITestCase):
                 data=data, authenticate_with_admin=True)
             result[admin_user.username] = data
         return result
-
-    def assert_blog_post(self, json, expected_data):
-        assert_that(json['owner'], is_in(expected_data))
-        expected_elem = expected_data[json['owner']]
-        assert_that(json['title'], equal_to(expected_elem['title']))
-        assert_that(json['snippet'], equal_to(expected_elem['snippet']))
-        assert_that(json['content'], equal_to(expected_elem['content']))
-        response = self.client.get(json['image'], follow=True)
-        if(not hasattr(expected_elem, 'image')):
-            return
-        res = \
-            FileResponse(expected_elem['image'].open())
-        assert_that(response.streaming_content, res.streaming_content)
         
-    def assert_blog_posts(self, response, expected_data):
-        json = response.json()
-        assert_that(json['count'], equal_to(len(expected_data)))
-        for result in json['results']:
-            self.assert_blog_post(result, expected_data)
-
     def update_blog_post_with_random_data(self, blog_post_json):
         blog_post_json['title'] = \
             TestsUtils.random_generator.generate_string(2, 20)
@@ -106,15 +88,15 @@ class TestBlogPost(APITestCase):
             self.client, self.get_blog_post_list_url(),
             data=data, authenticate_with_admin=True)
         TestsUtils.assert_is_created(response)
-        self.assert_blog_post(
-            response.json(), {admin_user.username : data})
+        assert_that({admin_user.username : data}, 
+            BlogPostEqualTo(response.json(), self.client))
 
     def test_retrieving_blog_post_list_witout_auth_must_not_be_failed(self):
         expected = self.generate_random_blog_posts()
         (response, admin_user) = TestsUtils.retrieve_res(
             self.client, self.get_blog_post_list_url())
         TestsUtils.assert_is_ok(response)
-        self.assert_blog_posts(response, expected)
+        assert_that(expected, BlogPostsEqualTo(response, self.client))
 
     def test_patching_blog_post_witout_auth_must_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()
@@ -143,9 +125,8 @@ class TestBlogPost(APITestCase):
            data=updated_json, 
            authenticate_with_admin=True)
         TestsUtils.assert_is_ok(response)
-        self.assert_blog_post(
-            response.json(), 
-            {selected_post['owner']:updated_json})
+        assert_that({selected_post['owner']:updated_json}, 
+            BlogPostEqualTo(response.json(), self.client))
 
     def test_deleting_blog_post_witout_auth_must_be_failed(self):
         selected_post = self.generate_some_posts_and_choose_one()

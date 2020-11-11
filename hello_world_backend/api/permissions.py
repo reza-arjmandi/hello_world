@@ -50,3 +50,17 @@ class IsTeacherOrReadOnly(permissions.BasePermission):
             return True
 
         return False
+    
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        
+        if not hasattr(request.user, 'ProfileInfo'):
+            return False
+
+        if request.user.is_superuser \
+            or (request.user.ProfileInfo.all()[0].user_type == 'teacher' \
+                and request.user == obj.owner):
+            return True
+
+        return False

@@ -1,4 +1,3 @@
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -13,8 +12,7 @@ from api.permissions import IsAdminOrOwner
 
 class ProfileInfoViewSet(
     ListModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
-    authentication_classes = [
-        BasicAuthentication, TokenAuthentication, SessionAuthentication]
+    authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminOrOwner]
     
     queryset = ProfileInfo.objects.all()
