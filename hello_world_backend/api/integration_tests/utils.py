@@ -1,8 +1,10 @@
 import random
+import os
 
 from rest_framework import status
 
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from hamcrest import assert_that
 from hamcrest import equal_to
@@ -125,12 +127,38 @@ class Utils:
 
     def retrieve_a_random_profile_info(client):
         (emails, credentials) = \
-            Utils.create_random_users_credentials(
-                client, 1)
+            Utils.create_random_users_credentials(client, 1)
         (response, admin_user) = Utils.retrieve_res(
-            client, Utils.get_profile_info_list_url(),
-            token=credentials[0])
+            client, Utils.get_profile_info_list_url(), token=credentials[0])
         Utils.assert_is_ok(response)
         assert_that(emails, ProfileInfoOwnerEqualTo(response.json()))
-        return (credentials[0], 
-            response.json()['results'][0])
+        return (credentials[0], response.json()['results'][0])
+
+    def get_english_class_list_url():
+        return reverse('englishclass-list')
+
+    def generate_random_english_class_data(temp_images):
+        img_path = f'{Utils.random_generator.generate_string(2, 10)}.jpg'
+        temp_images.append(img_path)
+        img_content = open(os.path.join('photos', '0.jpg'), 'rb').read()
+        return  {
+            'title': Utils.random_generator.generate_string(2, 20),
+            'date_time' : Utils.random_generator.generate_date_time(),
+            'skype_link' : Utils.random_generator.generate_string(10, 20),
+            'image' : SimpleUploadedFile(name=img_path, content=img_content),
+            'capacity': random.randint(2, 5),
+            'description': Utils.random_generator.generate_string(10, 100),
+            }
+
+    def generate_random_english_classes(
+        client, temp_images, number=random.randint(2,6)):
+        result = []
+        responses = []
+        for i in range(number):
+            data = Utils.generate_random_english_class_data(temp_images)
+            (response, ad) = Utils.create_res(
+                client, Utils.get_english_class_list_url(),
+                data=data, authenticate_with_admin=True)
+            result.append(data)
+            responses.append(response.json())
+        return (result, responses)

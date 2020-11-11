@@ -13,6 +13,7 @@ class ProfileInfoEqualTo(BaseMatcher):
             element['skype_link']
         result = result and self.captured['is_completed'] ==\
             element['is_completed']
+        result = result and self.captured['classes'] == element['classes']
         return result
 
     def describe_to(self, description):

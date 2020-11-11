@@ -1,9 +1,9 @@
 import random
+import os
 
 from rest_framework.test import APITestCase
 
 from hamcrest import assert_that
-from hamcrest import equal_to
 
 from utils.test.random_generator import RandomGenerator
 from api.integration_tests.utils import Utils as TestsUtils
@@ -15,8 +15,17 @@ class TestProfileInfo(APITestCase):
     
     def setUp(self):
         self.random_generator = RandomGenerator()
+        self.temp_images=[]
+
+    def tearDown(self):
+        for image in self.temp_images:
+            path = os.path.join('photos', image)
+            if os.path.exists(path): 
+                os.remove(path)
 
     def update_profile_info_with_random_data(self, profile_info_json):
+        (ex, classes_result) = TestsUtils.generate_random_english_classes(
+            self.client, self.temp_images)
         profile_info_json['user_type'] = \
             random.choice(['learner', 'teacher'])
         profile_info_json['timezone'] = \
@@ -25,8 +34,8 @@ class TestProfileInfo(APITestCase):
             self.random_generator.generate_url()
         profile_info_json['is_completed'] = \
             self.random_generator.generate_bool()
+        profile_info_json['classes'] = [elem['url'] for elem in classes_result]
         del profile_info_json['avatar']
-        del profile_info_json['classes']
         return profile_info_json
 
     def retrieve_and_update_a_profile_info(self):
