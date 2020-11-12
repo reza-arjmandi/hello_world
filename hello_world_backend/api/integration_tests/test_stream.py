@@ -1,15 +1,12 @@
 import random
 
 from rest_framework.test import APITestCase
-from rest_framework import status
 
 from django.urls import reverse
 
 from hamcrest import assert_that
-from hamcrest import equal_to
 from hamcrest import is_in
 from hamcrest import not_
-from hamcrest import contains_inanyorder
 
 from api.integration_tests.utils import Utils as TestsUtils
 from api.integration_tests.stream_equal_to import StreamEqualTo

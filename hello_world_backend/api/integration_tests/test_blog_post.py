@@ -7,7 +7,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 
 from hamcrest import assert_that
-from hamcrest import equal_to
 from hamcrest import is_in
 from hamcrest import not_
 

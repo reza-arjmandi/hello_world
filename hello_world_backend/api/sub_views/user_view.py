@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 
 from api.serializers import UserSerializer
+from api.permissions import IsAdminOrOwner
 
 class UserViewSet(ReadOnlyModelViewSet):
     queryset = User.objects.all()

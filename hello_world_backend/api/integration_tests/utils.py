@@ -9,7 +9,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from hamcrest import assert_that
 from hamcrest import equal_to
 from hamcrest import has_length
-from hamcrest import contains_inanyorder
 
 from utils.test.random_generator import RandomGenerator
 from passwordless_auth.integration_tests.utils import Utils as \
