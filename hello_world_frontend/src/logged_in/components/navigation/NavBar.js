@@ -166,6 +166,8 @@ function NavBar(props) {
   useEffect(() => {
     fetch_profile_avatar(profile_info.avatar);
   }, [
+    fetch_profile_avatar,
+    profile_info.avatar
   ]);
 
   const menuItems = [

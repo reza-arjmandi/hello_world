@@ -2,19 +2,19 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Typography, Box } from "@material-ui/core";
 import SettingsArea from "./SettingsArea";
-import UserDataArea from "./UserDataArea";
+// import UserDataArea from "./UserDataArea";
 import AccountInformationArea from "./AccountInformationArea";
-import StatisticsArea from "./StatisticsArea";
+// import StatisticsArea from "./StatisticsArea";
 
 function Dashboard(props) {
   const {
     selectDashboard,
-    CardChart,
-    statistics,
+    // CardChart,
+    // statistics,
     toggleAccountActivation,
     pushMessageToSnackbar,
-    targets,
-    setTargets,
+    // targets,
+    // setTargets,
     isAccountActivated,
     profile_info,
     update_profile_info,

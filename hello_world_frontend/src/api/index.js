@@ -2,59 +2,6 @@ import * as actions from '../actions';
 
 const api_address = 'http://127.0.0.1:8000';
 
-
-export function add_new_resource(resource_name, new_resource) {
-  
-  return function (dispatch) {
-
-    dispatch(actions.insert_resource_request())
-
-    return fetch(`${api_address}/${resource_name}/`, {
-      method: 'POST',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(new_resource)
-    })
-    .then(
-      response => response.json()
-    )
-    .then(
-      json => {
-        dispatch(actions.insert_resource_success())
-        // dispatch(fetch_logs())
-      }
-    ).catch(error => 
-      dispatch(actions.insert_resource_failure(error))
-    );
-  }
-}
-
-export function fetch_menu_list() {
-  
-  return function (dispatch) {
-
-    dispatch(actions.fetch_menu_list_request())
-
-    return fetch(`${api_address}/`)
-      .then(
-        response => response.json()
-      )
-      .then(json => {
-        dispatch(actions.fetch_menu_list_success(json))
-        // dispatch(fetch_server_status(json))
-      }
-          
-      ).catch(error => 
-        dispatch(actions.fetch_menu_list_failure(error))
-      );
-  }
-}
-
 export function fetch_menu_resources(resource_link) {
   
   return function (dispatch) {
@@ -67,40 +14,10 @@ export function fetch_menu_resources(resource_link) {
       )
       .then(json => {
         dispatch(actions.fetch_resources_success(json))
-        // dispatch(fetch_server_status(json))
       }
           
       ).catch(error => 
         dispatch(actions.fetch_resources_failure(error))
-      );
-  }
-}
-
-export function fetch_menu_resources_options(resource_link) {
-  
-  return function (dispatch) {
-
-    dispatch(actions.fetch_menu_resources_options_request())
-
-    return fetch(resource_link, {
-      method: 'OPTIONS',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    })
-      .then(
-        response => response.json()
-      )
-      .then(json => {
-        dispatch(actions.fetch_menu_resources_options_success(json))
-      }
-          
-      ).catch(error => 
-        dispatch(actions.fetch_menu_resources_options_failure(error))
       );
   }
 }
@@ -122,10 +39,10 @@ export function login(email) {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
             response.json().then(json => dispatch(actions.login_request_success(json)));
         }
-        else if(response['status'] == 500) {
+        else if(response['status'] === 500) {
             dispatch(actions.login_request_success({result: "Server Internal Error"}));
         }
         else{
@@ -159,7 +76,7 @@ export function send_verification_code(email, token) {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(json => dispatch(actions.email_verification_request_success(json)));
         }
         else {
@@ -198,7 +115,7 @@ export function send_profile_info(
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(json => dispatch(actions.send_profile_info_request_success(json)));
         }
         else {
@@ -216,7 +133,6 @@ export function fetch_profile_info() {
   return function (dispatch, getState) {
 
     let state = getState();
-    const menu_list = state.MenuList; 
     const token = state.AuthToken; 
 
     dispatch(actions.fetch_profile_info_request())
@@ -234,7 +150,7 @@ export function fetch_profile_info() {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(json => dispatch(actions.fetch_profile_info_request_success(json)));
         }
         else {
@@ -270,7 +186,7 @@ export function fetch_profile_avatar(avatar) {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(json => dispatch(actions.fetch_profile_avatar_request_success(json)));
         }
         else {
@@ -302,7 +218,7 @@ export function fetch_blog_posts() {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(
             json => dispatch(actions.fetch_blog_posts_request_success(json)));
         }
@@ -335,7 +251,7 @@ export function fetch_videos() {
     })
     .then(
       response => {
-        if(response['status'] == 200) {
+        if(response['status'] === 200) {
           response.json().then(
             json => dispatch(actions.fetch_videos_request_success(json)));
         }

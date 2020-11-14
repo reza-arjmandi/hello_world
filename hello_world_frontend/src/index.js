@@ -12,10 +12,6 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import {reactLocalStorage} from 'reactjs-localstorage';
 
-import { 
-  fetch_menu_list,
-} from './api';
-
 import {
   set_auth_token,
   set_email,
@@ -30,8 +26,6 @@ const store = createStore(
   applyMiddleware(
     thunkMiddleware
     )));
-
-store.dispatch(fetch_menu_list());
 
 const token = reactLocalStorage.get("token", null, true)
 store.dispatch(set_auth_token(token));

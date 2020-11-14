@@ -1,11 +1,13 @@
-import React, { memo, useCallback, useState, useEffect, Fragment } from "react";
+import React, { 
+  memo, useCallback, useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import Routing from "./Routing";
 import NavBar from "./navigation/NavBar";
-import ConsecutiveSnackbarMessages from "../../shared/components/ConsecutiveSnackbarMessages";
+import ConsecutiveSnackbarMessages 
+  from "../../shared/components/ConsecutiveSnackbarMessages";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
 import LazyLoadAddBalanceDialog from "./subscription/LazyLoadAddBalanceDialog";
 
@@ -80,7 +82,7 @@ function Main(props) {
       targets.push(target);
     }
     setTargets(targets);
-  }, [setTargets]);
+  }, [setTargets, persons]);
 
   const openAddBalanceDialog = useCallback(() => {
     setIsAddBalanceDialogOpen(true);
@@ -199,7 +201,7 @@ function Main(props) {
     }
     messages.reverse();
     setMessages(messages);
-  }, [setMessages]);
+  }, [setMessages, persons]);
 
   const fetchRandomPosts = useCallback(() => {
     shuffle(persons);
@@ -222,7 +224,7 @@ function Main(props) {
     }
     posts.reverse();
     setPosts(posts);
-  }, [setPosts]);
+  }, [setPosts, persons]);
 
   const toggleAccountActivation = useCallback(() => {
     if (pushMessageToSnackbar) {
@@ -331,6 +333,7 @@ function Main(props) {
     [
       profile_info,
       fetch_profile_info,
+      history
     ]
   );
 

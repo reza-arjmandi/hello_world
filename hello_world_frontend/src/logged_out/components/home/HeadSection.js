@@ -15,7 +15,7 @@ import {
 import Typed from 'react-typed';
 
 import WaveBorder from "../../../shared/components/WaveBorder";
-import ZoomImage from "../../../shared/components/ZoomImage";
+// import ZoomImage from "../../../shared/components/ZoomImage";
 import ReactPlayer from 'react-player'
 
 const styles = (theme) => ({

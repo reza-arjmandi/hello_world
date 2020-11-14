@@ -12,7 +12,6 @@ import Pace from "./shared/components/Pace";
 const LoggedOutComponent = lazy(() => import('./containers/logged_out/components/Main'));
 const LoggedInComponent = lazy(() => import('./containers/logged_in/components/Main'));
 
-
 function App() {
   return (
     <BrowserRouter>

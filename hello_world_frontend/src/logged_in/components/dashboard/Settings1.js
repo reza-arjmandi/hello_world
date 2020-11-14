@@ -14,7 +14,7 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Box,
+  // Box,
   withStyles,
 } from "@material-ui/core";
 
@@ -55,12 +55,12 @@ function Settings1(props) {
     update_profile_info,
   } = props;
   const [isSaveLoading, setIsSaveLoading] = useState(false);
-  const [isDefaultLoading, setIsDefaultLoading] = useState(false);
+  // const [isDefaultLoading, setIsDefaultLoading] = useState(false);
   const [user_type, set_user_type] = useState(profile_info.user_type);
   const [timezone, set_timezone] = useState(profile_info.timezone);
-  const [option3, setOption3] = useState("None");
-  const [option4, setOption4] = useState("None");
-  const [option5, setOption5] = useState("2 Days");
+  // const [option3, setOption3] = useState("None");
+  // const [option4, setOption4] = useState("None");
+  // const [option5, setOption5] = useState("2 Days");
   const [skype_link, set_skype_link] = useState(profile_info.skype_link);
 
   const handleChange = useCallback(
@@ -95,36 +95,36 @@ function Settings1(props) {
           throw new Error("No branch selected in switch statement.");
       }
     },
-    [setOption3, setOption4, setOption5, set_skype_link]
+    [set_skype_link]
   );
 
-  const resetState = useCallback(() => {
-    setIsSaveLoading(false);
-    setIsDefaultLoading(false);
-    // setOption1("None");
-    // setOption2("None");
-    // setOption3("None");
-    // setOption4("None");
-    // setOption5("2 Days");
-    // set_skype_link(7500);
-  }, [
-    setIsSaveLoading,
-    setIsDefaultLoading,
-    setOption3,
-    setOption4,
-    setOption5,
-    set_skype_link,
-  ]);
+  // const resetState = useCallback(() => {
+  //   setIsSaveLoading(false);
+  //   setIsDefaultLoading(false);
+  //   // setOption1("None");
+  //   // setOption2("None");
+  //   // setOption3("None");
+  //   // setOption4("None");
+  //   // setOption5("2 Days");
+  //   // set_skype_link(7500);
+  // }, [
+  //   setIsSaveLoading,
+  //   setIsDefaultLoading,
+  //   // setOption3,
+  //   // setOption4,
+  //   // setOption5,
+  //   // set_skype_link,
+  // ]);
 
-  const onSetDefault = useCallback(() => {
-    setIsDefaultLoading(true);
-    setTimeout(() => {
-      pushMessageToSnackbar({
-        text: "Your settings have been reset to default",
-      });
-      resetState();
-    }, 1500);
-  }, [pushMessageToSnackbar, resetState]);
+  // const onSetDefault = useCallback(() => {
+  //   setIsDefaultLoading(true);
+  //   setTimeout(() => {
+  //     pushMessageToSnackbar({
+  //       text: "Your settings have been reset to default",
+  //     });
+  //     resetState();
+  //   }, 1500);
+  // }, [pushMessageToSnackbar, resetState]);
 
   const onSubmit = useCallback(() => {
     update_profile_info(
@@ -146,7 +146,10 @@ function Settings1(props) {
     pushMessageToSnackbar, 
     skype_link,
     user_type,
-    timezone
+    timezone,
+    profile_info.avatar,
+    profile_info.url,
+    update_profile_info,
   ]);
 
   const handle_change_timezone = (timezoneName) => {
@@ -302,7 +305,7 @@ function Settings1(props) {
         <Button
           variant="contained"
           color="secondary"
-          disabled={isSaveLoading || isDefaultLoading}
+          disabled={isSaveLoading }
           onClick={onSubmit}
         >
           Save {isSaveLoading && <ButtonCircularProgress />}

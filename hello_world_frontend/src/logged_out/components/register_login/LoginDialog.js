@@ -1,13 +1,13 @@
-import React, { useState, useCallback, useRef, Fragment } from "react";
+import React, { useCallback, useRef, Fragment } from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+// import classNames from "classnames";
 import { withRouter } from "react-router-dom";
 import {
   TextField,
   Button,
-  Checkbox,
+  // Checkbox,
   Typography,
-  FormControlLabel,
+  // FormControlLabel,
   withStyles,
 } from "@material-ui/core";
 import Stepper from '@material-ui/core/Stepper';
@@ -15,7 +15,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 import FormDialog from "../../../shared/components/FormDialog";
-import HighlightedInformation from "../../../shared/components/HighlightedInformation";
+// import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 // import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
 
@@ -45,27 +45,27 @@ function getSteps() {
   return ['Submit Email', 'Verify Email'];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return 'Enter your email address...';
-    case 1:
-      return 'Enter code...';
-    default:
-      return 'Unknown step';
-  }
-}
+// function getStepContent(step) {
+//   switch (step) {
+//     case 0:
+//       return 'Enter your email address...';
+//     case 1:
+//       return 'Enter code...';
+//     default:
+//       return 'Unknown step';
+//   }
+// }
 
-function getStepLabel(step) {
-  switch (step) {
-    case 0:
-      return 'Email';
-    case 1:
-      return 'Code';
-    default:
-      return null;
-  }
-}
+// function getStepLabel(step) {
+//   switch (step) {
+//     case 0:
+//       return 'Email';
+//     case 1:
+//       return 'Code';
+//     default:
+//       return null;
+//   }
+// }
 
 function LoginDialog(props) {
   const {
@@ -73,9 +73,9 @@ function LoginDialog(props) {
     history,
     classes,
     onClose,
-    openChangePasswordDialog,
+    // openChangePasswordDialog,
     status,
-    loginCodeStatus,
+    // loginCodeStatus,
     setLoginCodeStatus,
     login,
     send_verification_code,
@@ -85,7 +85,7 @@ function LoginDialog(props) {
     email,
     open_profile_menu,
   } = props;
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  // const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginEmail = useRef();
   const loginCode = useRef();
   // const loginPassword = useRef();
@@ -104,7 +104,10 @@ function LoginDialog(props) {
         history.push("/c")
       }, 150);
     }
-  }, [loginEmail, loginCode, login_step, history, setStatus]);
+  }, [loginEmail, loginCode, login_step, history, setStatus, email, 
+    login, onClose, open_profile_menu, send_verification_code, 
+    setLoginCodeStatus
+  ]);
 
   const steps = getSteps();
 

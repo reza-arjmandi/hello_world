@@ -33,8 +33,6 @@ function DialogSelector(props) {
     onClose();
   }, [onClose, setLoginStatus, setRegisterStatus, setLoginCodeStatus]);
 
-  
-
   const printDialog = useCallback(() => {
     switch (dialogOpen) {
       case "register":
@@ -87,6 +85,14 @@ function DialogSelector(props) {
     registerStatus,
     setLoginStatus,
     setRegisterStatus,
+    email,
+    login,
+    loginCodeStatus,
+    login_request_is_fetching,
+    login_request_result,
+    login_step,
+    open_profile_menu,
+    send_verification_code,
   ]);
 
   if((login_step === 1 || login_step === 2)  && dialogOpen=== "login") {

@@ -101,7 +101,7 @@ function Main({
         history.push("/c");
       }, 150);
     }
-  }, [is_login, history, open_profile_menu]);
+  }, [is_login, history, open_profile_menu, fetch_blog_posts, fetch_videos]);
 
   return (
     <div className={classes.wrapper}>

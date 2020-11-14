@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Main from '../../../logged_out/components/Main'
 
-import dummyBlogPosts from "../../../stories/dummy_data/blogPosts";
+// import dummyBlogPosts from "../../../stories/dummy_data/blogPosts";
 
 import { 
     fetch_blog_posts, 
@@ -13,9 +13,9 @@ import {
 } from '../../../api';
 
 import { 
-    close_login_dialog,
+    // close_login_dialog,
     clear_login_request_result,
-    click_menu,
+    // click_menu,
     change_page_number,
  } from '../../../actions';
 
