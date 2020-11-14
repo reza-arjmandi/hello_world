@@ -76,7 +76,7 @@ export function send_verification_code(email, token) {
     })
     .then(
       response => {
-        if(response['status'] === 200) {
+        if(response['status'] === 201) {
           response.json().then(json => dispatch(actions.email_verification_request_success(json)));
         }
         else {
@@ -93,7 +93,7 @@ export function send_profile_info(
   profile_url, user_type, timezone, skype_link, avatar) {
 
   const post_data = {
-    user_type, timezone, skype_link, is_completed: true, avatar};
+    user_type, timezone, skype_link, is_completed: true};
   
   return function (dispatch, getState) {
 
@@ -102,7 +102,7 @@ export function send_profile_info(
     dispatch(actions.send_profile_info_request())
 
     return fetch(`${profile_url}`, {
-      method: 'PUT',
+      method: 'PATCH',
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {

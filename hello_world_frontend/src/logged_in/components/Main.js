@@ -258,10 +258,10 @@ function Main(props) {
     setHasFetchedCardChart,
   ]);
 
-  const selectPosts = useCallback(() => {
+  const selectClasses = useCallback(() => {
     smoothScrollTop();
-    document.title = "HelloWorld - Posts";
-    setSelectedTab("Posts");
+    document.title = "HelloWorld - Classes";
+    setSelectedTab("Classes");
     if (!hasFetchedEmojiTextArea) {
       setHasFetchedEmojiTextArea(true);
       import("../../shared/components/EmojiTextArea").then((Component) => {
@@ -394,7 +394,7 @@ function Main(props) {
           posts={posts}
           targets={targets}
           selectDashboard={selectDashboard}
-          selectPosts={selectPosts}
+          selectClasses={selectClasses}
           selectSubscription={selectSubscription}
           openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}

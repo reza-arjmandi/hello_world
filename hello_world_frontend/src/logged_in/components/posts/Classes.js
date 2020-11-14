@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import PostContent from "./PostContent";
 import AddPost from "./AddPost";
 
-function Posts(props) {
+function Classes(props) {
   const {
-    selectPosts,
+    selectClasses,
     EmojiTextArea,
     ImageCropper,
     Dropzone,
@@ -25,8 +25,8 @@ function Posts(props) {
   }, [setIsAddPostPaperOpen]);
 
   useEffect(() => {
-    selectPosts();
-  }, [selectPosts]);
+    selectClasses();
+  }, [selectClasses]);
 
   if (isAddPostPaperOpen) {
     return <AddPost
@@ -46,7 +46,7 @@ function Posts(props) {
   />
 }
 
-Posts.propTypes = {
+Classes.propTypes = {
   EmojiTextArea: PropTypes.elementType,
   ImageCropper: PropTypes.elementType,
   Dropzone: PropTypes.elementType,
@@ -57,4 +57,4 @@ Posts.propTypes = {
   selectPosts: PropTypes.func.isRequired,
 };
 
-export default Posts;
+export default Classes;

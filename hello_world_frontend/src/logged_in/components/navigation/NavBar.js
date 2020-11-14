@@ -26,7 +26,7 @@ import {
   withWidth,
 } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ImageIcon from "@material-ui/icons/Image";
+import ClassIcon from '@material-ui/icons/Class';
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -188,19 +188,19 @@ function NavBar(props) {
       },
     },
     {
-      link: "/c/posts",
-      name: "Posts",
+      link: "/c/classes",
+      name: "Classes",
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
-          <ImageIcon
+          <ClassIcon
             className={
-              selectedTab === "Posts" ? classes.textPrimary : "text-white"
+              selectedTab === "Classes" ? classes.textPrimary : "text-white"
             }
             fontSize="small"
           />
         ),
-        mobile: <ImageIcon className="text-white" />,
+        mobile: <ClassIcon className="text-white" />,
       },
     },
     {

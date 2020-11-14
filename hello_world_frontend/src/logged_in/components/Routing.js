@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import Dashboard from "./dashboard/Dashboard";
-import Posts from "./posts/Posts";
+import Classes from "./posts/Classes";
 import Subscription from "./subscription/Subscription";
 import Configuration from "./configuration/Configuration";
 import PropsRoute from "../../shared/components/PropsRoute";
@@ -61,7 +61,7 @@ function Routing(props) {
     setPosts,
     isAccountActivated,
     selectDashboard,
-    selectPosts,
+    selectClasses,
     selectSubscription,
     openAddBalanceDialog,
     profile_info, 
@@ -72,8 +72,8 @@ function Routing(props) {
     <div className={classes.wrapper}>
       <Switch>
         <PropsRoute
-          path="/c/posts"
-          component={Posts}
+          path="/c/classes"
+          component={Classes}
           EmojiTextArea={EmojiTextArea}
           ImageCropper={ImageCropper}
           Dropzone={Dropzone}
@@ -81,7 +81,7 @@ function Routing(props) {
           pushMessageToSnackbar={pushMessageToSnackbar}
           posts={posts}
           setPosts={setPosts}
-          selectPosts={selectPosts}
+          selectClasses={selectClasses}
         />
         <PropsRoute
           path="/c/subscription"

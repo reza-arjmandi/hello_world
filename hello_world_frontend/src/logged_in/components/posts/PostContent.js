@@ -117,14 +117,14 @@ function PostContent(props) {
   return (
     <Paper>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6">Your Posts</Typography>
+        <Typography variant="h6">English Classes</Typography>
         <Button
           variant="contained"
           color="secondary"
           onClick={openAddPostModal}
           disableElevation
         >
-          Add Post
+          Add English Class
         </Button>
       </Toolbar>
       <Divider />
