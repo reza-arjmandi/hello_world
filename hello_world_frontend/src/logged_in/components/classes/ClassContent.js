@@ -26,13 +26,14 @@ const styles = {
 
 const rowsPerPage = 25;
 
-function PostContent(props) {
+function ClassContent(props) {
   const {
     pushMessageToSnackbar,
     setPosts,
     posts,
     openAddPostModal,
     classes,
+    profile_info, 
   } = props;
   const [page, setPage] = useState(0);
   const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState(false);
@@ -81,14 +82,13 @@ function PostContent(props) {
       return (
         <Box p={1}>
           <Grid container spacing={1}>
-            {posts
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {posts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((post) => (
                 <Grid item xs={6} sm={4} md={3} key={post.id}>
                   <SelfAligningImage
                     src={post.image}
-                    title={post.name}
-                    timeStamp={post.timestamp}
+                    title={post.title}
+                    timeStamp={post.date_time}
                     options={[
                       {
                         name: "Delete",
@@ -118,14 +118,16 @@ function PostContent(props) {
     <Paper>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6">English Classes</Typography>
-        <Button
+        { profile_info && profile_info.user_type === "teacher" &&
+          <Button
           variant="contained"
           color="secondary"
           onClick={openAddPostModal}
           disableElevation
-        >
-          Add English Class
-        </Button>
+          >
+            Add English Class
+          </Button>
+        }
       </Toolbar>
       <Divider />
       {printImageGrid()}
@@ -161,7 +163,7 @@ function PostContent(props) {
   );
 }
 
-PostContent.propTypes = {
+ClassContent.propTypes = {
   openAddPostModal: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -169,4 +171,4 @@ PostContent.propTypes = {
   pushMessageToSnackbar: PropTypes.func,
 };
 
-export default withStyles(styles)(PostContent);
+export default withStyles(styles)(ClassContent);

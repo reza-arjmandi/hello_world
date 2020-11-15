@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import Dashboard from "./dashboard/Dashboard";
-import Classes from "./posts/Classes";
+import Classes from "./classes/Classes";
 import Subscription from "./subscription/Subscription";
 import Configuration from "./configuration/Configuration";
 import PropsRoute from "../../shared/components/PropsRoute";
@@ -83,6 +83,7 @@ function Routing(props) {
           posts={posts}
           setPosts={setPosts}
           selectClasses={selectClasses}
+          profile_info={profile_info}
         />
         <PropsRoute
           path="/c/subscription"

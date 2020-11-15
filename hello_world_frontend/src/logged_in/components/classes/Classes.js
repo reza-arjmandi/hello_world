@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import PostContent from "./PostContent";
-import AddPost from "./AddPost";
+import ClassContent from "./ClassContent";
+import AddPost from "./AddClass";
 
 function Classes(props) {
   const {
@@ -13,6 +13,7 @@ function Classes(props) {
     pushMessageToSnackbar,
     posts,
     setPosts,
+    profile_info,
   } = props;
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
 
@@ -38,11 +39,12 @@ function Classes(props) {
       pushMessageToSnackbar={pushMessageToSnackbar}
     />
   }
-  return <PostContent
+  return <ClassContent
     openAddPostModal={openAddPostModal}
     posts={posts}
     setPosts={setPosts}
     pushMessageToSnackbar={pushMessageToSnackbar}
+    profile_info={profile_info}
   />
 }
 

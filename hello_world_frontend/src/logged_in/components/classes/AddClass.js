@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Button, Box } from "@material-ui/core";
 import ActionPaper from "../../../shared/components/ActionPaper";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
-import AddPostOptions from "./AddPostOptions";
+import AddClassOptions from "./AddClassOptions";
 
-function AddPost(props) {
+function AddClass(props) {
   const {
     pushMessageToSnackbar,
     Dropzone,
@@ -84,7 +84,7 @@ function AddPost(props) {
         helpPadding
         maxWidth="md"
         content={
-          <AddPostOptions
+          <AddClassOptions
             EmojiTextArea={EmojiTextArea}
             Dropzone={Dropzone}
             files={files}
@@ -121,7 +121,7 @@ function AddPost(props) {
   );
 }
 
-AddPost.propTypes = {
+AddClass.propTypes = {
   pushMessageToSnackbar: PropTypes.func,
   onClose: PropTypes.func,
   Dropzone: PropTypes.elementType,
@@ -130,4 +130,4 @@ AddPost.propTypes = {
   ImageCropper: PropTypes.elementType,
 };
 
-export default AddPost;
+export default AddClass;

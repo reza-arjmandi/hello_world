@@ -76,7 +76,7 @@ const styles = (theme) => ({
 
 const inputOptions = ["None", "Slow", "Normal", "Fast"];
 
-function AddPostOptions(props) {
+function AddClassOptions(props) {
   const {
     Dropzone,
     classes,
@@ -260,7 +260,7 @@ function AddPostOptions(props) {
   );
 }
 
-AddPostOptions.propTypes = {
+AddClassOptions.propTypes = {
   onEmojiTextareaChange: PropTypes.func,
   DateTimePicker: PropTypes.elementType,
   EmojiTextArea: PropTypes.elementType,
@@ -279,4 +279,4 @@ AddPostOptions.propTypes = {
   onChangeUploadAt: PropTypes.func,
 };
 
-export default withStyles(styles, { withTheme: true })(AddPostOptions);
+export default withStyles(styles, { withTheme: true })(AddClassOptions);

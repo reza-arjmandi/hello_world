@@ -219,6 +219,13 @@ function Main(props) {
         src: person.src,
         timestamp: curUnix,
         name: person.name,
+
+        owner: "example@site.com",
+        title: "exmple title",
+        date_time: curUnix,
+        image: person.src,
+        capacity: 2,
+        description: "description example",
       };
       curUnix += oneDaySeconds;
       posts.push(post);
