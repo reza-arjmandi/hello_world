@@ -1,10 +1,19 @@
 import { connect } from 'react-redux';
+import {reactLocalStorage} from 'reactjs-localstorage';
+
 import Main from '../../../logged_in/components/Main'
+
+import {
+    set_auth_token,
+    set_email,
+    remove_profile_info,
+}
+from "../../../actions"
+
 import {
     send_profile_info,
     fetch_profile_info,
     fetch_profile_avatar,
-    
 } from "../../../api"
 
 import persons from "../../../stories/dummy_data/persons";
@@ -28,6 +37,15 @@ const map_dispatch_to_props = dispatch => ({
     },
     fetch_profile_avatar: (avatar) => {
         dispatch(fetch_profile_avatar(avatar));
+    },
+    log_out: () => {
+        reactLocalStorage.remove("token")
+        dispatch(set_auth_token(null));
+
+        reactLocalStorage.remove("email")
+        dispatch(set_email(null));
+
+        dispatch(remove_profile_info());
     },
 });
 

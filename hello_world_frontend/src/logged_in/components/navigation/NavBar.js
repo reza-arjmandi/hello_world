@@ -141,6 +141,7 @@ function NavBar(props) {
     profile_info,
     fetch_profile_avatar,
     profile_avatar,
+    log_out,
   } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
@@ -224,6 +225,7 @@ function NavBar(props) {
     {
       link: "/",
       name: "Logout",
+      onClick: log_out,
       icon: {
         desktop: (
           <PowerSettingsNewIcon className="text-white" fontSize="small" />

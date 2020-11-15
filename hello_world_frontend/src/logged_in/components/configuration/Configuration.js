@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -87,9 +88,11 @@ function getStepContent(
   }
 }
 
-export default function Configuration({
+function Configuration({
+  history,
   profile_info, 
   send_profile_info_handle,
+  log_out,
   }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -111,6 +114,11 @@ export default function Configuration({
       handle_finish()
     }
     setActiveStep(activeStep + 1);
+  };
+
+  const handleExit = () =>  {
+    log_out();
+    history.push("/");
   };
 
   const handleBack = () => {
@@ -163,6 +171,15 @@ export default function Configuration({
                   skype_link, 
                   )}
                 <div className={classes.buttons}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleExit}
+                    className={classes.button}
+                  >
+                    Exit
+                  </Button>
+                  
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
@@ -186,3 +203,5 @@ export default function Configuration({
     </React.Fragment>
   );
 }
+
+export default withRouter(Configuration);

@@ -67,6 +67,7 @@ function Routing(props) {
     profile_info, 
     send_profile_info_handle,
     update_profile_info,
+    log_out,
   } = props;
   return (
     <div className={classes.wrapper}>
@@ -96,6 +97,7 @@ function Routing(props) {
           component={Configuration}
           profile_info={profile_info} 
           send_profile_info_handle={send_profile_info_handle}
+          log_out={log_out}
         />
         <PropsRoute
           path=""

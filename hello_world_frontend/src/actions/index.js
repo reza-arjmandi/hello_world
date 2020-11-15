@@ -337,3 +337,8 @@ export const fetch_videos_request_failure = (error) => ({
     description: 'Fetching videos is failed.',
     error
 });
+
+export const remove_profile_info = () => ({ 
+    type: types.REMOVE_PROFILE_INFO,
+    description: 'Removing profile info.',
+});

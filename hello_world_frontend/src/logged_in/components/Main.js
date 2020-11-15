@@ -42,6 +42,7 @@ function Main(props) {
     fetch_profile_info,
     fetch_profile_avatar,
     profile_avatar,
+    log_out,
   } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
@@ -375,6 +376,7 @@ function Main(props) {
         profile_info={profile_info}
         fetch_profile_avatar={fetch_profile_avatar}
         profile_avatar={profile_avatar}
+        log_out={log_out}
       /> }
       {profile_info.is_completed && <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
@@ -402,6 +404,7 @@ function Main(props) {
           profile_info={profile_info} 
           send_profile_info_handle={send_profile_info_handle}
           update_profile_info={send_profile_info_handle}
+          log_out={log_out}
         />
       </main>
     </Fragment>
