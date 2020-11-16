@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from "react";
+import React, { Fragment, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   Typography,
@@ -8,9 +8,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   FormControl,
-  Select,
-  OutlinedInput,
-  MenuItem,
+  TextField,
   Box,
   withStyles,
 } from "@material-ui/core";
@@ -74,8 +72,6 @@ const styles = (theme) => ({
   },
 });
 
-const inputOptions = ["None", "Slow", "Normal", "Fast"];
-
 function AddClassOptions(props) {
   const {
     Dropzone,
@@ -89,36 +85,50 @@ function AddClassOptions(props) {
     cropperFile,
     onCrop,
     onCropperClose,
-    uploadAt,
-    onChangeUploadAt,
+    title,
+    set_title,
+    skype_link,
+    set_skype_link,
+    capacity,
+    set_capacity,
+    description,
+    set_description,
+    date_time,
+    set_date_time,
   } = props;
-
-  const [option1, setOption1] = useState("None");
-  const [option2, setOption2] = useState("None");
-  const [option3, setOption3] = useState("None");
-  const [option4, setOption4] = useState("None");
 
   const handleChange = useCallback(
     (event) => {
       const { name, value } = event.target;
       switch (name) {
-        case "option1":
-          setOption1(value);
+        case "title":
+          set_title(value);
           break;
-        case "option2":
-          setOption2(value);
+        case "skype_link":
+          set_skype_link(value);
           break;
-        case "option3":
-          setOption3(value);
-          break;
-        case "option4":
-          setOption4(value);
+        case "capacity":
+          set_capacity(value);
           break;
         default:
           throw new Error("No branch selected in switch-statement.");
       }
     },
-    [setOption1, setOption2, setOption3, setOption4]
+    [set_title, set_skype_link, set_capacity]
+  );
+
+  const handleChangeDescription = useCallback(
+    (value) => {
+      set_description(value);
+    },
+    [set_description]
+  );
+
+  const handle_change_date_time = useCallback(
+    (value) => {
+      set_date_time(value);
+    },
+    [set_date_time]
   );
 
   const printFile = useCallback(() => {
@@ -151,27 +161,22 @@ function AddClassOptions(props) {
   const inputs = useCallback(
     [
       {
-        state: option1,
-        label: "Option 1",
-        stateName: "option1",
+        state: title,
+        label: "Title",
+        stateName: "title",
       },
       {
-        state: option2,
-        label: "Option 2",
-        stateName: "option2",
+        state: skype_link,
+        label: "Skype link",
+        stateName: "skype_link",
       },
       {
-        state: option3,
-        label: "Option 3",
-        stateName: "option3",
-      },
-      {
-        state: option4,
-        label: "Option 4",
-        stateName: "option4",
+        state: capacity,
+        label: "Capacity",
+        stateName: "capacity",
       },
     ],
-    [option1, option2, option3, option4]
+    [title, skype_link, capacity]
   );
 
   return (
@@ -196,6 +201,9 @@ function AddClassOptions(props) {
             maxCharacters={2200}
             rightContent={printFile()}
             emojiSet="google"
+            onChange={handleChangeDescription}  
+            name="description"
+            value={description}
           />
         )}
       </Box>
@@ -206,14 +214,14 @@ function AddClassOptions(props) {
         <Bordered disableVerticalPadding disableBorderRadius>
           <ListItem divider disableGutters className="listItemLeftPadding">
             <ListItemText>
-              <Typography variant="body2">Upload at</Typography>
+              <Typography variant="body2">Date time</Typography>
             </ListItemText>
             <ListItemSecondaryAction>
               {DateTimePicker && (
                 <DateTimePicker
-                  value={uploadAt}
-                  format="yyyy/MM/dd hh:mm a"
-                  onChange={onChangeUploadAt}
+                  value={date_time}
+                  format="yyyy-MM-dd hh:mm a"
+                  onChange={handle_change_date_time}
                   disablePast
                 />
               )}
@@ -231,7 +239,21 @@ function AddClassOptions(props) {
               </ListItemText>
               <FormControl variant="outlined">
                 <ListItemSecondaryAction>
-                  <Select
+                  <TextField 
+                    value={element.state}
+                    onChange={handleChange}  
+                    variant="outlined"  
+                    className={classes.numberInput}
+                    name={element.stateName}
+
+                    // input={
+                    //   <OutlinedInput
+                    //     labelWidth={0}
+                    //     classes={{ input: classes.numberInputInput }}
+                    //   />
+                    // }  
+                  />
+                  {/* <Select
                     value={element.state}
                     onChange={handleChange}
                     input={
@@ -249,7 +271,7 @@ function AddClassOptions(props) {
                         {innerElement}
                       </MenuItem>
                     ))}
-                  </Select>
+                  </Select> */}
                 </ListItemSecondaryAction>
               </FormControl>
             </ListItem>

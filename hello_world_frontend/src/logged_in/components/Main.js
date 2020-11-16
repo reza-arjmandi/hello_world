@@ -41,8 +41,11 @@ function Main(props) {
     history,
     fetch_profile_info,
     fetch_profile_avatar,
+    fetch_english_classes,
     profile_avatar,
     log_out,
+    class_contents,
+    create_english_class,
   } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
@@ -59,7 +62,8 @@ function Main(props) {
   );
   const [transactions, setTransactions] = useState([]);
   const [statistics, setStatistics] = useState({ views: [], profit: [] });
-  const [posts, setPosts] = useState([]);
+  // const [class_contents, setPosts] = useState([]);
+  // console.log(class_contents === null)
   const [targets, setTargets] = useState([]);
   const [messages, setMessages] = useState([]);
   const [isAccountActivated, setIsAccountActivated] = useState(false);
@@ -204,35 +208,36 @@ function Main(props) {
     setMessages(messages);
   }, [setMessages, persons]);
 
-  const fetchRandomPosts = useCallback(() => {
-    shuffle(persons);
-    const posts = [];
-    const iterations = persons.length;
-    const oneDaySeconds = 60 * 60 * 24;
-    let curUnix = Math.round(
-      new Date().getTime() / 1000 - iterations * oneDaySeconds
-    );
-    for (let i = 0; i < iterations; i += 1) {
-      const person = persons[i];
-      const post = {
-        id: i,
-        src: person.src,
-        timestamp: curUnix,
-        name: person.name,
+  // const fetchRandomPosts = useCallback(() => {
 
-        owner: "example@site.com",
-        title: "exmple title",
-        date_time: curUnix,
-        image: person.src,
-        capacity: 2,
-        description: "description example",
-      };
-      curUnix += oneDaySeconds;
-      posts.push(post);
-    }
-    posts.reverse();
-    setPosts(posts);
-  }, [setPosts, persons]);
+  //   shuffle(persons);
+  //   const class_contents = [];
+  //   const iterations = persons.length;
+  //   const oneDaySeconds = 60 * 60 * 24;
+  //   let curUnix = Math.round(
+  //     new Date().getTime() / 1000 - iterations * oneDaySeconds
+  //   );
+  //   for (let i = 0; i < iterations; i += 1) {
+  //     const person = persons[i];
+  //     const post = {
+  //       id: i,
+  //       src: person.src,
+  //       timestamp: curUnix,
+  //       name: person.name,
+
+  //       owner: "example@site.com",
+  //       title: "exmple title",
+  //       date_time: curUnix,
+  //       image: person.src,
+  //       capacity: 2,
+  //       description: "description example",
+  //     };
+  //     curUnix += oneDaySeconds;
+  //     class_contents.push(post);
+  //   }
+  //   class_contents.reverse();
+  //   setPosts(class_contents);
+  // }, [setPosts, persons]);
 
   const toggleAccountActivation = useCallback(() => {
     if (pushMessageToSnackbar) {
@@ -350,14 +355,14 @@ function Main(props) {
     fetchRandomStatistics();
     fetchRandomTransactions();
     fetchRandomMessages();
-    fetchRandomPosts();
+    fetch_english_classes();
     routeTo();
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
     fetchRandomTransactions,
     fetchRandomMessages,
-    fetchRandomPosts,
+    fetch_english_classes,
     routeTo,
   ]);
 
@@ -400,18 +405,19 @@ function Main(props) {
           pushMessageToSnackbar={pushMessageToSnackbar}
           transactions={transactions}
           statistics={statistics}
-          posts={posts}
+          class_contents={class_contents}
           targets={targets}
           selectDashboard={selectDashboard}
           selectClasses={selectClasses}
           selectSubscription={selectSubscription}
           openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}
-          setPosts={setPosts}
+          fetch_english_classes={fetch_english_classes}
           profile_info={profile_info} 
           send_profile_info_handle={send_profile_info_handle}
           update_profile_info={send_profile_info_handle}
           log_out={log_out}
+          create_english_class={create_english_class}
         />
       </main>
     </Fragment>

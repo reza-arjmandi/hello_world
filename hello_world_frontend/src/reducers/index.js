@@ -23,6 +23,7 @@ import ProfileInfo from './ProfileInfo';
 import IsFetchingProfileRequestSucceeded from './IsFetchingProfileRequestSucceeded';
 import BlogPosts from './BlogPosts';
 import ProfileAvatar from './ProfileAvatar';
+import EnglishClasses from './EnglishClasses';
 
 const root_reducer = combineReducers({ 
     AddNewResourceDialogVisibility,
@@ -49,6 +50,7 @@ const root_reducer = combineReducers({
     IsFetchingProfileRequestSucceeded,
     BlogPosts,
     ProfileAvatar,
+    EnglishClasses,
  });
 
 export default root_reducer;

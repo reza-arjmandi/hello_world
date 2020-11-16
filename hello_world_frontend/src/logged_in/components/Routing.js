@@ -51,14 +51,14 @@ function Routing(props) {
     Dropzone,
     DateTimePicker,
     pushMessageToSnackbar,
-    posts,
+    class_contents,
     transactions,
     toggleAccountActivation,
     CardChart,
     statistics,
     targets,
     setTargets,
-    setPosts,
+    fetch_english_classes,
     isAccountActivated,
     selectDashboard,
     selectClasses,
@@ -68,6 +68,7 @@ function Routing(props) {
     send_profile_info_handle,
     update_profile_info,
     log_out,
+    create_english_class,
   } = props;
   return (
     <div className={classes.wrapper}>
@@ -80,10 +81,11 @@ function Routing(props) {
           Dropzone={Dropzone}
           DateTimePicker={DateTimePicker}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          posts={posts}
-          setPosts={setPosts}
+          class_contents={class_contents}
+          fetch_english_classes={fetch_english_classes}
           selectClasses={selectClasses}
           profile_info={profile_info}
+          create_english_class={create_english_class}
         />
         <PropsRoute
           path="/c/subscription"
@@ -127,7 +129,7 @@ Routing.propTypes = {
   DateTimePicker: PropTypes.elementType,
   pushMessageToSnackbar: PropTypes.func,
   setTargets: PropTypes.func.isRequired,
-  setPosts: PropTypes.func.isRequired,
+  fetch_english_classes: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleAccountActivation: PropTypes.func,

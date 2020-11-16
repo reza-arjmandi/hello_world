@@ -26,7 +26,7 @@ function SelfAligningImage(props) {
     classes,
     src,
     title,
-    timeStamp,
+    date_time,
     options,
     roundedBorder,
     theme,
@@ -62,9 +62,10 @@ function SelfAligningImage(props) {
       {title && (
         <GridListTileBar
           title={title}
-          subtitle={format(new Date(timeStamp * 1000), "PP - k:mm", {
-            awareOfUnicodeTokens: true,
-          })}
+          // subtitle={format(new Date(timeStamp * 1000), "PP - k:mm", {
+          //   awareOfUnicodeTokens: true,
+          // })}
+          subtitle={date_time}
           actionIcon={
             options.length > 0 && (
               <VertOptions color={theme.palette.common.white} items={options} />

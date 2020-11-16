@@ -342,3 +342,37 @@ export const remove_profile_info = () => ({
     type: types.REMOVE_PROFILE_INFO,
     description: 'Removing profile info.',
 });
+
+export const fetch_english_classes_request = () => ({ 
+    type: types.FETCH_ENGLISH_CLASSES_REQUEST,
+    description: 'Fetching english classes...'
+});
+
+export const fetch_english_classes_request_success = (result) => ({ 
+    type: types.FETCH_ENGLISH_CLASSES_REQUEST_SUCCESS,
+    description: 'Fetching english classes is succeeded.',
+    result
+});
+
+export const fetch_english_classes_request_failure = (error) => ({ 
+    type: types.FETCH_ENGLISH_CLASSES_REQUEST_FAILURE,
+    description: 'Fetching english classes is failed.',
+    error
+});
+
+export const create_english_class_request = () => ({ 
+    type: types.CREATE_ENGLISH_CLASS_REQUEST,
+    description: 'Creating english class...'
+});
+
+export const create_english_class_request_success = (result) => ({ 
+    type: types.CREATE_ENGLISH_CLASS_REQUEST_SUCCESS,
+    description: 'Creating english class is succeeded.',
+    result
+});
+
+export const create_english_class_request_failure = (error) => ({ 
+    type: types.CREATE_ENGLISH_CLASS_REQUEST_FAILURE,
+    description: 'Creating english class is failed.',
+    error
+});

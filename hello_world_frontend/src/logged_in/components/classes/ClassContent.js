@@ -24,13 +24,13 @@ const styles = {
   },
 };
 
-const rowsPerPage = 25;
+const rowsPerPage = 6;
 
 function ClassContent(props) {
   const {
     pushMessageToSnackbar,
-    setPosts,
-    posts,
+    fetch_english_classes,
+    class_contents,
     openAddPostModal,
     classes,
     profile_info, 
@@ -49,18 +49,18 @@ function ClassContent(props) {
   const deletePost = useCallback(() => {
     setIsDeletePostDialogLoading(true);
     setTimeout(() => {
-      const _posts = [...posts];
+      const _posts = [...class_contents];
       const index = _posts.find((element) => element.id === deletePost.id);
       _posts.splice(index, 1);
-      setPosts(_posts);
+      // setPosts(_posts);
       pushMessageToSnackbar({
         text: "Your post has been deleted",
       });
       closeDeletePostDialog();
     }, 1500);
   }, [
-    posts,
-    setPosts,
+    class_contents,
+    // setPosts,
     setIsDeletePostDialogLoading,
     pushMessageToSnackbar,
     closeDeletePostDialog,
@@ -71,24 +71,30 @@ function ClassContent(props) {
   }, [setIsDeletePostDialogOpen]);
 
   const handleChangePage = useCallback(
-    (__, page) => {
-      setPage(page);
+    (__, page_number) => {
+      if(page_number > page && class_contents['next']) {
+        fetch_english_classes(class_contents['next'])
+        setPage(page_number);
+      }
+      if(page_number < page && class_contents['previous']) {
+        fetch_english_classes(class_contents['previous'])
+        setPage(page_number);
+      }
     },
-    [setPage]
+    [setPage, class_contents]
   );
 
   const printImageGrid = useCallback(() => {
-    if (posts.length > 0) {
+    if (class_contents['results'].length > 0) {
       return (
         <Box p={1}>
           <Grid container spacing={1}>
-            {posts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((post) => (
+            {class_contents['results'].map((post) => (
                 <Grid item xs={6} sm={4} md={3} key={post.id}>
                   <SelfAligningImage
-                    src={post.image}
-                    title={post.title}
-                    timeStamp={post.date_time}
+                    src={post['image']}
+                    title={post['title']}
+                    date_time={post['date_time']}
                     options={[
                       {
                         name: "Delete",
@@ -108,11 +114,11 @@ function ClassContent(props) {
     return (
       <Box m={2}>
         <HighlightedInformation>
-          No posts added yet. Click on &quot;NEW&quot; to create your first one.
+          No class_contents added yet. Click on &quot;NEW&quot; to create your first one.
         </HighlightedInformation>
       </Box>
     );
-  }, [posts, onDelete, page]);
+  }, [class_contents, onDelete, page]);
 
   return (
     <Paper>
@@ -133,7 +139,7 @@ function ClassContent(props) {
       {printImageGrid()}
       <TablePagination
         component="div"
-        count={posts.length}
+        count={class_contents['count']}
         rowsPerPage={rowsPerPage}
         page={page}
         backIconButtonProps={{
@@ -146,8 +152,8 @@ function ClassContent(props) {
         classes={{
           select: classes.dNone,
           selectIcon: classes.dNone,
-          actions: posts.length > 0 ? classes.dBlock : classes.dNone,
-          caption: posts.length > 0 ? classes.dBlock : classes.dNone,
+          actions: class_contents['results'].length > 0 ? classes.dBlock : classes.dNone,
+          caption: class_contents['results'].length > 0 ? classes.dBlock : classes.dNone,
         }}
         labelRowsPerPage=""
       />
@@ -166,7 +172,7 @@ function ClassContent(props) {
 ClassContent.propTypes = {
   openAddPostModal: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  class_contents: PropTypes.arrayOf(PropTypes.object).isRequired,
   setPosts: PropTypes.func.isRequired,
   pushMessageToSnackbar: PropTypes.func,
 };

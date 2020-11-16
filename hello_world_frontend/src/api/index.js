@@ -265,3 +265,85 @@ export function fetch_videos() {
     );
   }
 }
+
+export function fetch_english_classes(url = null) {
+
+  return function (dispatch) {
+
+    dispatch(actions.fetch_english_classes_request())
+
+    const _url = url===null ? `${api_address}/english_class/` : url;
+
+    return fetch(_url, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(
+            json => dispatch(actions.fetch_english_classes_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.fetch_english_classes_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.fetch_english_classes_request_failure(error))
+    );
+  }
+}
+
+export function create_english_class(english_class) {
+
+  return function (dispatch, getState) {
+
+    dispatch(actions.create_english_class_request())
+
+    var form_data = new FormData();
+
+    for ( var key in english_class ) {
+        form_data.append(key, english_class[key]);
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
+    }
+
+    console.log(form_data);
+
+    let state = getState();
+    const token = state.AuthToken; 
+
+    return fetch(`${api_address}/english_class/`, {
+      method: 'POST',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'multipart/form-data',
+        'Authorization': `Token ${token}`
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: form_data
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(
+            json => dispatch(actions.create_english_class_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.create_english_class_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.create_english_class_request_failure(error))
+    );
+  }
+}

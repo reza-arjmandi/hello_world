@@ -13,13 +13,19 @@ function AddClass(props) {
     DateTimePicker,
     ImageCropper,
     onClose,
+    create_english_class,
   } = props;
 
   const [files, setFiles] = useState([]);
-  const [uploadAt, setUploadAt] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [cropperFile, setCropperFile] = useState(null);
 
+  const [title, set_title] = useState("");
+  const [skype_link, set_skype_link] = useState("");
+  const [capacity, set_capacity] = useState("");
+  const [description, set_description] = useState("");
+  const [date_time, set_date_time] = useState(new Date());
+  
   const acceptDrop = useCallback(
     (file) => {
       setFiles([file]);
@@ -75,6 +81,15 @@ function AddClass(props) {
         text: "Your post has been uploaded",
       });
       onClose();
+      create_english_class(
+        {"title": title,
+         "description": description,
+         "date_time": date_time,
+         "skype_link": skype_link,
+        //  "image": files[0],
+         "capacity": 2
+        }
+      )
     }, 1500);
   }, [setLoading, onClose, pushMessageToSnackbar]);
 
@@ -91,12 +106,20 @@ function AddClass(props) {
             onDrop={onDrop}
             deleteItem={deleteItem}
             DateTimePicker={DateTimePicker}
-            uploadAt={uploadAt}
-            onChangeUploadAt={setUploadAt}
             onCrop={onCrop}
             ImageCropper={ImageCropper}
             cropperFile={cropperFile}
             onCropperClose={onCropperClose}
+            title={title}
+            set_title={set_title}
+            skype_link={skype_link}
+            set_skype_link={set_skype_link}
+            capacity={capacity}
+            set_capacity={set_capacity}
+            description={description}
+            set_description={set_description}
+            date_time={date_time}
+            set_date_time={set_date_time}
           />
         }
         actions={

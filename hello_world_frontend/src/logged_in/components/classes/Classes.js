@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import ClassContent from "./ClassContent";
-import AddPost from "./AddClass";
+import AddClass from "./AddClass";
 
 function Classes(props) {
   const {
@@ -11,9 +11,10 @@ function Classes(props) {
     Dropzone,
     DateTimePicker,
     pushMessageToSnackbar,
-    posts,
-    setPosts,
+    class_contents,
+    fetch_english_classes,
     profile_info,
+    create_english_class,
   } = props;
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
 
@@ -30,19 +31,20 @@ function Classes(props) {
   }, [selectClasses]);
 
   if (isAddPostPaperOpen) {
-    return <AddPost
+    return <AddClass
       onClose={closeAddPostModal}
       EmojiTextArea={EmojiTextArea}
       ImageCropper={ImageCropper}
       Dropzone={Dropzone}
       DateTimePicker={DateTimePicker}
       pushMessageToSnackbar={pushMessageToSnackbar}
+      create_english_class={create_english_class}
     />
   }
   return <ClassContent
     openAddPostModal={openAddPostModal}
-    posts={posts}
-    setPosts={setPosts}
+    class_contents={class_contents}
+    fetch_english_classes={fetch_english_classes}
     pushMessageToSnackbar={pushMessageToSnackbar}
     profile_info={profile_info}
   />
@@ -53,8 +55,8 @@ Classes.propTypes = {
   ImageCropper: PropTypes.elementType,
   Dropzone: PropTypes.elementType,
   DateTimePicker: PropTypes.elementType,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setPosts: PropTypes.func.isRequired,
+  class_contents: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetch_english_classes: PropTypes.func.isRequired,
   pushMessageToSnackbar: PropTypes.func,
   selectPosts: PropTypes.func.isRequired,
 };
