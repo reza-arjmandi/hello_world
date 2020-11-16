@@ -309,9 +309,10 @@ export function create_english_class(english_class) {
 
     var form_data = new FormData();
 
+    console.log(english_class)
+    
     for ( var key in english_class ) {
         form_data.append(key, english_class[key]);
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
     }
 
     console.log(form_data);
@@ -324,7 +325,7 @@ export function create_english_class(english_class) {
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        'Content-type': 'multipart/form-data',
+        // 'Content-type': 'multipart/form-data',
         'Authorization': `Token ${token}`
       },
       redirect: 'follow',

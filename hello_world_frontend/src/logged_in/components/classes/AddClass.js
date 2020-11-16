@@ -84,14 +84,14 @@ function AddClass(props) {
       create_english_class(
         {"title": title,
          "description": description,
-         "date_time": date_time,
+         "date_time": '2020-12-20 12:00:00.000000',
          "skype_link": skype_link,
         //  "image": files[0],
          "capacity": 2
         }
       )
     }, 1500);
-  }, [setLoading, onClose, pushMessageToSnackbar]);
+  }, [setLoading, onClose, pushMessageToSnackbar, title, description, date_time, skype_link, files]);
 
   return (
     <Fragment>
