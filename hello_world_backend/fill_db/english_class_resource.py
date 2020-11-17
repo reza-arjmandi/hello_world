@@ -22,7 +22,7 @@ class EnglishClassResource:
             img_content = open(os.path.join('photos', '0.jpg'), 'rb').read()
             return  {
                 'title': random_generator.generate_string(2, 20),
-                'date_time' : '2020-12-20 12:00:00.000000',
+                'date_time' : '2020-12-20T12:00:00+0430',
                 'skype_link' : random_generator.generate_string(10, 20),
                 'image' : (img_path, img_content, 'image/jpg'),
                 'capacity': str(random.randint(2, 5)),

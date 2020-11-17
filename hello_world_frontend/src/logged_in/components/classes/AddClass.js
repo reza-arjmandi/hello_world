@@ -75,23 +75,28 @@ function AddClass(props) {
   );
 
   const handleUpload = useCallback(() => {
+    console.log(title);
+    console.log(description);
+    console.log(skype_link);
     setLoading(true);
     setTimeout(() => {
       pushMessageToSnackbar({
         text: "Your post has been uploaded",
       });
-      onClose();
+      console.log(files[0])
       create_english_class(
         {"title": title,
          "description": description,
-         "date_time": '2020-12-20 12:00:00.000000',
+         "date_time": date_time.toISOString(),
          "skype_link": skype_link,
-        //  "image": files[0],
+         "image": files[0],
          "capacity": 2
         }
       )
+      onClose();
     }, 1500);
-  }, [setLoading, onClose, pushMessageToSnackbar, title, description, date_time, skype_link, files]);
+  }, [setLoading, onClose, pushMessageToSnackbar, 
+    title, description, date_time, skype_link, files]);
 
   return (
     <Fragment>

@@ -2,6 +2,26 @@ import * as actions from '../actions';
 
 const api_address = 'http://127.0.0.1:8000';
 
+export function data_uri_to_blob(dataURI) {
+  // convert base64/URLEncoded data component to raw binary data held in a string
+  var byteString;
+  if (dataURI.split(',')[0].indexOf('base64') >= 0)
+      byteString = atob(dataURI.split(',')[1]);
+  else
+      byteString = unescape(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to a typed array
+  var ia = new Uint8Array(byteString.length);
+  for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+  }
+
+  return new Blob([ia], {type:mimeString});
+}
+
 export function fetch_menu_resources(resource_link) {
   
   return function (dispatch) {
@@ -312,7 +332,12 @@ export function create_english_class(english_class) {
     console.log(english_class)
     
     for ( var key in english_class ) {
+      if(key==="image") {
+        form_data.append("image", data_uri_to_blob(english_class[key]["preview"]), english_class[key]["path"] );
+      }
+      else {
         form_data.append(key, english_class[key]);
+      }
     }
 
     console.log(form_data);
@@ -325,7 +350,6 @@ export function create_english_class(english_class) {
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        // 'Content-type': 'multipart/form-data',
         'Authorization': `Token ${token}`
       },
       redirect: 'follow',
@@ -348,3 +372,4 @@ export function create_english_class(english_class) {
     );
   }
 }
+
