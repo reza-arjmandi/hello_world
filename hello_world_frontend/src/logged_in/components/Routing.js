@@ -4,6 +4,7 @@ import { Switch } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 import Dashboard from "./dashboard/Dashboard";
 import Classes from "./classes/Classes";
+import EnglishClass from "./classes/EnglishClass";
 import Subscription from "./subscription/Subscription";
 import Configuration from "./configuration/Configuration";
 import PropsRoute from "../../shared/components/PropsRoute";
@@ -73,6 +74,27 @@ function Routing(props) {
   return (
     <div className={classes.wrapper}>
       <Switch>
+        
+      <PropsRoute
+          path="/c/123"
+          // EmojiTextArea={EmojiTextArea}
+          // ImageCropper={ImageCropper}
+          // Dropzone={Dropzone}
+          // DateTimePicker={DateTimePicker}
+          // pushMessageToSnackbar={pushMessageToSnackbar}
+          // class_contents={class_contents}
+          // fetch_english_classes={fetch_english_classes}
+          // selectClasses={selectClasses}
+          // profile_info={profile_info}
+          // create_english_class={create_english_class}
+          component={EnglishClass}
+          
+          // transactions={transactions}
+          // pushMessageToSnackbar={pushMessageToSnackbar}
+          // selectSubscription={selectSubscription}
+          // openAddBalanceDialog={openAddBalanceDialog}
+        />
+
         <PropsRoute
           path="/c/classes"
           component={Classes}
@@ -87,6 +109,9 @@ function Routing(props) {
           profile_info={profile_info}
           create_english_class={create_english_class}
         />
+        
+        
+
         <PropsRoute
           path="/c/subscription"
           component={Subscription}

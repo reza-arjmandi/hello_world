@@ -339,9 +339,6 @@ function Main(props) {
         history.push("/c/configuration")
       }
   
-      if(profile_info && profile_info.is_completed === true) {
-        history.push("/c/dashboard")
-      }
     },
     [
       profile_info,
@@ -355,14 +352,12 @@ function Main(props) {
     fetchRandomStatistics();
     fetchRandomTransactions();
     fetchRandomMessages();
-    fetch_english_classes();
     routeTo();
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
     fetchRandomTransactions,
     fetchRandomMessages,
-    fetch_english_classes,
     routeTo,
   ]);
 

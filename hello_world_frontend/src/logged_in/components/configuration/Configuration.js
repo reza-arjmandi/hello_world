@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { 
+  memo, useCallback, useState, useEffect, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -99,6 +100,24 @@ function Configuration({
   const [user_type, set_user_type] = React.useState('learner');
   const [timezone, set_timezone] = React.useState('');
   const [skype_link, set_skype_link] = React.useState('');
+
+  const routeTo = useCallback(
+    () => {
+      if(profile_info && profile_info.is_completed === true) {
+        history.push("/c/dashboard")
+      }
+    },
+    [
+      profile_info,
+      history
+    ]
+  );
+
+  useEffect(() => {
+    routeTo();
+  }, [
+    routeTo,
+  ]);
 
   const handle_finish = () => {
     send_profile_info_handle(

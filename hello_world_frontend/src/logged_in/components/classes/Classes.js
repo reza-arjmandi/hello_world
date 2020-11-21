@@ -27,8 +27,9 @@ function Classes(props) {
   }, [setIsAddPostPaperOpen]);
 
   useEffect(() => {
+    fetch_english_classes();
     selectClasses();
-  }, [selectClasses]);
+  }, [selectClasses, fetch_english_classes]);
 
   if (isAddPostPaperOpen) {
     return <AddClass
