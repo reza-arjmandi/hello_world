@@ -73,6 +73,7 @@ function Routing(props) {
     selected_english_class,
     fetch_class_by_id,
     update_english_class,
+    delete_english_class,
   } = props;
 
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
@@ -113,7 +114,7 @@ function Routing(props) {
 
           selectClasses={selectClasses}
           update_english_class={update_english_class}
-
+          delete_english_class={delete_english_class}
         />
 
         <PropsRoute

@@ -410,3 +410,20 @@ export const update_english_class_request_failure = (error) => ({
     description: 'Updating english class is failed.',
     error
 });
+
+export const delete_english_class_request = () => ({ 
+    type: types.DELETE_ENGLISH_CLASS_REQUEST,
+    description: 'Deleting english class...'
+});
+
+export const delete_english_class_request_success = (result) => ({ 
+    type: types.DELETE_ENGLISH_CLASS_REQUEST_SUCCESS,
+    description: 'Deleting english class is succeeded.',
+    result
+});
+
+export const delete_english_class_request_failure = (error) => ({ 
+    type: types.DELETE_ENGLISH_CLASS_REQUEST_FAILURE,
+    description: 'Deleting english class is failed.',
+    error
+});

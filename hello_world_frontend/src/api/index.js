@@ -446,3 +446,36 @@ export function update_english_class(url, english_class) {
     );
   }
 }
+
+export function delete_english_class(url) {
+
+  return function (dispatch, getState) {
+
+    let state = getState();
+    const token = state.AuthToken; 
+    dispatch(actions.delete_english_class_request())
+
+    return fetch(url, {
+      method: 'DELETE',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Authorization': `Token ${token}`
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(
+      response => {
+        if(response['status'] === 204) {
+          response.json().then(json => dispatch(actions.delete_english_class_request_success(json)));
+        }
+        else {
+          response.json().then(json => dispatch(actions.delete_english_class_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.delete_english_class_request_failure(error))
+    );
+  }
+}

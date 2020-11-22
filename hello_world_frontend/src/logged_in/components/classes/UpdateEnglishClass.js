@@ -14,6 +14,7 @@ function UpdateEnglishClass(props) {
     DateTimePicker,
     ImageCropper,
     update_english_class,
+    delete_english_class,
     openAddPostModal,
     selected_english_class,
     onClose,
@@ -24,6 +25,13 @@ function UpdateEnglishClass(props) {
     history.push("/c/classes");
     onClose();
   }
+
+  const on_delete = () => {
+    delete_english_class(selected_english_class["url"]);
+    history.push("/c/classes");
+    onClose();
+  }
+
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cropperFile, setCropperFile] = useState(null);
@@ -146,9 +154,18 @@ function UpdateEnglishClass(props) {
         }
         actions={
           <Fragment>
-            <Box mr={1}>
+              <Box mr={1}>
               <Button onClick={onBack} disabled={loading}>
                 Back
+              </Button>
+            </Box>
+            <Box mr={1}>
+              <Button 
+              color="primary"
+              variant="contained"
+              onClick={on_delete} 
+              disabled={loading}>
+                Delete
               </Button>
             </Box>
             <Button

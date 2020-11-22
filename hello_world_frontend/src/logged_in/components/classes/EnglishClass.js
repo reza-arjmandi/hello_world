@@ -33,6 +33,7 @@ function EnglishClass(props) {
     isAddPostPaperOpen,
     selectClasses,
     update_english_class,
+    delete_english_class,
   } = props;
 
   let { class_id } = useParams();
@@ -62,6 +63,7 @@ function EnglishClass(props) {
       update_english_class={update_english_class}
       openAddPostModal={openAddPostModal}
       selected_english_class={selected_english_class}
+      delete_english_class={delete_english_class}
     />
   }
   else{

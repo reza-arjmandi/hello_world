@@ -18,6 +18,7 @@ import {
     create_english_class,
     fetch_class_by_id,
     update_english_class,
+    delete_english_class,
 } from "../../../api"
 
 import persons from "../../../stories/dummy_data/persons";
@@ -64,7 +65,10 @@ const map_dispatch_to_props = dispatch => ({
     },
     update_english_class: (url, english_class)=> {
         dispatch(update_english_class(url,english_class));
-    }
+    },
+    delete_english_class : (url) => {
+        dispatch(delete_english_class(url));
+    }   
 });
 
 export default connect(
