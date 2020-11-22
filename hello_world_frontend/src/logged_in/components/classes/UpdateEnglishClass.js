@@ -141,8 +141,6 @@ function UpdateEnglishClass(props) {
   }, [setLoading, onClose, pushMessageToSnackbar, 
     title, description, date_time, skype_link, files]);
 
-    console.log(description)
-
   return (
     <Fragment>
       <ActionPaper
