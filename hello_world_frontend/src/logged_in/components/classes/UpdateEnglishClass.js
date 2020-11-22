@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import ActionPaper from "../../../shared/components/ActionPaper";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import AddClassOptions from "./AddClassOptions";
+import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 
 function UpdateEnglishClass(props) {
   const {
@@ -21,15 +22,34 @@ function UpdateEnglishClass(props) {
     history,
   } = props;
 
+  const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState(false);
+  const [isDeletePostDialogLoading, setIsDeletePostDialogLoading] = useState(
+    false
+  );
+
+  const closeDeletePostDialog = useCallback(() => {
+    setIsDeletePostDialogOpen(false);
+    setIsDeletePostDialogLoading(false);
+  }, [setIsDeletePostDialogOpen, setIsDeletePostDialogLoading]);
+
+  const delete_class = useCallback(() => {
+    delete_english_class(selected_english_class["url"]);
+    history.push("/c/classes");
+    onClose();
+  }, [
+    delete_english_class,
+    selected_english_class,
+    history,
+    onClose,
+  ]);
+  
   const onBack = () => {
     history.push("/c/classes");
     onClose();
   }
 
   const on_delete = () => {
-    delete_english_class(selected_english_class["url"]);
-    history.push("/c/classes");
-    onClose();
+    setIsDeletePostDialogOpen(true);
   }
 
   const [files, setFiles] = useState([]);
@@ -178,6 +198,14 @@ function UpdateEnglishClass(props) {
             </Button>
           </Fragment>
         }
+      />
+      <ConfirmationDialog
+        open={isDeletePostDialogOpen}
+        title="Confirmation"
+        content="Do you really want to delete the english class?"
+        onClose={closeDeletePostDialog}
+        loading={isDeletePostDialogLoading}
+        onConfirm={delete_class}
       />
     </Fragment>
   );
