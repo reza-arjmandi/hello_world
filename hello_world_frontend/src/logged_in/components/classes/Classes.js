@@ -15,16 +15,12 @@ function Classes(props) {
     fetch_english_classes,
     profile_info,
     create_english_class,
+
+    isAddPostPaperOpen,
+    closeAddPostModal,
+    openAddPostModal,
   } = props;
-  const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
 
-  const openAddPostModal = useCallback(() => {
-    setIsAddPostPaperOpen(true);
-  }, [setIsAddPostPaperOpen]);
-
-  const closeAddPostModal = useCallback(() => {
-    setIsAddPostPaperOpen(false);
-  }, [setIsAddPostPaperOpen]);
 
   useEffect(() => {
     fetch_english_classes();

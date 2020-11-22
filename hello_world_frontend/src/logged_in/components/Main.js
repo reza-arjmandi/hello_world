@@ -46,6 +46,9 @@ function Main(props) {
     log_out,
     class_contents,
     create_english_class,
+    selected_english_class,
+    fetch_class_by_id,
+    update_english_class,
   } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
@@ -413,6 +416,9 @@ function Main(props) {
           update_profile_info={send_profile_info_handle}
           log_out={log_out}
           create_english_class={create_english_class}
+          selected_english_class={selected_english_class}
+          fetch_class_by_id={fetch_class_by_id}
+          update_english_class={update_english_class}
         />
       </main>
     </Fragment>

@@ -376,3 +376,37 @@ export const create_english_class_request_failure = (error) => ({
     description: 'Creating english class is failed.',
     error
 });
+
+export const fetch_english_class_by_id_request = () => ({ 
+    type: types.FETCH_ENGLISH_CLASS_BY_ID_REQUEST,
+    description: 'Fetching english class by id...'
+});
+
+export const fetch_english_class_by_id_request_success = (result) => ({ 
+    type: types.FETCH_ENGLISH_CLASS_BY_ID_REQUEST_SUCCESS,
+    description: 'Fetching english class by id is succeeded.',
+    result
+});
+
+export const fetch_english_class_by_id_request_failure = (error) => ({ 
+    type: types.FETCH_ENGLISH_CLASS_BY_ID_REQUEST_FAILURE,
+    description: 'Fetching english class by id is failed.',
+    error
+});
+
+export const update_english_class_request = () => ({ 
+    type: types.UPDATE_ENGLISH_CLASS_REQUEST,
+    description: 'Updating english class...'
+});
+
+export const update_english_class_request_success = (result) => ({ 
+    type: types.UPDATE_ENGLISH_CLASS_REQUEST_SUCCESS,
+    description: 'Updating english class is succeeded.',
+    result
+});
+
+export const update_english_class_request_failure = (error) => ({ 
+    type: types.UPDATE_ENGLISH_CLASS_REQUEST_FAILURE,
+    description: 'Updating english class is failed.',
+    error
+});

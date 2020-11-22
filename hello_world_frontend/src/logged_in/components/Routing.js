@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Switch } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
@@ -70,29 +70,50 @@ function Routing(props) {
     update_profile_info,
     log_out,
     create_english_class,
+    selected_english_class,
+    fetch_class_by_id,
+    update_english_class,
   } = props;
+
+  const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
+
+  const openAddPostModal = useCallback(() => {
+    setIsAddPostPaperOpen(true);
+  }, [setIsAddPostPaperOpen]);
+
+  const closeAddPostModal = useCallback(() => {
+    setIsAddPostPaperOpen(false);
+  }, [setIsAddPostPaperOpen]);
+
   return (
     <div className={classes.wrapper}>
       <Switch>
         
-      <PropsRoute
-          path="/c/123"
-          // EmojiTextArea={EmojiTextArea}
-          // ImageCropper={ImageCropper}
-          // Dropzone={Dropzone}
-          // DateTimePicker={DateTimePicker}
-          // pushMessageToSnackbar={pushMessageToSnackbar}
-          // class_contents={class_contents}
-          // fetch_english_classes={fetch_english_classes}
-          // selectClasses={selectClasses}
-          // profile_info={profile_info}
-          // create_english_class={create_english_class}
+        <PropsRoute
+          path="/c/classes/:class_id"
           component={EnglishClass}
+
+          profile_info={profile_info} 
+
+          onClose={closeAddPostModal}
+          EmojiTextArea={EmojiTextArea}
+          ImageCropper={ImageCropper}
+          Dropzone={Dropzone}
+          DateTimePicker={DateTimePicker}
+          pushMessageToSnackbar={pushMessageToSnackbar}
+          create_english_class={create_english_class}
           
-          // transactions={transactions}
-          // pushMessageToSnackbar={pushMessageToSnackbar}
-          // selectSubscription={selectSubscription}
-          // openAddBalanceDialog={openAddBalanceDialog}
+          selected_english_class={selected_english_class}
+          fetch_class_by_id={fetch_class_by_id}
+          ImageCropper={ImageCropper}
+
+          isAddPostPaperOpen={isAddPostPaperOpen}
+          closeAddPostModal={closeAddPostModal}
+          openAddPostModal={openAddPostModal}
+
+          selectClasses={selectClasses}
+          update_english_class={update_english_class}
+
         />
 
         <PropsRoute
@@ -108,6 +129,9 @@ function Routing(props) {
           selectClasses={selectClasses}
           profile_info={profile_info}
           create_english_class={create_english_class}
+          isAddPostPaperOpen={isAddPostPaperOpen}
+          closeAddPostModal={closeAddPostModal}
+          openAddPostModal={openAddPostModal}
         />
         
         

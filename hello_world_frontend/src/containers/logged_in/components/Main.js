@@ -16,6 +16,8 @@ import {
     fetch_profile_avatar,
     fetch_english_classes,
     create_english_class,
+    fetch_class_by_id,
+    update_english_class,
 } from "../../../api"
 
 import persons from "../../../stories/dummy_data/persons";
@@ -26,6 +28,7 @@ const map_state_to_props = state => ({
     is_login: state.IsLogin,
     profile_avatar: state.ProfileAvatar,
     class_contents: state.EnglishClasses,
+    selected_english_class: state.SelectedEnglishClass,
 });
 
 const map_dispatch_to_props = dispatch => ({
@@ -55,6 +58,12 @@ const map_dispatch_to_props = dispatch => ({
     },
     create_english_class: (english_class) => {
         dispatch(create_english_class(english_class));
+    },
+    fetch_class_by_id: (class_id) => {
+        dispatch(fetch_class_by_id(class_id));
+    },
+    update_english_class: (url, english_class)=> {
+        dispatch(update_english_class(url,english_class));
     }
 });
 

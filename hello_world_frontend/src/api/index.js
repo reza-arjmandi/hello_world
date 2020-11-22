@@ -329,8 +329,6 @@ export function create_english_class(english_class) {
 
     var form_data = new FormData();
 
-    console.log(english_class)
-    
     for ( var key in english_class ) {
       if(key==="image") {
         form_data.append("image", data_uri_to_blob(english_class[key]["preview"]), english_class[key]["path"] );
@@ -339,8 +337,6 @@ export function create_english_class(english_class) {
         form_data.append(key, english_class[key]);
       }
     }
-
-    console.log(form_data);
 
     let state = getState();
     const token = state.AuthToken; 
@@ -373,3 +369,80 @@ export function create_english_class(english_class) {
   }
 }
 
+export function fetch_class_by_id(class_id) {
+
+  return function (dispatch) {
+
+    dispatch(actions.fetch_english_class_by_id_request())
+
+    return fetch(`${api_address}/english_class/${class_id}`, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(
+            json => dispatch(actions.fetch_english_class_by_id_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.fetch_english_class_by_id_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.fetch_english_class_by_id_request_failure(error))
+    );
+  }
+}
+
+export function update_english_class(url, english_class) {
+
+  return function (dispatch, getState) {
+
+    let state = getState();
+    const token = state.AuthToken; 
+    dispatch(actions.update_english_class_request())
+
+    var form_data = new FormData();
+
+    for ( var key in english_class ) {
+      if(key==="image") {
+        form_data.append("image", data_uri_to_blob(english_class[key]["preview"]), english_class[key]["path"] );
+      }
+      else {
+        form_data.append(key, english_class[key]);
+      }
+    }
+
+    return fetch(url, {
+      method: 'PATCH',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Authorization': `Token ${token}`
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: form_data
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(json => dispatch(actions.update_english_class_request_success(json)));
+        }
+        else {
+          response.json().then(json => dispatch(actions.update_english_class_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.update_english_class_request_failure(error))
+    );
+  }
+}
