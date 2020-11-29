@@ -10,7 +10,7 @@ import GlobalStyles from "../../../GlobalStyles";
 
 import ActionPaper from 
     '../../../shared/components/ActionPaper';
-import AddPostOptions from "../../../logged_in/components/posts/AddPostOptions";
+import AddClassOptions from "../../../logged_in/components/classes/AddClassOptions";
 import EmojiTextArea from "../../../shared/components/EmojiTextArea"
 import Dropzone from "../../../shared/components/Dropzone"
 import DateTimePicker from "../../../shared/components/DateTimePicker"
@@ -33,7 +33,7 @@ storiesOf('Shared/components/ActionPaper', module)
             helpPadding
             maxWidth="md"
             content={
-                <AddPostOptions
+                <AddClassOptions
                   EmojiTextArea={EmojiTextArea}
                   Dropzone={Dropzone}
                 //   DateTimePicker={DateTimePicker}

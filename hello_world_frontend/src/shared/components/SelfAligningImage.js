@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
-import format from "date-fns/format";
 import { GridListTileBar, withStyles } from "@material-ui/core";
 import VertOptions from "./VertOptions";
 

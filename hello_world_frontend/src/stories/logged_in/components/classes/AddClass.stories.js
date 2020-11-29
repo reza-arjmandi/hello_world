@@ -8,8 +8,8 @@ import { CssBaseline } from "@material-ui/core";
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
 
-import AddPost from 
-    '../../../../logged_in/components/posts/AddPost';
+import AddClass from 
+    '../../../../logged_in/components/classes/AddClass';
 
 import EmojiTextArea from 
     '../../../../shared/components/EmojiTextArea';
@@ -21,22 +21,22 @@ import DateTimePicker from
     '../../../../shared/components/DateTimePicker';
 
 export default {
-    component: AddPost,
-    title: 'LoggedIn/components/posts/AddPost',
+    component: AddClass,
+    title: 'LoggedIn/components/classes/AddClass',
     excludeStories: /.*_data$/, 
 };
 
-storiesOf('LoggedIn/components/posts/AddPost', module)
+storiesOf('LoggedIn/components/classes/AddClass', module)
     .addDecorator(muiTheme(theme))
     .add('Default', () => {
         return (<div>
           <CssBaseline />
           <GlobalStyles />
-          <AddPost
+          <AddClass
             EmojiTextArea={EmojiTextArea}
             ImageCropper={ImageCropper}
             Dropzone={Dropzone}
-            // DateTimePicker={DateTimePicker}
+            DateTimePicker={DateTimePicker}
           />
         </div>
     )})

@@ -134,9 +134,6 @@ function Routing(props) {
           closeAddPostModal={closeAddPostModal}
           openAddPostModal={openAddPostModal}
         />
-        
-        
-
         <PropsRoute
           path="/c/subscription"
           component={Subscription}

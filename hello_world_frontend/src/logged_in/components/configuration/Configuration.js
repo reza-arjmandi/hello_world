@@ -1,5 +1,5 @@
 import React, { 
-  memo, useCallback, useState, useEffect, Fragment } from "react";
+  memo, useCallback, useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -119,21 +119,22 @@ function Configuration({
     routeTo,
   ]);
 
-  const handle_finish = () => {
+  const handle_finish = useCallback(() => {
     send_profile_info_handle(
       profile_info['url'], 
       user_type, 
       timezone, 
       skype_link, 
       profile_info['Avatar']);
-  };
+  }, [skype_link, set_skype_link]);
 
-  const handleNext = () =>  {
+  const handleNext = useCallback(() => {
+
     if(activeStep === steps.length - 1) {
       handle_finish()
     }
     setActiveStep(activeStep + 1);
-  };
+  }, [skype_link, set_skype_link, activeStep, steps, handle_finish, setActiveStep]);
 
   const handleExit = () =>  {
     log_out();
@@ -172,11 +173,6 @@ function Configuration({
                 <Typography variant="h5" gutterBottom>
                   Thank you for configure your profile.
                 </Typography>
-                {/* <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>

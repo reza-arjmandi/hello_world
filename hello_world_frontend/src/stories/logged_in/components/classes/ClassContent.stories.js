@@ -8,17 +8,17 @@ import { CssBaseline } from "@material-ui/core";
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
 
-import PostContent from 
-    '../../../../logged_in/components/posts/PostContent';
+import ClassContent from 
+    '../../../../logged_in/components/classes/ClassContent';
 import persons from "../../../dummy_data/persons";
 
 export default {
-    component: PostContent,
-    title: 'LoggedIn/components/posts/PostContent',
+    component: ClassContent,
+    title: 'LoggedIn/components/classes/ClassContent',
     excludeStories: /.*_data$/, 
 };
 
-storiesOf('LoggedIn/components/posts/PostContent', module)
+storiesOf('LoggedIn/components/classes/ClassContent', module)
     .addDecorator(muiTheme(theme))
     .add('Default', () => {
         const posts = [];
@@ -43,7 +43,7 @@ storiesOf('LoggedIn/components/posts/PostContent', module)
         return (<div>
           <CssBaseline />
           <GlobalStyles />
-          <PostContent
+          <ClassContent
             posts={posts}
           />
         </div>

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { muiTheme } from 'storybook-addon-material-ui';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import { CssBaseline } from "@material-ui/core";
 

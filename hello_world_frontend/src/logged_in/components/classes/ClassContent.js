@@ -81,7 +81,7 @@ function ClassContent(props) {
         setPage(page_number);
       }
     },
-    [setPage, class_contents]
+    [setPage, class_contents, fetch_english_classes, page]
   );
 
   const printImageGrid = useCallback(() => {
