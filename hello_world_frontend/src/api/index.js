@@ -479,3 +479,40 @@ export function delete_english_class(url) {
     );
   }
 }
+
+export function subscribe_english_class(url) {
+
+  return function (dispatch, getState) {
+
+    let state = getState();
+    const token = state.AuthToken; 
+    const profile_url = state.ProfileInfo['url']; 
+    dispatch(actions.subscribe_english_class_request())
+    const post_data = {classes : [url]};
+
+    return fetch(profile_url, {
+      method: 'PATCH',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(post_data)
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(json => dispatch(actions.subscribe_english_class_request_success(json)));
+        }
+        else {
+          response.json().then(json => dispatch(actions.subscribe_english_class_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.subscribe_english_class_request_failure(error))
+    );
+  }
+}

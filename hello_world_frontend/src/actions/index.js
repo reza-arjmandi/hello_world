@@ -206,3 +206,17 @@ export const delete_english_class_request_failure = (error) => ({
     type: types.DELETE_ENGLISH_CLASS_REQUEST_FAILURE,
     error
 });
+
+export const subscribe_english_class_request = () => ({ 
+    type: types.SUBSCRIBE_ENGLISH_CLASS_REQUEST,
+});
+
+export const subscribe_english_class_request_success = (result) => ({ 
+    type: types.SUBSCRIBE_ENGLISH_CLASS_REQUEST_SUCCESS,
+    result
+});
+
+export const subscribe_english_class_request_failure = (error) => ({ 
+    type: types.SUBSCRIBE_ENGLISH_CLASS_REQUEST_FAILURE,
+    error
+});

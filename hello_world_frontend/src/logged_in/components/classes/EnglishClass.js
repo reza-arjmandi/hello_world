@@ -5,6 +5,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import UpdateEnglishClass from "./UpdateEnglishClass";
+import SubscribeEnglishClass from "./SubscribeEnglishClass";
 
 function EnglishClass(props) {
   const {
@@ -34,6 +35,7 @@ function EnglishClass(props) {
     selectClasses,
     update_english_class,
     delete_english_class,
+    subscribe_english_class,
   } = props;
 
   let { class_id } = useParams();
@@ -67,9 +69,14 @@ function EnglishClass(props) {
     />
   }
   else{
-    return <h2>title2</h2>
+    return <SubscribeEnglishClass 
+      onClose={closeAddPostModal}
+      pushMessageToSnackbar={pushMessageToSnackbar}
+      update_english_class={update_english_class}
+      selected_english_class={selected_english_class}
+      subscribe_english_class={subscribe_english_class}
+    />
   }
-  
 }
 
 EnglishClass.propTypes = {

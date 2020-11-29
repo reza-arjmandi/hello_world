@@ -47,7 +47,7 @@ storiesOf('LoggedIn/components/classes/Classes', module)
           <GlobalStyles />
           <Classes
             posts={posts}
-            selectPosts={selectPosts}
+            class_contents={selectPosts}
           />
         </div>
     )})

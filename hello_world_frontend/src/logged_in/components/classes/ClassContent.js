@@ -11,7 +11,8 @@ import {
   Box,
   withStyles,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { withRouter } from "react-router-dom";
+import DetailsIcon from '@material-ui/icons/Details';
 import SelfAligningImage from "../../../shared/components/SelfAligningImage";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
@@ -34,6 +35,7 @@ function ClassContent(props) {
     openAddPostModal,
     classes,
     profile_info, 
+    history,
   } = props;
   const [page, setPage] = useState(0);
   const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState(false);
@@ -66,9 +68,10 @@ function ClassContent(props) {
     closeDeletePostDialog,
   ]);
 
-  const onDelete = useCallback(() => {
-    setIsDeletePostDialogOpen(true);
-  }, [setIsDeletePostDialogOpen]);
+  const on_detail = useCallback((class_content) => {
+    history.push(`/c/classes/${class_content['id']}`);
+
+  }, [history]);
 
   const handleChangePage = useCallback(
     (__, page_number) => {
@@ -97,11 +100,11 @@ function ClassContent(props) {
                     date_time={post['date_time']}
                     options={[
                       {
-                        name: "Delete",
+                        name: "Detail",
                         onClick: () => {
-                          onDelete(post);
+                          on_detail(post);
                         },
-                        icon: <DeleteIcon />,
+                        icon: <DetailsIcon />,
                       },
                     ]}
                   />
@@ -114,11 +117,11 @@ function ClassContent(props) {
     return (
       <Box m={2}>
         <HighlightedInformation>
-          No class_contents added yet. Click on &quot;NEW&quot; to create your first one.
+          No English classes added yet. Click on &quot;NEW&quot; to create your first one.
         </HighlightedInformation>
       </Box>
     );
-  }, [class_contents, onDelete, page]);
+  }, [class_contents, on_detail, page]);
 
   return (
     <Paper>
@@ -177,4 +180,4 @@ ClassContent.propTypes = {
   pushMessageToSnackbar: PropTypes.func,
 };
 
-export default withStyles(styles)(ClassContent);
+export default withRouter(withStyles(styles)(ClassContent));
