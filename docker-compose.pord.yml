@@ -5,7 +5,7 @@ services:
     build:
       context: ./hello_world_backend
       dockerfile: Dockerfile.prod
-    command: gunicorn hello_world_backend.wsgi:application --certfile /etc/nginx/certs/api.halloenglish.com.crt --keyfile /etc/nginx/certs/api.halloenglish.com.key --bind 0.0.0.0:1234
+    command: gunicorn hello_world_backend.wsgi:application --certfile /etc/nginx/certs/halloenglish.com.crt --keyfile /etc/nginx/certs/halloenglish.com.key --bind 0.0.0.0:1234
     expose:
       - 1234
       - 443
