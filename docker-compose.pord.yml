@@ -56,6 +56,14 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock
       - ssl_cert_volume:/etc/nginx/certs
 
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    environment:
+      NGINX_PROXY_CONTAINER: "nginx-proxy"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ssl_cert_volume:/etc/nginx/certs
+
 volumes:
   postgres_data: 
     driver: local
