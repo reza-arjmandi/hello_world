@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Box, isWidthUp, withWidth, withStyles } from "@material-ui/core";
+import {
+  Grid, Box, isWidthUp, withWidth, withStyles } from "@material-ui/core";
 import BlogCard from "./BlogCard";
 
 const styles = (theme) => ({

@@ -3,12 +3,10 @@ import React from 'react';
 import { muiTheme } from 'storybook-addon-material-ui';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../theme";
 import GlobalStyles from "../../../GlobalStyles";
-
 import ShareButton from '../../../shared/components/ShareButton';
 
 export default {
@@ -32,52 +30,52 @@ export const shared_button_data = {
 };
 
 storiesOf('Shared/components/ShareButton', module)
-  .addDecorator(muiTheme(theme))
-  .add('Facebook', () => (
-    <div>
-      <CssBaseline />
-      <GlobalStyles />
-      <ShareButton
-        {...actions_data}
-        {...shared_button_data}
-        disableElevation
-        type="Facebook"
-      />
-    </div>
-  ))
-  .add('Twitter', () => (
-    <div>
-      <CssBaseline />
-      <GlobalStyles />
-      <ShareButton
-        {...actions_data}
-        {...shared_button_data}
-        disableElevation
-        type="Twitter"
-      />
-    </div>
-  ))
-  .add('Reddit', () => (
-    <div>
-      <CssBaseline />
-      <GlobalStyles />
-      <ShareButton
-        {...actions_data}
-        {...shared_button_data}
-        disableElevation
-        type="Reddit"
-      />
-    </div>
-  ))
-  .add('Tumblr', () => (
-    <div>
-      <CssBaseline />
-      <GlobalStyles />
-      <ShareButton
-        {...actions_data}
-        {...shared_button_data}
-        disableElevation
-        type="Tumblr"
-       />
-    </div>
-  ))
+.addDecorator(muiTheme(theme))
+.add('Facebook', () => (
+  <div>
+    <CssBaseline />
+    <GlobalStyles />
+    <ShareButton
+      {...actions_data}
+      {...shared_button_data}
+      disableElevation
+      type="Facebook"
+    />
+  </div>
+))
+.add('Twitter', () => (
+  <div>
+    <CssBaseline />
+    <GlobalStyles />
+    <ShareButton
+      {...actions_data}
+      {...shared_button_data}
+      disableElevation
+      type="Twitter"
+    />
+  </div>
+))
+.add('Reddit', () => (
+  <div>
+    <CssBaseline />
+    <GlobalStyles />
+    <ShareButton
+      {...actions_data}
+      {...shared_button_data}
+      disableElevation
+      type="Reddit"
+    />
+  </div>
+))
+.add('Tumblr', () => (
+  <div>
+    <CssBaseline />
+    <GlobalStyles />
+    <ShareButton
+      {...actions_data}
+      {...shared_button_data}
+      disableElevation
+      type="Tumblr"
+     />
+  </div>
+))

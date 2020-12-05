@@ -3,12 +3,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
 import { action } from '@storybook/addon-actions';
-
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../theme";
 import GlobalStyles from "../../../GlobalStyles";
-
 import ConfirmationDialog from 
     '../../../shared/components/ConfirmationDialog';
 
@@ -29,40 +27,40 @@ export const dialog_data = {
 };
 
 storiesOf('Shared/components/ConfirmationDialog', module)
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => (
-        <div>
-          <CssBaseline />
-          <GlobalStyles />
-          <ConfirmationDialog 
-            content={
-                <span>
-                  {"Do you really want to remove the friend "}
-                  <b>{'ThisItem'}</b>
-                  {" from your list?"}
-                </span>
-            }
-            {...actions_data}
-            {...dialog_data}
-            loading={false}
-          />
-        </div>
-    ))
-    .add('Loading', () => (
-        <div>
-          <CssBaseline />
-          <GlobalStyles />
-          <ConfirmationDialog 
-            content={
-                <span>
-                  {"Do you really want to remove the friend "}
-                  <b>{'ThisItem'}</b>
-                  {" from your list?"}
-                </span>
-            }
-            {...actions_data}
-            {...dialog_data}
-            loading={true}
-          />
-        </div>
-    ))
+.addDecorator(muiTheme(theme))
+.add('Default', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ConfirmationDialog 
+        content={
+            <span>
+              {"Do you really want to remove the friend "}
+              <b>{'ThisItem'}</b>
+              {" from your list?"}
+            </span>
+        }
+        {...actions_data}
+        {...dialog_data}
+        loading={false}
+      />
+    </div>
+))
+.add('Loading', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ConfirmationDialog 
+        content={
+            <span>
+              {"Do you really want to remove the friend "}
+              <b>{'ThisItem'}</b>
+              {" from your list?"}
+            </span>
+        }
+        {...actions_data}
+        {...dialog_data}
+        loading={true}
+      />
+    </div>
+))

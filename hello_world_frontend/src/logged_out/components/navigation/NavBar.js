@@ -42,7 +42,6 @@ const styles = theme => ({
 function NavBar(props) {
   const {
     classes,
-    // openRegisterDialog,
     openLoginDialog,
     handleMobileDrawerOpen,
     handleMobileDrawerClose,
@@ -63,7 +62,6 @@ function NavBar(props) {
     {
       name: "Videos",
       link: "/videos",
-      // onClick: openRegisterDialog,
       icon: <HowToRegIcon className="text-white" />
     },
     {

@@ -13,9 +13,10 @@ import {
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import DetailsIcon from '@material-ui/icons/Details';
+
 import SelfAligningImage from "../../../shared/components/SelfAligningImage";
-import HighlightedInformation from "../../../shared/components/HighlightedInformation";
-import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
+import HighlightedInformation from 
+  "../../../shared/components/HighlightedInformation";
 
 const styles = {
   dBlock: { display: "block" },
@@ -25,11 +26,10 @@ const styles = {
   },
 };
 
-const rowsPerPage = 6;
+const rowsPerPage = 8;
 
 function ClassContent(props) {
   const {
-    pushMessageToSnackbar,
     fetch_english_classes,
     class_contents,
     openAddPostModal,
@@ -38,42 +38,12 @@ function ClassContent(props) {
     history,
   } = props;
   const [page, setPage] = useState(0);
-  const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState(false);
-  const [isDeletePostDialogLoading, setIsDeletePostDialogLoading] = useState(
-    false
-  );
-
-  const closeDeletePostDialog = useCallback(() => {
-    setIsDeletePostDialogOpen(false);
-    setIsDeletePostDialogLoading(false);
-  }, [setIsDeletePostDialogOpen, setIsDeletePostDialogLoading]);
-
-  const deletePost = useCallback(() => {
-    setIsDeletePostDialogLoading(true);
-    setTimeout(() => {
-      const _posts = [...class_contents];
-      const index = _posts.find((element) => element.id === deletePost.id);
-      _posts.splice(index, 1);
-      // setPosts(_posts);
-      pushMessageToSnackbar({
-        text: "Your post has been deleted",
-      });
-      closeDeletePostDialog();
-    }, 1500);
-  }, [
-    class_contents,
-    // setPosts,
-    setIsDeletePostDialogLoading,
-    pushMessageToSnackbar,
-    closeDeletePostDialog,
-  ]);
 
   const on_detail = useCallback((class_content) => {
     history.push(`/c/classes/${class_content['id']}`);
-
   }, [history]);
 
-  const handleChangePage = useCallback(
+  const handle_change_page = useCallback(
     (__, page_number) => {
       if(page_number > page && class_contents['next']) {
         fetch_english_classes(class_contents['next'])
@@ -87,7 +57,7 @@ function ClassContent(props) {
     [setPage, class_contents, fetch_english_classes, page]
   );
 
-  const printImageGrid = useCallback(() => {
+  const printـimage_grid = useCallback(() => {
     if (class_contents['results'].length > 0) {
       return (
         <Box p={1}>
@@ -121,7 +91,7 @@ function ClassContent(props) {
         </HighlightedInformation>
       </Box>
     );
-  }, [class_contents, on_detail, page]);
+  }, [class_contents, on_detail]);
 
   return (
     <Paper>
@@ -139,7 +109,7 @@ function ClassContent(props) {
         }
       </Toolbar>
       <Divider />
-      {printImageGrid()}
+      {printـimage_grid()}
       <TablePagination
         component="div"
         count={class_contents['count']}
@@ -151,22 +121,16 @@ function ClassContent(props) {
         nextIconButtonProps={{
           "aria-label": "Next Page",
         }}
-        onChangePage={handleChangePage}
+        onChangePage={handle_change_page}
         classes={{
           select: classes.dNone,
           selectIcon: classes.dNone,
-          actions: class_contents['results'].length > 0 ? classes.dBlock : classes.dNone,
-          caption: class_contents['results'].length > 0 ? classes.dBlock : classes.dNone,
+          actions: class_contents['results'].length > 0 
+            ? classes.dBlock : classes.dNone,
+          caption: class_contents['results'].length > 0 
+            ? classes.dBlock : classes.dNone,
         }}
         labelRowsPerPage=""
-      />
-      <ConfirmationDialog
-        open={isDeletePostDialogOpen}
-        title="Confirmation"
-        content="Do you really want to delete the post?"
-        onClose={closeDeletePostDialog}
-        loading={isDeletePostDialogLoading}
-        onConfirm={deletePost}
       />
     </Paper>
   );

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-// import PropTypes from "prop-types";
 import classNames from "classnames";
-import { Grid, Box, isWidthUp, withWidth, withStyles } from "@material-ui/core";
-
+import { 
+  Grid, Box, isWidthUp, withWidth, withStyles } from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
@@ -34,12 +33,12 @@ const styles = (theme) => ({
 function DotsMobileStepper(classes, page_number, videos, change_page) {
   const theme = useTheme();
 
-  const handleNext = () => {
+  const handle_next = () => {
     const next_page = page_number + 1;
     change_page(next_page, videos["next"]);
   };
 
-  const handleBack = () => {
+  const handle_back = () => {
     const prev_page =  page_number - 1;
     change_page(prev_page, videos["previous"]);
   };
@@ -57,14 +56,21 @@ function DotsMobileStepper(classes, page_number, videos, change_page) {
       activeStep={page_number}
       className={classes.root}
       nextButton={
-        <Button size="small" onClick={handleNext} disabled={videos["next"] === null}>
+        <Button 
+          size="small" 
+          onClick={handle_next} 
+          disabled={videos["next"] === null}>
           Next
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+          {theme.direction === 'rtl' 
+            ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
         </Button>
       }
       backButton={
-        <Button size="small" onClick={handleBack} disabled={page_number === 0}>
-          {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        <Button size="small" 
+        onClick={handle_back} 
+        disabled={page_number === 0}>
+          {theme.direction === 'rtl' 
+            ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
           Back
         </Button>
       }
@@ -109,7 +115,8 @@ function getVerticalVideos(width, videos) {
 }
 
 function Videos(props) {
-  const { classes, width, videos, selectVideos, page_number, change_page } = props;
+  const { 
+    classes, width, videos, selectVideos, page_number, change_page } = props;
 
   useEffect(() => {
     selectVideos();
@@ -125,7 +132,8 @@ function Videos(props) {
         <Grid container spacing={3}>
           {getVerticalVideos(width, videos)}
         </Grid>
-        {videos ? DotsMobileStepper(classes, page_number, videos, change_page) : null}
+        {videos ? 
+          DotsMobileStepper(classes, page_number, videos, change_page) : null}
       </div>
     </Box>
   );

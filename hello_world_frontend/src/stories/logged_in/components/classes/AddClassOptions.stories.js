@@ -10,7 +10,6 @@ import GlobalStyles from "../../../../GlobalStyles";
 
 import AddClassOptions from 
     '../../../../logged_in/components/classes/AddClassOptions';
-
 import EmojiTextArea from 
     '../../../../shared/components/EmojiTextArea';
 import ImageCropper from 
@@ -27,18 +26,18 @@ export default {
 };
 
 storiesOf('LoggedIn/components/classes/AddClassOptions', module)
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => {
-        const files = [];
-        return (<div>
-          <CssBaseline />
-          <GlobalStyles />
-          <AddClassOptions
-            EmojiTextArea={EmojiTextArea}
-            ImageCropper={ImageCropper}
-            Dropzone={Dropzone}
-            files={files}
-            DateTimePicker={DateTimePicker}
-          />
-        </div>
-    )})
+.addDecorator(muiTheme(theme))
+.add('Default', () => {
+    const files = [];
+    return (<div>
+      <CssBaseline />
+      <GlobalStyles />
+      <AddClassOptions
+        EmojiTextArea={EmojiTextArea}
+        ImageCropper={ImageCropper}
+        Dropzone={Dropzone}
+        files={files}
+        DateTimePicker={DateTimePicker}
+      />
+    </div>
+)})

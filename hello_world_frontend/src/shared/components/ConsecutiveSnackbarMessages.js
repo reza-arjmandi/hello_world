@@ -70,7 +70,6 @@ function ConsecutiveSnackbars(props) {
       }
     />
   );
-
 }
 
 ConsecutiveSnackbars.propTypes = {

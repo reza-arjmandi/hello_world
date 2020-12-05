@@ -23,25 +23,6 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     zIndex: 1000,
   },
-  inputRoot: {
-    width: 190,
-    "@media (max-width:  400px)": {
-      width: 160,
-    },
-    "@media (max-width:  360px)": {
-      width: 140,
-    },
-    "@media (max-width:  340px)": {
-      width: 120,
-    },
-  },
-  uploadIcon: {
-    fontSize: 48,
-    transition: theme.transitions.create(["color", "box-shadow", "border"], {
-      duration: theme.transitions.duration.short,
-      easing: theme.transitions.easing.easeInOut,
-    }),
-  },
   imgWrapper: { position: "relative" },
   img: {
     width: "100%",
@@ -59,16 +40,10 @@ const styles = (theme) => ({
   numberInput: {
     width: 110,
   },
-  numberInputInput: {
-    padding: "9px 34px 9px 14.5px",
-  },
   emojiTextArea: {
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     marginRight: -1,
-  },
-  dNone: {
-    display: "none",
   },
 });
 
@@ -97,7 +72,7 @@ function AddClassOptions(props) {
     set_date_time,
   } = props;
 
-  const handleChange = useCallback(
+  const handle_change = useCallback(
     (event) => {
       const { name, value } = event.target;
       switch (name) {
@@ -117,7 +92,7 @@ function AddClassOptions(props) {
     [set_title, set_skype_link, set_capacity]
   );
 
-  const handleChangeDescription = useCallback(
+  const handle_change_description = useCallback(
     (value) => {
       set_description(value);
     },
@@ -131,7 +106,7 @@ function AddClassOptions(props) {
     [set_date_time]
   );
 
-  const printFile = useCallback(() => {
+  const print_file = useCallback(() => {
     if (files[0]) {
       return (
         <div className={classes.imgWrapper}>
@@ -199,9 +174,9 @@ function AddClassOptions(props) {
           <EmojiTextArea
             inputClassName={classes.emojiTextArea}
             maxCharacters={2200}
-            rightContent={printFile()}
+            rightContent={print_file()}
             emojiSet="google"
-            onChange={handleChangeDescription}  
+            onChange={handle_change_description}  
             name="description"
             value={description}
           />
@@ -241,37 +216,11 @@ function AddClassOptions(props) {
                 <ListItemSecondaryAction>
                   <TextField 
                     value={element.state}
-                    onChange={handleChange}  
+                    onChange={handle_change}  
                     variant="outlined"  
                     className={classes.numberInput}
                     name={element.stateName}
-
-                    // input={
-                    //   <OutlinedInput
-                    //     labelWidth={0}
-                    //     classes={{ input: classes.numberInputInput }}
-                    //   />
-                    // }  
                   />
-                  {/* <Select
-                    value={element.state}
-                    onChange={handleChange}
-                    input={
-                      <OutlinedInput
-                        name={element.stateName}
-                        labelWidth={0}
-                        className={classes.numberInput}
-                        classes={{ input: classes.numberInputInput }}
-                      />
-                    }
-                    MenuProps={{ disableScrollLock: true }}
-                  >
-                    {inputOptions.map((innerElement) => (
-                      <MenuItem value={innerElement} key={innerElement}>
-                        {innerElement}
-                      </MenuItem>
-                    ))}
-                  </Select> */}
                 </ListItemSecondaryAction>
               </FormControl>
             </ListItem>

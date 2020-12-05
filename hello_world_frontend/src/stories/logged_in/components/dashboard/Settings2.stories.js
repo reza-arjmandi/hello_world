@@ -2,7 +2,6 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
-
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
@@ -18,12 +17,12 @@ export default {
 };
 
 storiesOf('LoggedIn/components/dashboard/Settings2', module)
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => {
-        return (<div>
-          <CssBaseline />
-          <GlobalStyles />
-          <Settings2
-          />
-        </div>
-    )})
+.addDecorator(muiTheme(theme))
+.add('Default', () => {
+    return (<div>
+      <CssBaseline />
+      <GlobalStyles />
+      <Settings2
+      />
+    </div>
+)})

@@ -1,13 +1,10 @@
 import React, { useCallback, useRef, Fragment } from "react";
 import PropTypes from "prop-types";
-// import classNames from "classnames";
 import { withRouter } from "react-router-dom";
 import {
   TextField,
   Button,
-  // Checkbox,
   Typography,
-  // FormControlLabel,
   withStyles,
 } from "@material-ui/core";
 import Stepper from '@material-ui/core/Stepper';
@@ -15,9 +12,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 import FormDialog from "../../../shared/components/FormDialog";
-// import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
-// import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
 
 const styles = (theme) => ({
   forgotPassword: {
@@ -40,32 +35,9 @@ const styles = (theme) => ({
   },
 });
 
-
 function getSteps() {
   return ['Submit Email', 'Verify Email'];
 }
-
-// function getStepContent(step) {
-//   switch (step) {
-//     case 0:
-//       return 'Enter your email address...';
-//     case 1:
-//       return 'Enter code...';
-//     default:
-//       return 'Unknown step';
-//   }
-// }
-
-// function getStepLabel(step) {
-//   switch (step) {
-//     case 0:
-//       return 'Email';
-//     case 1:
-//       return 'Code';
-//     default:
-//       return null;
-//   }
-// }
 
 function LoginDialog(props) {
   const {
@@ -73,9 +45,7 @@ function LoginDialog(props) {
     history,
     classes,
     onClose,
-    // openChangePasswordDialog,
     status,
-    // loginCodeStatus,
     setLoginCodeStatus,
     login,
     send_verification_code,
@@ -85,12 +55,10 @@ function LoginDialog(props) {
     email,
     open_profile_menu,
   } = props;
-  // const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginEmail = useRef();
   const loginCode = useRef();
-  // const loginPassword = useRef();
 
-  const submitHandler = useCallback(() => {
+  const submit_handler = useCallback(() => {
     setLoginCodeStatus(null);
     setStatus(null);
     if (login_step === 0) {
@@ -119,7 +87,7 @@ function LoginDialog(props) {
         loading={login_request_is_fetching}
         onFormSubmit={(e) => {
           e.preventDefault();
-          submitHandler();
+          submit_handler();
         }}
         hideBackdrop
         headline="Login"
@@ -179,55 +147,9 @@ function LoginDialog(props) {
                 FormHelperTextProps={{ error: true }}
               />
             }
-
-            {/* <VisibilityPasswordTextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              error={status === "invalidPassword"}
-              label="Password"
-              inputRef={loginPassword}
-              autoComplete="off"
-              onChange={() => {
-                if (status === "invalidPassword") {
-                  setStatus(null);
-                }
-              }}
-              helperText={
-                status === "invalidPassword" ? (
-                  <span>
-                    Incorrect password. Try again, or click on{" "}
-                    <b>&quot;Forgot Password?&quot;</b> to reset it.
-                  </span>
-                ) : (
-                  ""
-                )
-              }
-              FormHelperTextProps={{ error: true }}
-              onVisibilityChange={setIsPasswordVisible}
-              isVisible={isPasswordVisible}
-            /> */}
             {login_request_result &&
             <Typography className={classes.instructions}>{login_request_result}</Typography>
             }
-            {/* <FormControlLabel
-              className={classes.formControlLabel}
-              control={<Checkbox color="primary" />}
-              label={<Typography variant="body1">Remember me</Typography>}
-            /> */}
-            {/* {status === "verificationEmailSend" ? (
-              <HighlightedInformation>
-                We have send instructions on how to reset your password to your
-                email address
-              </HighlightedInformation>
-            ) : (
-              <HighlightedInformation>
-                Email is: <b>test@web.com</b>
-                <br />
-                Password is: <b>HaRzwc</b>
-              </HighlightedInformation>
-            )} */}
           </Fragment>
         }
         actions={
@@ -245,29 +167,6 @@ function LoginDialog(props) {
               {login_step === 2 && 'Finish'}
               {login_request_is_fetching && <ButtonCircularProgress />}
             </Button>
-
-            {/* <Typography
-              align="center"
-              className={classNames(
-                classes.forgotPassword,
-                isLoading ? classes.disabledText : null
-              )}
-              color="primary"
-              onClick={isLoading ? null : openChangePasswordDialog}
-              tabIndex={0}
-              role="button"
-              onKeyDown={(event) => {
-                // For screenreaders listen to space and enter events
-                if (
-                  (!isLoading && event.keyCode === 13) ||
-                  event.keyCode === 32
-                ) {
-                  openChangePasswordDialog();
-                }
-              }}
-            >
-              Forgot Password?
-            </Typography> */}
           </Fragment>
         }
       />

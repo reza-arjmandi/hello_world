@@ -3,15 +3,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
 import StoryRouter from 'storybook-react-router';
-
 import { CssBaseline } from "@material-ui/core";
+import { action } from '@storybook/addon-actions';
 
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
-
 import NavBar from 
     '../../../../logged_in/components/navigation/NavBar';
-import persons from "../../../dummy_data/persons";
 
 export default {
     component: NavBar,
@@ -19,35 +17,30 @@ export default {
     excludeStories: /.*_data$/, 
 };
 
-storiesOf('LoggedIn/components/navigation/NavBar', module)
-    .addDecorator(StoryRouter())
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => {
-        const messages = [];
-        const iterations = persons.length;
-        const oneDaySeconds = 60 * 60 * 24;
-        let curUnix = Math.round(
-          new Date().getTime() / 1000 - iterations * oneDaySeconds
-        );
-        for (let i = 0; i < iterations; i += 1) {
-          const person = persons[i];
-          const message = {
-            id: i,
-            src: person.src,
-            date: curUnix,
-            text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr sed.",
-          };
-          curUnix += oneDaySeconds;
-          messages.push(message);
-        }
-        messages.reverse();
+export const actions_data = {
+  fetch_profile_avatar: action('fetch_profile_avatar'),
+};
 
-        return (<div>
-          <CssBaseline />
-          <GlobalStyles />
-          <NavBar
-            messages={messages}
-            selectedTab="Dashboard"
-          />
-        </div>
-    )})
+export const navbar_data = {
+  profile_info: {
+    'user_type':"teacher",
+    'skype_link':"link sample",
+    'owner':"owner sample",
+    'avatar':"http://127.0.0.1:8000/photos/user.png/"
+  }
+};
+
+storiesOf('LoggedIn/components/navigation/NavBar', module)
+.addDecorator(StoryRouter())
+.addDecorator(muiTheme(theme))
+.add('Default', () => {
+    return (<div>
+      <CssBaseline />
+      <GlobalStyles />
+      <NavBar
+        {...navbar_data}
+        {...actions_data}
+        selectedTab="Dashboard"
+      />
+    </div>
+)})

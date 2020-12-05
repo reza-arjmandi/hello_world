@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
@@ -45,42 +45,42 @@ function SubscribeEnglishClass(props) {
 
   const classes = useStyles();
 
-    return (
-        <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={selected_english_class["image"]}
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {selected_english_class["title"]}
-              </Typography>
-              <Typography gutterBottom variant="h6" component="h4">
-                {selected_english_class["date_time"]}
-              </Typography>
-              <Typography gutterBottom variant="h6" component="h4">
-                capacity:{selected_english_class["capacity"]}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {selected_english_class["description"]}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" onClick={on_back}>
-              Back
-            </Button>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary" onClick={on_subscribe}>
-              Subscribe
-            </Button>
-          </CardActions>
-        </Card>
-      );
+  return (
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={selected_english_class["image"]}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {selected_english_class["title"]}
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h4">
+              {selected_english_class["date_time"]}
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h4">
+              capacity:{selected_english_class["capacity"]}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {selected_english_class["description"]}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" onClick={on_back}>
+            Back
+          </Button>
+          <Button size="small" color="primary">
+            Share
+          </Button>
+          <Button size="small" color="primary" onClick={on_subscribe}>
+            Subscribe
+          </Button>
+        </CardActions>
+      </Card>
+    );
 }
 
 SubscribeEnglishClass.propTypes = {

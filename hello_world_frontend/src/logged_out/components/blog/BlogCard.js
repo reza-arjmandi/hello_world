@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import format from "date-fns/format";
 import classNames from "classnames";
 import { Typography, Card, Box, withStyles } from "@material-ui/core";
 
@@ -61,9 +60,6 @@ function BlogCard(props) {
       )}
       <Box p={2}>
         <Typography variant="body2" color="textSecondary">
-          {/* {format(new Date(date * 1000), "PPP", {
-            awareOfUnicodeTokens: true,
-          })} */}
           {date}
         </Typography>
         <Link

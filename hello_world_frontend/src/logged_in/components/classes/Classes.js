@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import ClassContent from "./ClassContent";
 import AddClass from "./AddClass";
@@ -15,12 +15,10 @@ function Classes(props) {
     fetch_english_classes,
     profile_info,
     create_english_class,
-
     isAddPostPaperOpen,
     closeAddPostModal,
     openAddPostModal,
   } = props;
-
 
   useEffect(() => {
     fetch_english_classes();

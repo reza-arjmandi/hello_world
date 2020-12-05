@@ -54,17 +54,10 @@ function Routing(props) {
     pushMessageToSnackbar,
     class_contents,
     transactions,
-    toggleAccountActivation,
-    CardChart,
-    statistics,
-    targets,
-    setTargets,
     fetch_english_classes,
-    isAccountActivated,
     selectDashboard,
     selectClasses,
     selectSubscription,
-    openAddBalanceDialog,
     profile_info, 
     send_profile_info_handle,
     update_profile_info,
@@ -94,9 +87,7 @@ function Routing(props) {
         <PropsRoute
           path="/c/classes/:class_id"
           component={EnglishClass}
-
           profile_info={profile_info} 
-
           onClose={closeAddPostModal}
           EmojiTextArea={EmojiTextArea}
           ImageCropper={ImageCropper}
@@ -104,19 +95,14 @@ function Routing(props) {
           DateTimePicker={DateTimePicker}
           pushMessageToSnackbar={pushMessageToSnackbar}
           create_english_class={create_english_class}
-          
           selected_english_class={selected_english_class}
           fetch_class_by_id={fetch_class_by_id}
-          ImageCropper={ImageCropper}
-
           isAddPostPaperOpen={isAddPostPaperOpen}
           closeAddPostModal={closeAddPostModal}
           openAddPostModal={openAddPostModal}
-
           selectClasses={selectClasses}
           update_english_class={update_english_class}
           delete_english_class={delete_english_class}
-
           subscribe_english_class={subscribe_english_class}
         />
 
@@ -143,7 +129,6 @@ function Routing(props) {
           transactions={transactions}
           pushMessageToSnackbar={pushMessageToSnackbar}
           selectSubscription={selectSubscription}
-          openAddBalanceDialog={openAddBalanceDialog}
         />
         <PropsRoute
           path="/c/configuration"
@@ -155,13 +140,7 @@ function Routing(props) {
         <PropsRoute
           path=""
           component={Dashboard}
-          toggleAccountActivation={toggleAccountActivation}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          CardChart={CardChart}
-          statistics={statistics}
-          targets={targets}
-          setTargets={setTargets}
-          isAccountActivated={isAccountActivated}
           selectDashboard={selectDashboard}
           profile_info={profile_info} 
           update_profile_info={update_profile_info}
@@ -182,15 +161,9 @@ Routing.propTypes = {
   fetch_english_classes: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
   transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toggleAccountActivation: PropTypes.func,
-  CardChart: PropTypes.elementType,
-  statistics: PropTypes.object.isRequired,
-  targets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isAccountActivated: PropTypes.bool.isRequired,
   selectDashboard: PropTypes.func.isRequired,
   selectPosts: PropTypes.func.isRequired,
   selectSubscription: PropTypes.func.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(memo(Routing));

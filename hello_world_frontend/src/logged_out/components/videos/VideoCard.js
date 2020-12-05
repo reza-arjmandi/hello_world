@@ -41,7 +41,7 @@ export default function VideoCard({title, description, stream_url}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
+  const handle_expand = () => {
     setExpanded(!expanded);
   };
 
@@ -73,7 +73,7 @@ export default function VideoCard({title, description, stream_url}) {
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={handleExpandClick}
+          onClick={handle_expand}
           aria-expanded={expanded}
           aria-label="show more"
         >
@@ -90,50 +90,3 @@ export default function VideoCard({title, description, stream_url}) {
     </Card>
   );
 }
-
-
-// export default function ResourceCard({
-//   post_options, 
-//   resource_data, update_resource, delete_resource}) {
-
-// const classes = useStyles();
-
-// const handle_delete_click = () => {
-//   // delete_resource({
-//   //   device_name,
-//   // });
-// };
-
-// // var log = {
-// //   device_name,
-// //   driver,
-// //   log_file,
-// //   baud_rate,
-// //   flow_control,
-// //   parity,
-// //   stop_bits,
-// //   character_size
-// // };
-
-// const on_value_change = (item) => {
-//   // log[item.id] = item.value;
-//   // update_log(device_name, log);
-// };
-
-// return (
-//   <div style={{
-//     position: 'relative',
-//     'padding-top': "56.25%" 
-//   }}>
-//     <ReactPlayer 
-//       style={{
-//         position: 'absolute',
-//         top: '0',
-//         left: '0',
-//       }}
-//       width='100%'
-//       height='100%'
-//       url={resource_data['stream_url']} />
-//   </div>
-// );
-// }

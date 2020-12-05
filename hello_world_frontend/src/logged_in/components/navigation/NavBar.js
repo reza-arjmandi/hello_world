@@ -1,9 +1,5 @@
-import React, { 
-  Fragment, 
-  useRef, 
-  useCallback, 
-  useState, 
-  useEffect } from "react";
+import React, {Fragment, useRef, useCallback, useState, useEffect } 
+  from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -30,10 +26,6 @@ import ClassIcon from '@material-ui/icons/Class';
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
-import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import MessagePopperButton from "./MessagePopperButton";
-import SideDrawer from "./SideDrawer";
-import Balance from "./Balance";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 
 const styles = (theme) => ({
@@ -134,10 +126,8 @@ const styles = (theme) => ({
 function NavBar(props) {
   const { 
     selectedTab, 
-    messages, 
     classes, 
     width, 
-    openAddBalanceDialog, 
     profile_info,
     fetch_profile_avatar,
     profile_avatar,
@@ -145,24 +135,15 @@ function NavBar(props) {
   } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
+  const [is_mobile_open, set_is_mobile_open] = useState(false);
 
-  const openMobileDrawer = useCallback(() => {
-    setIsMobileOpen(true);
-  }, [setIsMobileOpen]);
+  const open_mobile_drawer = useCallback(() => {
+    set_is_mobile_open(true);
+  }, [set_is_mobile_open]);
 
-  const closeMobileDrawer = useCallback(() => {
-    setIsMobileOpen(false);
-  }, [setIsMobileOpen]);
-
-  const openDrawer = useCallback(() => {
-    setIsSideDrawerOpen(true);
-  }, [setIsSideDrawerOpen]);
-
-  const closeDrawer = useCallback(() => {
-    setIsSideDrawerOpen(false);
-  }, [setIsSideDrawerOpen]);
+  const close_mobile_drawer = useCallback(() => {
+    set_is_mobile_open(false);
+  }, [set_is_mobile_open]);
 
   useEffect(() => {
     fetch_profile_avatar(profile_info.avatar);
@@ -175,7 +156,7 @@ function NavBar(props) {
     {
       link: "/c/dashboard",
       name: "Dashboard",
-      onClick: closeMobileDrawer,
+      onClick: close_mobile_drawer,
       icon: {
         desktop: (
           <DashboardIcon
@@ -191,7 +172,7 @@ function NavBar(props) {
     {
       link: "/c/classes",
       name: "Classes",
-      onClick: closeMobileDrawer,
+      onClick: close_mobile_drawer,
       icon: {
         desktop: (
           <ClassIcon
@@ -207,7 +188,7 @@ function NavBar(props) {
     {
       link: "/c/subscription",
       name: "Subscription",
-      onClick: closeMobileDrawer,
+      onClick: close_mobile_drawer,
       icon: {
         desktop: (
           <AccountBalanceIcon
@@ -243,7 +224,7 @@ function NavBar(props) {
               <Box mr={1}>
                 <IconButton
                   aria-label="Open Navigation"
-                  onClick={openMobileDrawer}
+                  onClick={open_mobile_drawer}
                   color="primary"
                 >
                   <MenuIcon />
@@ -275,15 +256,6 @@ function NavBar(props) {
             alignItems="center"
             width="100%"
           >
-            {isWidthUp("sm", width) && (
-              <Box mr={3}>
-                <Balance
-                  balance={2573}
-                  openAddBalanceDialog={openAddBalanceDialog}
-                />
-              </Box>
-            )}
-            <MessagePopperButton messages={messages} />
             <ListItem
               disableGutters
               className={classNames(classes.iconListItem, classes.smBordered)}
@@ -303,14 +275,6 @@ function NavBar(props) {
               )}
             </ListItem>
           </Box>
-          <IconButton
-            onClick={openDrawer}
-            color="primary"
-            aria-label="Open Sidedrawer"
-          >
-            <SupervisorAccountIcon />
-          </IconButton>
-          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} />
         </Toolbar>
       </AppBar>
       <Hidden xsDown>
@@ -369,9 +333,9 @@ function NavBar(props) {
           onClick: element.onClick,
         }))}
         anchor="left"
-        open={isMobileOpen}
+        open={is_mobile_open}
         selectedItem={selectedTab}
-        onClose={closeMobileDrawer}
+        onClose={close_mobile_drawer}
       />
     </Fragment>
   );

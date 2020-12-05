@@ -2,15 +2,12 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-
 import { muiTheme } from 'storybook-addon-material-ui';
 import StoryRouter from 'storybook-react-router';
-
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
-
 import Videos from 
     '../../../../logged_out/components/videos/Videos';
 
@@ -67,7 +64,7 @@ export const videos_data = {
             "title": "Hello India, meeting with Priyanka from India",
             "description": "Video Cover: The Taj Mahal is a white tomb built in the 16th century by the Mughal emperor, Shah Jahan in memory of his wife, Mumtaz Mahal.\r\nThe building is in the city of Agra, Uttar Pradesh. Widely thought as one of the most beautiful buildings in the world, it is one of India's biggest tourist attractions.\r\nIt is listed as a UNESCO World Heritage Site, together with the Agra Fort, 2.5 kilometers away. It was listed as one of the 7 Wonders of the World in 2007.It is located on the south bank of Yamuna river in Agra. It is a splendid monument.\r\nIn this video we had a conversation with Priyanka. She is a great English teacher.\r\nWe’ve talked about India, including Taj Mahal, Golden Temple, Chandni Chowk market, Holi festival, favorite foods, drinks and ….\r\nThat was really a great conversation.",
             "stream_url": "https://youtu.be/9NjYkQpfc70"
-        }
+        },
     ]
     }
 }
@@ -77,15 +74,15 @@ export const actions_data = {
 };
 
 storiesOf('LoggedOut/components/videos/Videos', module)
-    .addDecorator(StoryRouter())
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => (
-        <div>
-          <CssBaseline />
-          <GlobalStyles />
-          <Videos 
-            {...videos_data}
-            {...actions_data}
-          />
-        </div>
-    ))
+.addDecorator(StoryRouter())
+.addDecorator(muiTheme(theme))
+.add('Default', () => (
+    <div>
+      <CssBaseline />
+      <GlobalStyles />
+      <Videos 
+        {...videos_data}
+        {...actions_data}
+      />
+    </div>
+))

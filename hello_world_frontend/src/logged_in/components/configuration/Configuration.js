@@ -1,5 +1,4 @@
-import React, { 
-  memo, useCallback, useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -68,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Are you...', 'Your timezone', 'Skype ID'];
 
-function getStepContent(
+function get_step_content(
     step, 
     set_user_type, 
     user_type,
@@ -106,18 +105,11 @@ function Configuration({
       if(profile_info && profile_info.is_completed === true) {
         history.push("/c/dashboard")
       }
-    },
-    [
-      profile_info,
-      history
-    ]
-  );
+    }, [profile_info,history]);
 
   useEffect(() => {
     routeTo();
-  }, [
-    routeTo,
-  ]);
+  }, [routeTo]);
 
   const handle_finish = useCallback(() => {
     send_profile_info_handle(
@@ -126,22 +118,26 @@ function Configuration({
       timezone, 
       skype_link, 
       profile_info['Avatar']);
-  }, [skype_link, set_skype_link]);
+  }, [
+    send_profile_info_handle, 
+    profile_info, 
+    user_type, 
+    timezone, 
+    skype_link]);
 
-  const handleNext = useCallback(() => {
-
+  const handle_next = useCallback(() => {
     if(activeStep === steps.length - 1) {
       handle_finish()
     }
     setActiveStep(activeStep + 1);
-  }, [skype_link, set_skype_link, activeStep, steps, handle_finish, setActiveStep]);
+  }, [activeStep, handle_finish, setActiveStep]);
 
-  const handleExit = () =>  {
+  const handle_exit = () =>  {
     log_out();
     history.push("/");
   };
 
-  const handleBack = () => {
+  const handle_back = () => {
     setActiveStep(activeStep - 1);
   };
 
@@ -176,7 +172,7 @@ function Configuration({
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(
+                {get_step_content(
                   activeStep, 
                   set_user_type, 
                   user_type,
@@ -189,21 +185,20 @@ function Configuration({
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleExit}
+                    onClick={handle_exit}
                     className={classes.button}
                   >
                     Exit
                   </Button>
                   
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
+                    <Button onClick={handle_back} className={classes.button}>
                       Back
                     </Button>
                   )}
-
                   <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={handle_next}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}

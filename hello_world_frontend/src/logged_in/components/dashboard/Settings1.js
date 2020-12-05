@@ -14,13 +14,11 @@ import {
   MenuItem,
   FormControl,
   Select,
-  // Box,
   withStyles,
 } from "@material-ui/core";
 
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
-
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import withWidth from "@material-ui/core/withWidth";
 import Bordered from "../../../shared/components/Bordered";
@@ -55,15 +53,11 @@ function Settings1(props) {
     update_profile_info,
   } = props;
   const [isSaveLoading, setIsSaveLoading] = useState(false);
-  // const [isDefaultLoading, setIsDefaultLoading] = useState(false);
   const [user_type, set_user_type] = useState(profile_info.user_type);
   const [timezone, set_timezone] = useState(profile_info.timezone);
-  // const [option3, setOption3] = useState("None");
-  // const [option4, setOption4] = useState("None");
-  // const [option5, setOption5] = useState("2 Days");
   const [skype_link, set_skype_link] = useState(profile_info.skype_link);
 
-  const handleChange = useCallback(
+  const handle_change = useCallback(
     (event) => {
       const { name, value } = event.target;
       switch (name) {
@@ -71,22 +65,6 @@ function Settings1(props) {
           set_user_type(value);
           break;
         }
-        // case "option2": {
-        //   setOption2(value);
-        //   break;
-        // }
-        // case "option3": {
-        //   setOption3(value);
-        //   break;
-        // }
-        // case "option4": {
-        //   setOption4(value);
-        //   break;
-        // }
-        // case "option5": {
-        //   setOption5(value);
-        //   break;
-        // }
         case "skype_link": {
           set_skype_link(value);
           break;
@@ -95,45 +73,12 @@ function Settings1(props) {
           throw new Error("No branch selected in switch statement.");
       }
     },
-    [set_skype_link]
+    [set_skype_link, set_user_type]
   );
 
-  // const resetState = useCallback(() => {
-  //   setIsSaveLoading(false);
-  //   setIsDefaultLoading(false);
-  //   // setOption1("None");
-  //   // setOption2("None");
-  //   // setOption3("None");
-  //   // setOption4("None");
-  //   // setOption5("2 Days");
-  //   // set_skype_link(7500);
-  // }, [
-  //   setIsSaveLoading,
-  //   setIsDefaultLoading,
-  //   // setOption3,
-  //   // setOption4,
-  //   // setOption5,
-  //   // set_skype_link,
-  // ]);
-
-  // const onSetDefault = useCallback(() => {
-  //   setIsDefaultLoading(true);
-  //   setTimeout(() => {
-  //     pushMessageToSnackbar({
-  //       text: "Your settings have been reset to default",
-  //     });
-  //     resetState();
-  //   }, 1500);
-  // }, [pushMessageToSnackbar, resetState]);
-
-  const onSubmit = useCallback(() => {
-    update_profile_info(
-      profile_info.url, 
-      user_type, 
-      timezone, 
-      skype_link, 
-      profile_info.avatar
-      );
+  const on_submit = useCallback(() => {
+    update_profile_info(profile_info.url, user_type, timezone, skype_link, 
+      profile_info.avatar);
     setIsSaveLoading(true);
     setTimeout(() => {
       pushMessageToSnackbar({
@@ -142,19 +87,13 @@ function Settings1(props) {
       setIsSaveLoading(false);
     }, 1500);
   }, [
-    setIsSaveLoading, 
-    pushMessageToSnackbar, 
-    skype_link,
-    user_type,
-    timezone,
-    profile_info.avatar,
-    profile_info.url,
-    update_profile_info,
-  ]);
+    setIsSaveLoading, pushMessageToSnackbar, skype_link,
+    user_type, timezone, profile_info.avatar, profile_info.url,
+    update_profile_info ]);
 
-  const handle_change_timezone = (timezoneName) => {
+  const handle_change_timezone = useCallback((timezoneName) => {
     set_timezone(timezoneName);
-};
+  }, [set_timezone]);
 
   const inputs = [
     {
@@ -162,21 +101,6 @@ function Settings1(props) {
       label: "User type",
       stateName: "user_type",
     },
-    // {
-    //   state: option2,
-    //   label: "Option 2",
-    //   stateName: "option2",
-    // },
-    // {
-    //   state: option3,
-    //   label: "Option 3",
-    //   stateName: "option3",
-    // },
-    // {
-    //   state: option4,
-    //   label: "Option 4",
-    //   stateName: "option4",
-    // },
   ];
 
   return (
@@ -203,7 +127,7 @@ function Settings1(props) {
                   >
                     <Select
                       value={element.state}
-                      onChange={handleChange}
+                      onChange={handle_change}
                       input={
                         <OutlinedInput
                           name={element.stateName}
@@ -240,33 +164,6 @@ function Settings1(props) {
                     onChange      = {handle_change_timezone}
                     value={timezone}
                   />
-                  {/* <Select
-                    value={option5}
-                    onChange={handleChange}
-                    input={
-                      <OutlinedInput
-                        name="option5"
-                        labelWidth={0}
-                        className={classes.numberInput}
-                        classes={{ input: classes.numberInputInput }}
-                      />
-                    }
-                    MenuProps={{ disableScrollLock: true }}
-                  >
-                    {[
-                      "Always",
-                      "6 Hours",
-                      "12 Hours",
-                      "1 Day",
-                      "2 Days",
-                      "3 Days",
-                      "1 Week",
-                    ].map((element) => (
-                      <MenuItem value={element} key={element}>
-                        {element}
-                      </MenuItem>
-                    ))}
-                  </Select> */}
                 </ListItemSecondaryAction>
               </FormControl>
             </ListItem>
@@ -282,7 +179,7 @@ function Settings1(props) {
                     labelWidth={0}
                     name="skype_link"
                     value={skype_link}
-                    onChange={handleChange}
+                    onChange={handle_change}
                     className={classes.timezoneInput}
                     classes={{ input: classes.numberInputInput }}
                     inputProps={{ step: 20 }}
@@ -294,19 +191,11 @@ function Settings1(props) {
         </List>
       </AccordionDetails>
       <AccordionDetails className={classes.AccordionDetails}>
-        {/* <Box mr={1}>
-          <Button
-            onClick={onSetDefault}
-            disabled={isSaveLoading || isDefaultLoading}
-          >
-            Default {isDefaultLoading && <ButtonCircularProgress />}
-          </Button>
-        </Box> */}
         <Button
           variant="contained"
           color="secondary"
           disabled={isSaveLoading }
-          onClick={onSubmit}
+          onClick={on_submit}
         >
           Save {isSaveLoading && <ButtonCircularProgress />}
         </Button>

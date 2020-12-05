@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  withStyles,
-} from "@material-ui/core";
 import UpdateEnglishClass from "./UpdateEnglishClass";
 import SubscribeEnglishClass from "./SubscribeEnglishClass";
 
@@ -11,25 +8,13 @@ function EnglishClass(props) {
   const {
     fetch_class_by_id,
     selected_english_class,
-    selectDashboard,
-    // CardChart,
-    // statistics,
-    toggleAccountActivation,
     pushMessageToSnackbar,
-    // targets,
-    // setTargets,
-    isAccountActivated,
     profile_info,
-    update_profile_info,
-    theme,
-    classes,
     closeAddPostModal,
     Dropzone,
     EmojiTextArea,
     DateTimePicker,
     ImageCropper,
-    onClose,
-    create_english_class,
     openAddPostModal,
     isAddPostPaperOpen,
     selectClasses,
@@ -39,6 +24,7 @@ function EnglishClass(props) {
   } = props;
 
   let { class_id } = useParams();
+
   useEffect(()=>{
     selectClasses();
     openAddPostModal();
@@ -46,7 +32,12 @@ function EnglishClass(props) {
       return;
     }
     fetch_class_by_id(class_id)
-  }, [fetch_class_by_id, class_id, selected_english_class]);
+  }, [
+    selectClasses, 
+    openAddPostModal, 
+    fetch_class_by_id, 
+    class_id, 
+    selected_english_class]);
 
   if(!selected_english_class) {
     return <div/>

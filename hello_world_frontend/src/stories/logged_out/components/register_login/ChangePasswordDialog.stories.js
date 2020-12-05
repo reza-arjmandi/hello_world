@@ -3,7 +3,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
 import { action } from '@storybook/addon-actions';
-
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
@@ -23,13 +22,13 @@ export const actions_data = {
 };
 
 storiesOf('LoggedOut/components/register_login/ChangePasswordDialog', module)
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => {
-        return (<div>
-          <CssBaseline />
-          <GlobalStyles />
-          <ChangePasswordDialog
-            {...actions_data}
-          />
-        </div>
-    )})
+.addDecorator(muiTheme(theme))
+.add('Default', () => {
+    return (<div>
+      <CssBaseline />
+      <GlobalStyles />
+      <ChangePasswordDialog
+        {...actions_data}
+      />
+    </div>
+)})

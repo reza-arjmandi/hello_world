@@ -2,8 +2,10 @@ import React, { Fragment, useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, Box } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+
 import ActionPaper from "../../../shared/components/ActionPaper";
-import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
+import ButtonCircularProgress from 
+  "../../../shared/components/ButtonCircularProgress";
 import AddClassOptions from "./AddClassOptions";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 
@@ -16,21 +18,21 @@ function UpdateEnglishClass(props) {
     ImageCropper,
     update_english_class,
     delete_english_class,
-    openAddPostModal,
     selected_english_class,
     onClose,
     history,
   } = props;
 
-  const [isDeletePostDialogOpen, setIsDeletePostDialogOpen] = useState(false);
-  const [isDeletePostDialogLoading, setIsDeletePostDialogLoading] = useState(
+  const [is_delete_class_dialog_open, set_is_delete_class_dialog_open] = 
+    useState(false);
+  const [is_delete_class_dialog_loading, set_is_delete_class_dialog_loading] = useState(
     false
   );
 
-  const closeDeletePostDialog = useCallback(() => {
-    setIsDeletePostDialogOpen(false);
-    setIsDeletePostDialogLoading(false);
-  }, [setIsDeletePostDialogOpen, setIsDeletePostDialogLoading]);
+  const close_delete_class_dialog = useCallback(() => {
+    set_is_delete_class_dialog_open(false);
+    set_is_delete_class_dialog_loading(false);
+  }, [set_is_delete_class_dialog_open, set_is_delete_class_dialog_loading]);
 
   const delete_class = useCallback(() => {
     delete_english_class(selected_english_class["url"]);
@@ -43,14 +45,14 @@ function UpdateEnglishClass(props) {
     onClose,
   ]);
   
-  const onBack = () => {
+  const on_back = useCallback(() => {
     history.push("/c/classes");
     onClose();
-  }
+  }, [history, onClose]);
 
-  const on_delete = () => {
-    setIsDeletePostDialogOpen(true);
-  }
+  const on_delete = useCallback(() => {
+    set_is_delete_class_dialog_open(true);
+  }, [set_is_delete_class_dialog_open])
 
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -118,7 +120,13 @@ function UpdateEnglishClass(props) {
     set_capacity(selected_english_class["capacity"])
     set_date_time(new Date(selected_english_class["date_time"]))
 },
-  [setFiles, selected_english_class, set_title, set_skype_link, set_description, set_date_time]);
+  [setFiles, 
+  selected_english_class, 
+  set_title, 
+  set_skype_link, 
+  set_description, 
+  set_date_time, 
+  onCrop]);
 
   const handleUpdate = useCallback(() => {
     setLoading(true);
@@ -136,10 +144,11 @@ function UpdateEnglishClass(props) {
          "capacity": 2
         }
       )
-      onBack();
+      on_back();
     }, 1500);
-  }, [setLoading, onClose, pushMessageToSnackbar, 
-    title, description, date_time, skype_link, files]);
+  }, [setLoading, pushMessageToSnackbar, 
+    title, description, date_time, skype_link, 
+    on_back, selected_english_class, update_english_class]);
 
   return (
     <Fragment>
@@ -173,7 +182,7 @@ function UpdateEnglishClass(props) {
         actions={
           <Fragment>
               <Box mr={1}>
-              <Button onClick={onBack} disabled={loading}>
+              <Button onClick={on_back} disabled={loading}>
                 Back
               </Button>
             </Box>
@@ -198,11 +207,11 @@ function UpdateEnglishClass(props) {
         }
       />
       <ConfirmationDialog
-        open={isDeletePostDialogOpen}
+        open={is_delete_class_dialog_open}
         title="Confirmation"
         content="Do you really want to delete the english class?"
-        onClose={closeDeletePostDialog}
-        loading={isDeletePostDialogLoading}
+        onClose={close_delete_class_dialog}
+        loading={is_delete_class_dialog_loading}
         onConfirm={delete_class}
       />
     </Fragment>

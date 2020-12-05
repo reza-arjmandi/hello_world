@@ -3,12 +3,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
 import { action } from '@storybook/addon-actions';
-
 import { CssBaseline } from "@material-ui/core";
+import StoryRouter from 'storybook-react-router';
 
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
-
 import Configuration from 
     '../../../../logged_in/components/configuration/Configuration';
 
@@ -35,17 +34,19 @@ export const login_profile_page_data = {
 
 export const actions_data = {
     send_profile_info_handle: action('send_profile_info_handle'),
+    log_out: action('log_out'),
 }
 
 storiesOf('LoggedIn/components/configuration/Configuration', module)
-    .addDecorator(muiTheme(theme))
-    .add('Default', () => {
-        return (<div>
-          <CssBaseline />
-          <GlobalStyles />
-          <Configuration
-            {...actions_data}
-            {...login_profile_page_data}
-          />
-        </div>
-    )})
+.addDecorator(StoryRouter())
+.addDecorator(muiTheme(theme))
+.add('Default', () => {
+    return (<div>
+      <CssBaseline />
+      <GlobalStyles />
+      <Configuration
+        {...actions_data}
+        {...login_profile_page_data}
+      />
+    </div>
+)})

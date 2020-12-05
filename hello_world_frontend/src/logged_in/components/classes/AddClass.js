@@ -1,8 +1,10 @@
 import React, { Fragment, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Button, Box } from "@material-ui/core";
+
 import ActionPaper from "../../../shared/components/ActionPaper";
-import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
+import ButtonCircularProgress from 
+  "../../../shared/components/ButtonCircularProgress";
 import AddClassOptions from "./AddClassOptions";
 
 function AddClass(props) {
@@ -19,7 +21,6 @@ function AddClass(props) {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cropperFile, setCropperFile] = useState(null);
-
   const [title, set_title] = useState("");
   const [skype_link, set_skype_link] = useState("");
   const [capacity, set_capacity] = useState("");

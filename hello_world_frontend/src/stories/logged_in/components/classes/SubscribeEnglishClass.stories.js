@@ -8,32 +8,22 @@ import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
-
-import UpdateEnglishClass from 
-    '../../../../logged_in/components/classes/UpdateEnglishClass';
-import EmojiTextArea from 
-    '../../../../shared/components/EmojiTextArea';
-import ImageCropper from 
-    '../../../../shared/components/ImageCropper';
-import Dropzone from 
-    '../../../../shared/components/Dropzone';
-import DateTimePicker from 
-    '../../../../shared/components/DateTimePicker';
+import SubscribeEnglishClass from 
+    '../../../../logged_in/components/classes/SubscribeEnglishClass';
 
 export default {
-    component: UpdateEnglishClass,
-    title: 'LoggedIn/components/classes/UpdateEnglishClass',
+    component: SubscribeEnglishClass,
+    title: 'LoggedIn/components/classes/SubscribeEnglishClass',
     excludeStories: /.*_data$/, 
 };
 
 export const actions_data = {
     pushMessageToSnackbar: action('pushMessageToSnackbar'),
-    update_english_class: action('update_english_class'),
-    delete_english_class: action('delete_english_class'),
+    subscribe_english_class: action('subscribe_english_class'),
     onClose: action('onClose'),
 };
 
-export const update_english_class_data = {
+export const subscribe_mode_data = {
     selected_english_class: {
         "url": "http://127.0.0.1:8000/english_class/1/",
         "id": 1,
@@ -48,19 +38,15 @@ export const update_english_class_data = {
     }
 };
 
-storiesOf('LoggedIn/components/classes/UpdateEnglishClass', module)
+storiesOf('LoggedIn/components/classes/SubscribeEnglishClass', module)
 .addDecorator(StoryRouter())
 .addDecorator(muiTheme(theme))
 .add('Default', () => {
     return (<div>
       <CssBaseline />
       <GlobalStyles />
-      <UpdateEnglishClass
-        EmojiTextArea={EmojiTextArea}
-        ImageCropper={ImageCropper}
-        Dropzone={Dropzone}
-        DateTimePicker={DateTimePicker}
-        {...update_english_class_data}
+      <SubscribeEnglishClass
+        {...subscribe_mode_data}
         {...actions_data}
       />
     </div>
