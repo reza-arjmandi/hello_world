@@ -119,8 +119,8 @@ class TestProfileInfo(APITestCase):
         assert_that(updated_profile_info, ProfileInfoEqualTo(response.json()))
         (response, admin_user) = TestsUtils.retrieve_res(
             self.client, TestsUtils.get_english_class_list_url())
-        # assert_that(classes_result, 
-        #     EnglishClassesCapacityIsDecreased(response.json()))
+        assert_that(classes_result, 
+            EnglishClassesCapacityIsDecreased(response.json()))
 
     def test_deleting_profile_info_witout_auth_must_be_failed(self):
         (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(
