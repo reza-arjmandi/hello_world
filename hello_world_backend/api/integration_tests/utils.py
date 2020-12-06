@@ -63,6 +63,10 @@ class Utils:
     def assert_is_ok(response):
         assert_that(response.status_code, 
             equal_to(status.HTTP_200_OK))
+
+    def assert_is_bad_request(response):
+        assert_that(response.status_code, 
+            equal_to(status.HTTP_400_BAD_REQUEST))
     
     def assert_is_deleted(response):
         assert_that(response.status_code, 
@@ -136,7 +140,8 @@ class Utils:
     def get_english_class_list_url():
         return reverse('englishclass-list')
 
-    def generate_random_english_class_data(temp_images):
+    def generate_random_english_class_data(
+        temp_images, capacity=random.randint(2, 5)):
         img_path = f'{Utils.random_generator.generate_string(2, 10)}.jpg'
         temp_images.append(img_path)
         img_content = open(os.path.join('photos', '0.jpg'), 'rb').read()
@@ -145,16 +150,18 @@ class Utils:
             'date_time' : Utils.random_generator.generate_date_time(),
             'skype_link' : Utils.random_generator.generate_string(10, 20),
             'image' : SimpleUploadedFile(name=img_path, content=img_content),
-            'capacity': random.randint(2, 5),
+            'capacity': capacity,
             'description': Utils.random_generator.generate_string(10, 100),
             }
 
     def generate_random_english_classes(
-        client, temp_images, number=random.randint(2,6)):
+        client, temp_images, number=random.randint(2,6), 
+        capacity=random.randint(2, 5)):
         result = []
         responses = []
         for i in range(number):
-            data = Utils.generate_random_english_class_data(temp_images)
+            data = Utils.generate_random_english_class_data(
+                temp_images, capacity)
             (response, ad) = Utils.create_res(
                 client, Utils.get_english_class_list_url(),
                 data=data, authenticate_with_admin=True)

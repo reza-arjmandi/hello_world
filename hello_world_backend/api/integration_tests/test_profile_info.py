@@ -122,6 +122,18 @@ class TestProfileInfo(APITestCase):
         assert_that(classes_result, 
             EnglishClassesCapacityIsDecreased(response.json()))
 
+    def test_subscribe_in_a_class_with_no_capacity_must_be_failed(self):
+        (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(
+            self.client)
+        (ex, classes_result) = TestsUtils.generate_random_english_classes(
+            self.client, self.temp_images, capacity=0)
+        profile_info['classes'] = [elem['url'] for elem in classes_result]
+        del profile_info['avatar']
+        response = TestsUtils.patch_res(self.client,
+            url=profile_info['url'], 
+            data=profile_info, token=token)
+        TestsUtils.assert_is_bad_request(response)
+
     def test_deleting_profile_info_witout_auth_must_be_failed(self):
         (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(
             self.client)
