@@ -26,8 +26,6 @@ class TestProfileInfo(APITestCase):
                 os.remove(path)
 
     def update_profile_info_with_random_data(self, profile_info_json):
-        (ex, classes_result) = TestsUtils.generate_random_english_classes(
-            self.client, self.temp_images)
         profile_info_json['user_type'] = \
             random.choice(['learner', 'teacher'])
         profile_info_json['timezone'] = \
@@ -36,16 +34,15 @@ class TestProfileInfo(APITestCase):
             self.random_generator.generate_url()
         profile_info_json['is_completed'] = \
             self.random_generator.generate_bool()
-        profile_info_json['classes'] = [elem['url'] for elem in classes_result]
         del profile_info_json['avatar']
-        return (profile_info_json, classes_result)
+        return profile_info_json
 
     def retrieve_and_update_a_profile_info(self):
         (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(
             self.client)
-        (updated_profile_info, classes_result) = \
+        updated_profile_info = \
             self.update_profile_info_with_random_data(profile_info)
-        return (token, updated_profile_info, classes_result)
+        return (token, updated_profile_info)
 
     def test_creating_profile_info_without_auth_must_be_failed(self):
         (response, admin_user) = TestsUtils.create_res(
@@ -97,42 +94,22 @@ class TestProfileInfo(APITestCase):
         TestsUtils.assert_is_unauthorized(response)
 
     def test_patching_profile_info_with_auth(self):
-        (token, updated_profile_info, classes_result) =\
+        (token, updated_profile_info) =\
             self.retrieve_and_update_a_profile_info() 
         response = TestsUtils.patch_res(self.client,
             url=updated_profile_info['url'], 
             data=updated_profile_info, token=token)
         TestsUtils.assert_is_ok(response)
         assert_that(updated_profile_info, ProfileInfoEqualTo(response.json()))
-        (response, admin_user) = TestsUtils.retrieve_res(
-            self.client, TestsUtils.get_english_class_list_url())
-        assert_that(classes_result, 
-           EnglishClassesCapacityIsDecreased(response.json()))
 
     def test_patching_profile_info_with_admin_auth(self):
-        (token, updated_profile_info, classes_result) =\
+        (token, updated_profile_info) =\
             self.retrieve_and_update_a_profile_info() 
         response = TestsUtils.patch_res(self.client,
             url=updated_profile_info['url'], 
             data=updated_profile_info, authenticate_with_admin=True)
         TestsUtils.assert_is_ok(response)
         assert_that(updated_profile_info, ProfileInfoEqualTo(response.json()))
-        (response, admin_user) = TestsUtils.retrieve_res(
-            self.client, TestsUtils.get_english_class_list_url())
-        assert_that(classes_result, 
-            EnglishClassesCapacityIsDecreased(response.json()))
-
-    def test_subscribe_in_a_class_with_no_capacity_must_be_failed(self):
-        (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(
-            self.client)
-        (ex, classes_result) = TestsUtils.generate_random_english_classes(
-            self.client, self.temp_images, capacity=0)
-        profile_info['classes'] = [elem['url'] for elem in classes_result]
-        del profile_info['avatar']
-        response = TestsUtils.patch_res(self.client,
-            url=profile_info['url'], 
-            data=profile_info, token=token)
-        TestsUtils.assert_is_bad_request(response)
 
     def test_deleting_profile_info_witout_auth_must_be_failed(self):
         (token, profile_info) = TestsUtils.retrieve_a_random_profile_info(

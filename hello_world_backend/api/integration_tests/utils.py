@@ -140,6 +140,9 @@ class Utils:
     def get_english_class_list_url():
         return reverse('englishclass-list')
 
+    def get_membership_list_url():
+        return reverse('membership-list')
+
     def generate_random_english_class_data(
         temp_images, capacity=random.randint(2, 5)):
         img_path = f'{Utils.random_generator.generate_string(2, 10)}.jpg'

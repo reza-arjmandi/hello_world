@@ -29,7 +29,6 @@ class TestEnglishClass(APITestCase):
         del profile_info_json['skype_link']
         del profile_info_json['timezone']
         del profile_info_json['avatar']
-        del profile_info_json['classes']
         return profile_info_json
     
     def generate_some_english_classes_and_choose_one(self):

@@ -7,9 +7,12 @@ from django.db.models import ImageField
 from django.db.models import DateField
 from django.db.models import DateTimeField
 from django.db.models import IntegerField
+from django.db.models import ManyToManyField
 from django.db.models import CASCADE
 
 from django.contrib.auth.models import User
+
+from api.sub_models.profile_info import ProfileInfo
 
 class EnglishClass(Model):
     owner = ForeignKey(
@@ -21,3 +24,4 @@ class EnglishClass(Model):
     skype_link = TextField(blank=False)
     image = ImageField(blank=True, upload_to='photos')
     capacity = IntegerField(blank=False)
+    members = ManyToManyField(ProfileInfo, through='Membership')

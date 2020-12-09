@@ -5,11 +5,8 @@ from django.db.models import TextField
 from django.db.models import BooleanField
 from django.db.models import ForeignKey
 from django.db.models import ImageField
-from django.db.models import ManyToManyField
 from django.db.models import CASCADE
 from django.contrib.auth.models import User
-
-from api.sub_models.english_class import EnglishClass
 
 class ProfileInfo(Model):
     owner = ForeignKey(
@@ -19,4 +16,4 @@ class ProfileInfo(Model):
     skype_link = TextField(blank=False)
     is_completed = BooleanField(blank=False)
     avatar = ImageField(blank=False, upload_to='photos')
-    classes = ManyToManyField(EnglishClass)
+    

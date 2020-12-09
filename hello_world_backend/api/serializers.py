@@ -3,3 +3,4 @@ from api.sub_serializers.stream_serializer import StreamSerializer
 from api.sub_serializers.profile_info_serializer import ProfileInfoSerializer
 from api.sub_serializers.blog_post_serializer import BlogPostSerializer
 from api.sub_serializers.english_class_serializer import EnglishClassSerializer
+from api.sub_serializers.membership_serializer import MembershipSerializer

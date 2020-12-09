@@ -12,4 +12,4 @@ class EnglishClassSerializer(HyperlinkedModelSerializer):
         fields = [
             'url', 'id', 'owner', 'title', 
             'description', 'created', 'date_time', 
-            'skype_link', 'image', 'capacity']
+            'skype_link', 'image', 'capacity', 'members']
