@@ -23,8 +23,8 @@ class MembershipViewSet(ModelViewSet):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return ProfileInfo.Membership.objects.all()
-        return self.request.user.ProfileInfo.Membership.all()
+            return Membership.objects.all()
+        return self.request.user.ProfileInfo.all()[0].Membership.all()
 
     def perform_create(self, serializer):
         if "english_class" in serializer.validated_data:

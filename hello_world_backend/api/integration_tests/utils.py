@@ -56,6 +56,10 @@ class Utils:
         assert_that(response.status_code, 
             equal_to(status.HTTP_403_FORBIDDEN))
 
+    def assert_is_not_found(response):
+        assert_that(response.status_code, 
+            equal_to(status.HTTP_404_NOT_FOUND))
+
     def assert_is_created(response):
         assert_that(response.status_code, 
             equal_to(status.HTTP_201_CREATED))
