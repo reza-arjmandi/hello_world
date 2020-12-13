@@ -11,7 +11,7 @@ class EnglishClassViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsTeacherOrReadOnly]
     
-    queryset = EnglishClass.objects.all()
+    queryset = EnglishClass.objects.all().order_by('-id')
     serializer_class = EnglishClassSerializer
 
     def perform_create(self, serializer):

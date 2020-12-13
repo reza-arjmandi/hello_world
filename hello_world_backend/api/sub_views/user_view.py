@@ -6,11 +6,11 @@ from api.serializers import UserSerializer
 from api.permissions import IsAdminOrOwner
 
 class UserViewSet(ReadOnlyModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('-id')
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return User.objects.all()
+            return User.objects.all().order_by('-id')
         return [self.request.user]

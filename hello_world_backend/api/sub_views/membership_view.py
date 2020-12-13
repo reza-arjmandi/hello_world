@@ -18,13 +18,13 @@ class MembershipViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminOrOwner]
 
-    queryset = Membership.objects.all()
+    queryset = Membership.objects.all().order_by('-id')
     serializer_class = MembershipSerializer
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return Membership.objects.all()
-        return self.request.user.ProfileInfo.all()[0].Membership.all()
+            return Membership.objects.all().order_by('-id')
+        return self.request.user.ProfileInfo.all().order_by('-id')[0].Membership.all().order_by('-id')
 
     def perform_create(self, serializer):
         if "english_class" in serializer.validated_data:

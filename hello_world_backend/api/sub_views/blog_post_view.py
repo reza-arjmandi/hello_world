@@ -10,7 +10,7 @@ class BlogPostViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAdminOrReadOnly]
     
-    queryset = BlogPost.objects.all()
+    queryset = BlogPost.objects.all().order_by('-id')
     serializer_class = BlogPostSerializer
 
     def perform_create(self, serializer):

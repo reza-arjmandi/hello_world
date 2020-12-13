@@ -16,10 +16,10 @@ class ProfileInfoViewSet(
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated, IsAdminOrOwner]
     
-    queryset = ProfileInfo.objects.all()
+    queryset = ProfileInfo.objects.all().order_by('-id')
     serializer_class = ProfileInfoSerializer
     
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return ProfileInfo.objects.all()
-        return self.request.user.ProfileInfo.all()
+            return ProfileInfo.objects.all().order_by('-id')
+        return self.request.user.ProfileInfo.all().order_by('-id')

@@ -44,11 +44,11 @@ class TestMembership(APITestCase):
         for i in range(number):
             (token, english_class, data) =\
                 self.generate_random_membership_data()
-            data_list.append(data)
             tokens.append(token)
             (membership_res, admin_user) = TestsUtils.create_res(
                 self.client, TestsUtils.get_membership_list_url(),
                 data=data, token=token)
+            data_list.append(membership_res.json())
 
             TestsUtils.assert_is_created(membership_res)
             assert_that(membership_res.json(), MembershipEqualTo(data))
@@ -56,10 +56,7 @@ class TestMembership(APITestCase):
 
     def generate_random_memberships_and_choose_one(self, number=1):
         (tokens, data_list) = self.generate_random_memberships(number)
-        (response, admin_user) = TestsUtils.retrieve_res(
-            self.client, TestsUtils.get_membership_list_url(), 
-            authenticate_with_admin=True)
-        return (tokens[0], response.json()['results'][0])
+        return (tokens[0], data_list[0])
 
     def update_membership_with_random_data(self, membership_json):
         (res, english_classes) = TestsUtils.generate_random_english_classes(
@@ -200,4 +197,3 @@ class TestMembership(APITestCase):
            url=membership['url'], 
            token=token)
         TestsUtils.assert_is_not_found(response)
-
