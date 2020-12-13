@@ -17,4 +17,10 @@ class EnglishClassViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    
+    def get_queryset(self):
+        owner = self.request.query_params.get('owner', None)
+        if owner is not None:
+            return EnglishClass.objects.filter(
+                owner__username=owner).order_by('-id')
+        else:
+            return EnglishClass.objects.all().order_by('-id')
