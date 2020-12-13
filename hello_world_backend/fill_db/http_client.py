@@ -1,4 +1,5 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,12 +11,22 @@ class HTTPClient:
     port=8000
     base_url=f'http://{api_address}:{port}'
 
-    def post(url, data_dict, token=None, format='application/json'):
+    def post(
+        url, data_dict, token=None, format='application/json', 
+        username=None, password=None):
         data, format = HTTPClient.__encode_data__(format, data_dict)
         headers = HTTPClient.__make_headers__(format, token)
-        response = requests.post(
-            f'{HTTPClient.base_url}{url}', data=data, headers=headers)
-        print(f"Status: {response.status_code} and reason: {response.reason}")
+
+        if username and password:
+            response = requests.post(
+                f'{HTTPClient.base_url}{url}', data=data, 
+                auth=HTTPBasicAuth(username, password), headers=headers)
+            print(f"Status: {response.status_code} and reason: {response.reason}")
+        else:
+            _auth =  HTTPBasicAuth(username, password)
+            response = requests.post(
+                f'{HTTPClient.base_url}{url}', data=data, headers=headers)
+            print(f"Status: {response.status_code} and reason: {response.reason}")
         return response
     
     def get(url, token=None, format='application/json'):

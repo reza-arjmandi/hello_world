@@ -35,4 +35,9 @@ class AuthGenerator:
         (email, login_token) = AuthGenerator.submit_an_email()
         result = AuthGenerator.create_auth_token(email, login_token)
         return email, result['token']
+
+    def get_an_admin_user_credentials():
+        username = "arjmandi"
+        password = "0923084819"
+        return (username, password)
         
