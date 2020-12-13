@@ -153,9 +153,6 @@ function Settings1(props) {
                 <Typography variant="body2">Timezone</Typography>
               </ListItemText>
               <FormControl variant="outlined">
-                <ListItemSecondaryAction
-                  className={classes.ListItemSecondaryAction}
-                >
                   <TimezonePicker
                     absolute      = {false}
                     placeholder   = "Select timezone..."
@@ -164,7 +161,6 @@ function Settings1(props) {
                     onChange      = {handle_change_timezone}
                     value={timezone}
                   />
-                </ListItemSecondaryAction>
               </FormControl>
             </ListItem>
             <ListItem className="listItemLeftPadding" disableGutters>
