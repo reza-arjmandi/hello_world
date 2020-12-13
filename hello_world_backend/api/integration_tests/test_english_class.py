@@ -8,8 +8,9 @@ from hamcrest import is_in
 from hamcrest import not_
 
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.english_class_equal_to import EnglishClassEqualTo
-from api.integration_tests.english_classes_equal_to import \
+from api.integration_tests.matchers.english_class_equal_to import \
+    EnglishClassEqualTo
+from api.integration_tests.matchers.english_classes_equal_to import \
     EnglishClassesEqualTo
 
 class TestEnglishClass(APITestCase):

@@ -7,11 +7,10 @@ from hamcrest import assert_that
 
 from utils.test.random_generator import RandomGenerator
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.profile_info_equal_to import ProfileInfoEqualTo
-from api.integration_tests.profile_info_owner_equal_to import \
+from api.integration_tests.matchers.profile_info_equal_to import \
+    ProfileInfoEqualTo
+from api.integration_tests.matchers.profile_info_owner_equal_to import \
     ProfileInfoOwnerEqualTo
-from api.integration_tests.english_classes_capacity_is_decreased import \
-    EnglishClassesCapacityIsDecreased
 
 class TestProfileInfo(APITestCase):
     

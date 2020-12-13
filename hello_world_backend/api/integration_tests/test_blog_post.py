@@ -11,8 +11,8 @@ from hamcrest import is_in
 from hamcrest import not_
 
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.blog_post_equal_to import BlogPostEqualTo
-from api.integration_tests.blog_posts_equal_to import BlogPostsEqualTo
+from api.integration_tests.matchers.blog_post_equal_to import BlogPostEqualTo
+from api.integration_tests.matchers.blog_posts_equal_to import BlogPostsEqualTo
 
 class TestBlogPost(APITestCase):
 

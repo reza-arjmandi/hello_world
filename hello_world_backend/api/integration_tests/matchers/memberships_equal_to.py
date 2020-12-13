@@ -2,7 +2,8 @@ from hamcrest.core.base_matcher import BaseMatcher
 
 from hamcrest import contains_inanyorder
 
-from api.integration_tests.membership_equal_to import MembershipEqualTo
+from api.integration_tests.matchers.membership_equal_to import \
+    MembershipEqualTo
 
 class MembershipsEqualTo(BaseMatcher):
 

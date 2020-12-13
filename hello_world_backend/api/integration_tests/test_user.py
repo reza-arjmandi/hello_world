@@ -5,7 +5,7 @@ from django.urls import reverse
 from hamcrest import assert_that
 
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.users_equal_to import UsersEqualTo
+from api.integration_tests.matchers.users_equal_to import UsersEqualTo
 
 class TestUser(APITestCase):
 

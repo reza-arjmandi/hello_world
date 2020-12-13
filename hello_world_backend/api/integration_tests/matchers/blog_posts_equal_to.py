@@ -1,6 +1,6 @@
 from hamcrest.core.base_matcher import BaseMatcher
 
-from api.integration_tests.blog_post_equal_to import BlogPostEqualTo
+from api.integration_tests.matchers.blog_post_equal_to import BlogPostEqualTo
 
 class BlogPostsEqualTo(BaseMatcher):
 

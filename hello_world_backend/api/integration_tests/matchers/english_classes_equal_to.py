@@ -1,7 +1,8 @@
 from hamcrest.core.base_matcher import BaseMatcher
 from hamcrest import contains_inanyorder
 
-from api.integration_tests.english_class_equal_to import EnglishClassEqualTo
+from api.integration_tests.matchers.english_class_equal_to import\
+     EnglishClassEqualTo
 
 class EnglishClassesEqualTo(BaseMatcher):
 

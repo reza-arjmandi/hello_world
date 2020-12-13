@@ -9,8 +9,8 @@ from hamcrest import is_in
 from hamcrest import not_
 
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.stream_equal_to import StreamEqualTo
-from api.integration_tests.streams_equal_to import StreamsEqualTo
+from api.integration_tests.matchers.stream_equal_to import StreamEqualTo
+from api.integration_tests.matchers.streams_equal_to import StreamsEqualTo
 
 class TestStream(APITestCase):
     

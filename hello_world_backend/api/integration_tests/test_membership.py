@@ -7,12 +7,14 @@ from hamcrest import is_in
 from hamcrest import not_
 
 from api.integration_tests.utils import Utils as TestsUtils
-from api.integration_tests.membership_equal_to import MembershipEqualTo
-from api.integration_tests.english_class_members_equal_to import \
+from api.integration_tests.matchers.membership_equal_to import \
+    MembershipEqualTo
+from api.integration_tests.matchers.english_class_members_equal_to import \
     EnglishClassMembersEqualTo
-from api.integration_tests.memberships_equal_to import MembershipsEqualTo
-from api.integration_tests.english_classes_capacity_is_decreased import \
-    EnglishClassCapacityIsDecreased
+from api.integration_tests.matchers.memberships_equal_to import \
+    MembershipsEqualTo
+from api.integration_tests.matchers.english_classes_capacity_is_decreased \
+    import EnglishClassCapacityIsDecreased
 
 class TestMembership(APITestCase):
 

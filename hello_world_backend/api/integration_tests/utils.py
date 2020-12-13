@@ -13,7 +13,7 @@ from hamcrest import has_length
 from utils.test.random_generator import RandomGenerator
 from passwordless_auth.integration_tests.utils import Utils as \
     PasswordlessAuthUtils
-from api.integration_tests.profile_info_owner_equal_to import \
+from api.integration_tests.matchers.profile_info_owner_equal_to import \
     ProfileInfoOwnerEqualTo
     
 class Utils:

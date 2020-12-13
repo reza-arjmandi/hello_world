@@ -1,7 +1,7 @@
 from hamcrest.core.base_matcher import BaseMatcher
 from hamcrest import contains_inanyorder
 
-from api.integration_tests.stream_equal_to import StreamEqualTo
+from api.integration_tests.matchers.stream_equal_to import StreamEqualTo
 
 class StreamsEqualTo(BaseMatcher):
 
