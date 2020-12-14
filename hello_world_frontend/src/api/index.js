@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 
-const api_address = 'http://127.0.0.1:8000';
+const api_address = 'https://api.halloenglish.com';
 
 export function data_uri_to_blob(dataURI) {
   // convert base64/URLEncoded data component to raw binary data held in a string
