@@ -16,4 +16,7 @@ class ProfileInfo(Model):
     skype_link = TextField(blank=False)
     is_completed = BooleanField(blank=False)
     avatar = ImageField(blank=False, upload_to='photos')
+
+    def __str__(self) -> str:
+        return self.owner.username
     

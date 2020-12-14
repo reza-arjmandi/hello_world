@@ -488,10 +488,10 @@ export function subscribe_english_class(url) {
     const token = state.AuthToken; 
     const profile_url = state.ProfileInfo['url']; 
     dispatch(actions.subscribe_english_class_request())
-    const post_data = {classes : [url]};
+    const post_data = {profile_info : profile_url, english_class: url};
 
-    return fetch(profile_url, {
-      method: 'PATCH',
+    return fetch(`${api_address}/membership/`, {
+      method: 'POST',
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
@@ -513,6 +513,42 @@ export function subscribe_english_class(url) {
       }
     ).catch(error => 
       dispatch(actions.subscribe_english_class_request_failure(error))
+    );
+  }
+}
+
+export function fetch_subscriptions(url = null) {
+
+  return function (dispatch, getState) {
+    let state = getState();
+    const owner = state.ProfileInfo.owner; 
+    dispatch(actions.fetch_subscriptions_request())
+
+    const _url = url===null ? `${api_address}/english_class/?owner=${owner}` : url;
+
+    return fetch(_url, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(
+            json => dispatch(actions.fetch_subscriptions_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.fetch_subscriptions_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.fetch_subscriptions_request_failure(error))
     );
   }
 }

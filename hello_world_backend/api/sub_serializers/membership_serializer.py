@@ -5,7 +5,6 @@ from api.models import Membership
 
 class MembershipSerializer(HyperlinkedModelSerializer):
 
-    date_joined = ReadOnlyField(source='Membership.date_joined')
     owner = ReadOnlyField(source='profile_info.owner.username')
 
     class Meta:

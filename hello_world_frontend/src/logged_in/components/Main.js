@@ -42,6 +42,8 @@ function Main(props) {
     update_english_class,
     delete_english_class,
     subscribe_english_class,
+    subscription_contents,
+    fetch_subscriptions,
   } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [EmojiTextArea, setEmojiTextArea] = useState(null);
@@ -55,66 +57,7 @@ function Main(props) {
   const [hasFetchedDateTimePicker, setHasFetchedDateTimePicker] = useState(
     false
   );
-  const [transactions, setTransactions] = useState([]);
   const [pushMessageToSnackbar, setPushMessageToSnackbar] = useState(null);
-
-  const fetchRandomTransactions = useCallback(() => {
-    const transactions = [];
-    const iterations = 32;
-    const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5);
-    const transactionTemplates = [
-      {
-        description: "Starter subscription",
-        isSubscription: true,
-        balanceChange: -1499,
-      },
-      {
-        description: "Premium subscription",
-        isSubscription: true,
-        balanceChange: -2999,
-      },
-      {
-        description: "Business subscription",
-        isSubscription: true,
-        balanceChange: -4999,
-      },
-      {
-        description: "Tycoon subscription",
-        isSubscription: true,
-        balanceChange: -9999,
-      },
-      {
-        description: "Added funds",
-        isSubscription: false,
-        balanceChange: 2000,
-      },
-      {
-        description: "Added funds",
-        isSubscription: false,
-        balanceChange: 5000,
-      },
-    ];
-    let curUnix = Math.round(
-      new Date().getTime() / 1000 - iterations * oneMonthSeconds
-    );
-    for (let i = 0; i < iterations; i += 1) {
-      const randomTransactionTemplate =
-        transactionTemplates[
-          Math.floor(Math.random() * transactionTemplates.length)
-        ];
-      const transaction = {
-        id: i,
-        description: randomTransactionTemplate.description,
-        balanceChange: randomTransactionTemplate.balanceChange,
-        paidUntil: curUnix + oneMonthSeconds,
-        timestamp: curUnix,
-      };
-      curUnix += oneMonthSeconds;
-      transactions.push(transaction);
-    }
-    transactions.reverse();
-    setTransactions(transactions);
-  }, [setTransactions]);
 
   const selectDashboard = useCallback(() => {
     smoothScrollTop();
@@ -192,9 +135,8 @@ function Main(props) {
   );
 
   useEffect(() => {
-    fetchRandomTransactions();
     routeTo();
-  }, [fetchRandomTransactions, routeTo ]);
+  }, [routeTo ]);
 
   if(is_login === false || profile_info === null) {
     return (
@@ -223,7 +165,8 @@ function Main(props) {
           Dropzone={Dropzone}
           DateTimePicker={DateTimePicker}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          transactions={transactions}
+          subscription_contents={subscription_contents}
+          fetch_subscriptions={fetch_subscriptions}
           class_contents={class_contents}
           selectDashboard={selectDashboard}
           selectClasses={selectClasses}

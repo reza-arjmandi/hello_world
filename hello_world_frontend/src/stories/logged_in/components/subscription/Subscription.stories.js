@@ -1,14 +1,18 @@
 import React from 'react';
 import { useCallback } from "react";
-
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
+import { action } from '@storybook/addon-actions';
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
 import GlobalStyles from "../../../../GlobalStyles";
 import Subscription from 
     '../../../../logged_in/components/subscription/Subscription';
+
+export const actions_data = {
+  fetch_subscriptions: action('fetch_subscriptions'),
+}
 
 export default {
     component: Subscription,
@@ -21,7 +25,7 @@ storiesOf('LoggedIn/components/subscription/Subscription', module)
 .add('Default', () => {
     const selectSubscription = useCallback(() => {
       }, []);
-    const transactions = [];
+    const subscription_contents = [];
     const iterations = 32;
     const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5);
     const transactionTemplates = [
@@ -66,23 +70,24 @@ storiesOf('LoggedIn/components/subscription/Subscription', module)
         ];
       const transaction = {
         id: i,
-        description: randomTransactionTemplate.description,
-        balanceChange: randomTransactionTemplate.balanceChange,
-        paidUntil: curUnix + oneMonthSeconds,
-        timestamp: curUnix,
+        username: randomTransactionTemplate.description,
+        english_class: randomTransactionTemplate.balanceChange,
+        skype_link: curUnix + oneMonthSeconds,
+        date_joined: curUnix,
       };
       curUnix += oneMonthSeconds;
-      transactions.push(transaction);
+      subscription_contents.push(transaction);
     }
-    transactions.reverse();
+    subscription_contents.reverse();
     return (<div>
       <CssBaseline />
       <GlobalStyles />
       <Subscription 
-        transactions={transactions}
+        subscription_contents={{"results":subscription_contents}}
         path="/c/subscription"
         openAddBalanceDialog={true}
         selectSubscription={selectSubscription}
+        {...actions_data}
       />
     </div>
 )})

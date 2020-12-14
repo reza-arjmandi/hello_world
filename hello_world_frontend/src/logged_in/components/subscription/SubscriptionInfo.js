@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ListItemText, Button, Toolbar, withStyles } from "@material-ui/core";
+import { ListItemText, Toolbar, withStyles } from "@material-ui/core";
 
 const styles = {
   toolbar: {
@@ -9,18 +9,18 @@ const styles = {
 };
 
 function SubscriptionInfo(props) {
-  const { classes, openAddBalanceDialog } = props;
+  const { classes } = props;
   return (
     <Toolbar className={classes.toolbar}>
-      <ListItemText primary="Status" secondary="Premium Account" />
-      <Button
+      <ListItemText primary="Subscriptions" />
+      {/* <Button
         variant="contained"
         color="secondary"
         onClick={openAddBalanceDialog}
         disableElevation
       >
         Add Balance
-      </Button>
+      </Button> */}
     </Toolbar>
   );
 }

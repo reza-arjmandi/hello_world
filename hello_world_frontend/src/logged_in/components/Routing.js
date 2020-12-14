@@ -53,7 +53,8 @@ function Routing(props) {
     DateTimePicker,
     pushMessageToSnackbar,
     class_contents,
-    transactions,
+    subscription_contents,
+    fetch_subscriptions,
     fetch_english_classes,
     selectDashboard,
     selectClasses,
@@ -126,7 +127,8 @@ function Routing(props) {
         <PropsRoute
           path="/c/subscription"
           component={Subscription}
-          transactions={transactions}
+          subscription_contents={subscription_contents}
+          fetch_subscriptions={fetch_subscriptions}
           pushMessageToSnackbar={pushMessageToSnackbar}
           selectSubscription={selectSubscription}
         />

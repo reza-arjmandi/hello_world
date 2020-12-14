@@ -23,6 +23,7 @@ export default {
 export const actions_data = {
   fetch_profile_avatar: action('fetch_profile_avatar'),
   fetch_english_classes: action('fetch_english_classes'),
+  fetch_subscriptions: action('fetch_subscriptions'),
 };
 
 export const main_data = {
@@ -148,11 +149,66 @@ storiesOf('LoggedIn/components/Main', module)
 .addDecorator(StoryRouter())
 .addDecorator(muiTheme(theme))
 .add('Default', () => {
+    const subscription_contents = [];
+    const iterations = 32;
+    const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5);
+    const transactionTemplates = [
+      {
+        description: "Starter subscription",
+        isSubscription: true,
+        balanceChange: -1499,
+      },
+      {
+        description: "Premium subscription",
+        isSubscription: true,
+        balanceChange: -2999,
+      },
+      {
+        description: "Business subscription",
+        isSubscription: true,
+        balanceChange: -4999,
+      },
+      {
+        description: "Tycoon subscription",
+        isSubscription: true,
+        balanceChange: -9999,
+      },
+      {
+        description: "Added funds",
+        isSubscription: false,
+        balanceChange: 2000,
+      },
+      {
+        description: "Added funds",
+        isSubscription: false,
+        balanceChange: 5000,
+      },
+    ];
+    let curUnix = Math.round(
+      new Date().getTime() / 1000 - iterations * oneMonthSeconds
+    );
+    for (let i = 0; i < iterations; i += 1) {
+      const randomTransactionTemplate =
+        transactionTemplates[
+          Math.floor(Math.random() * transactionTemplates.length)
+        ];
+      const transaction = {
+        id: i,
+        username: randomTransactionTemplate.description,
+        english_class: randomTransactionTemplate.balanceChange,
+        skype_link: curUnix + oneMonthSeconds,
+        date_joined: curUnix,
+      };
+      curUnix += oneMonthSeconds;
+      subscription_contents.push(transaction);
+    }
+    subscription_contents.reverse();
     return (<div>
       <CssBaseline />
       <GlobalStyles />
       <Suspense fallback={<Fragment />}>
           <LoggedInComponent
+            subscription_contents={{"results":subscription_contents}}
             persons={persons}
             {...main_data}
             {...actions_data}

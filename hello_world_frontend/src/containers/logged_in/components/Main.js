@@ -20,6 +20,7 @@ import {
     update_english_class,
     delete_english_class,
     subscribe_english_class,
+    fetch_subscriptions,
 } from "../../../api"
 
 import persons from "../../../stories/dummy_data/persons";
@@ -31,6 +32,7 @@ const map_state_to_props = state => ({
     profile_avatar: state.ProfileAvatar,
     class_contents: state.EnglishClasses,
     selected_english_class: state.SelectedEnglishClass,
+    subscription_contents: state.Subscriptions,
 });
 
 const map_dispatch_to_props = dispatch => ({
@@ -72,6 +74,9 @@ const map_dispatch_to_props = dispatch => ({
     },
     subscribe_english_class: (url) => {
         dispatch(subscribe_english_class(url));
+    },
+    fetch_subscriptions: (url = null) => {
+        dispatch(fetch_subscriptions(url));
     }
 });
 

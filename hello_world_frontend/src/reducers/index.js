@@ -25,6 +25,7 @@ import BlogPosts from './BlogPosts';
 import ProfileAvatar from './ProfileAvatar';
 import EnglishClasses from './EnglishClasses';
 import SelectedEnglishClass from './SelectedEnglishClass';
+import Subscriptions from './Subscriptions';
 
 const root_reducer = combineReducers({ 
     AddNewResourceDialogVisibility,
@@ -53,6 +54,7 @@ const root_reducer = combineReducers({
     ProfileAvatar,
     EnglishClasses,
     SelectedEnglishClass,
+    Subscriptions,
  });
 
 export default root_reducer;

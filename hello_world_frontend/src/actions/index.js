@@ -220,3 +220,17 @@ export const subscribe_english_class_request_failure = (error) => ({
     type: types.SUBSCRIBE_ENGLISH_CLASS_REQUEST_FAILURE,
     error
 });
+
+export const fetch_subscriptions_request = () => ({ 
+    type: types.FETCH_SUBSCRIPTIONS_REQUEST,
+});
+
+export const fetch_subscriptions_request_success = (result) => ({ 
+    type: types.FETCH_SUBSCRIPTIONS_REQUEST_SUCCESS,
+    result
+});
+
+export const fetch_subscriptions_request_failure = (error) => ({ 
+    type: types.FETCH_SUBSCRIPTIONS_REQUEST_FAILURE,
+    error
+});

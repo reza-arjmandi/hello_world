@@ -12,20 +12,27 @@ const styles = {
 
 function Subscription(props) {
   const {
-    transactions,
+    subscription_contents,
     classes,
     openAddBalanceDialog,
-    selectSubscription
+    selectSubscription,
+    fetch_subscriptions
   } = props;
 
-  useEffect(selectSubscription, [selectSubscription]);
+  useEffect(() => {
+    fetch_subscriptions();
+    selectSubscription();
+  }, [selectSubscription, fetch_subscriptions]);
 
   return (
     <Paper>
       <List disablePadding>
         <SubscriptionInfo openAddBalanceDialog={openAddBalanceDialog} />
         <Divider className={classes.divider} />
-        <SubscriptionTable transactions={transactions} />
+        <SubscriptionTable 
+          subscription_contents={subscription_contents} 
+          fetch_subscriptions={fetch_subscriptions}
+        />
       </List>
     </Paper>
   );
@@ -33,7 +40,7 @@ function Subscription(props) {
 
 Subscription.propTypes = {
   classes: PropTypes.object.isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  subscriptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectSubscription: PropTypes.func.isRequired,
   openAddBalanceDialog: PropTypes.func.isRequired
 };

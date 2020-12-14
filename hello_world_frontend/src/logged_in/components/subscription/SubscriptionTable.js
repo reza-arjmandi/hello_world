@@ -44,12 +44,12 @@ const rows = [
   {
     id: "description",
     numeric: false,
-    label: "Action"
+    label: "Username"
   },
   {
     id: "balanceChange",
     numeric: false,
-    label: "Balance change"
+    label: "Class"
   },
   {
     id: "date",
@@ -57,63 +57,74 @@ const rows = [
     label: "Date"
   },
   {
-    id: "paidUntil",
+    id: "skype_link",
     numeric: false,
-    label: "Paid until"
+    label: "Skype link"
   }
 ];
 
-const rowsPerPage = 25;
+const rowsPerPage = 8;
 
 function SubscriptionTable(props) {
-  const { transactions, theme, classes } = props;
+  const { 
+    subscription_contents, 
+    theme, 
+    classes,
+    fetch_subscriptions,
+  } = props;
   const [page, setPage] = useState(0);
 
-  const handleChangePage = useCallback(
-    (_, page) => {
-      setPage(page);
+  const handle_change_page = useCallback(
+    (__, page_number) => {
+      if(page_number > page && subscription_contents['next']) {
+        fetch_subscriptions(subscription_contents['next'])
+        setPage(page_number);
+      }
+      if(page_number < page && subscription_contents['previous']) {
+        fetch_subscriptions(subscription_contents['previous'])
+        setPage(page_number);
+      }
     },
-    [setPage]
+    [setPage, subscription_contents, fetch_subscriptions, page]
   );
 
-  if (transactions.length > 0) {
+  if (subscription_contents["results"].length > 0) {
     return (
       <div className={classes.tableWrapper}>
         <Table aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={transactions.length} rows={rows} />
+          <EnhancedTableHead rowCount={subscription_contents["results"].length} rows={rows} />
           <TableBody>
-            {transactions
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((transaction, index) => (
+            {subscription_contents['results']
+              .map((subscription, index) => (
                 <TableRow hover tabIndex={-1} key={index}>
                   <TableCell
                     component="th"
                     scope="row"
                     className={classes.firstData}
                   >
-                    {transaction.description}
+                    {subscription.username}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {transaction.balanceChange > 0 ? (
+                    {subscription.english_class > 0 ? (
                       <ColorfulChip
                         label={`+${currencyPrettyPrint(
-                          transaction.balanceChange
+                          subscription.english_class
                         )}`}
                         color={theme.palette.secondary.main}
                       />
                     ) : (
                       <ColorfulChip
-                        label={currencyPrettyPrint(transaction.balanceChange)}
+                        label={currencyPrettyPrint(subscription.english_class)}
                         color={theme.palette.error.dark}
                       />
                     )}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {unixToDateString(transaction.timestamp)}
+                    {unixToDateString(subscription.date_joined)}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {transaction.paidUntil
-                      ? unixToDateString(transaction.paidUntil)
+                    {subscription.skype_link
+                      ? unixToDateString(subscription.skype_link)
                       : ""}
                   </TableCell>
                 </TableRow>
@@ -122,7 +133,7 @@ function SubscriptionTable(props) {
         </Table>
         <TablePagination
           component="div"
-          count={transactions.length}
+          count={subscription_contents["results"].length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
@@ -131,12 +142,12 @@ function SubscriptionTable(props) {
           nextIconButtonProps={{
             "aria-label": "Next Page"
           }}
-          onChangePage={handleChangePage}
+          onChangePage={handle_change_page}
           classes={{
             select: classes.dNone,
             selectIcon: classes.dNone,
-            actions: transactions.length > 0 ? classes.dBlock : classes.dNone,
-            caption: transactions.length > 0 ? classes.dBlock : classes.dNone
+            actions: subscription_contents["results"].length > 0 ? classes.dBlock : classes.dNone,
+            caption: subscription_contents["results"].length > 0 ? classes.dBlock : classes.dNone
           }}
           labelRowsPerPage=""
         />
@@ -146,7 +157,7 @@ function SubscriptionTable(props) {
   return (
     <div className={classes.contentWrapper}>
       <HighlightedInformation>
-        No transactions received yet.
+        No subscription_contents received yet.
       </HighlightedInformation>
     </div>
   );
@@ -155,7 +166,7 @@ function SubscriptionTable(props) {
 SubscriptionTable.propTypes = {
   theme: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired
+  subscription_contents: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(SubscriptionTable);

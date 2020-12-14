@@ -2,6 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { muiTheme } from 'storybook-addon-material-ui';
+import { action } from '@storybook/addon-actions';
 import { CssBaseline } from "@material-ui/core";
 
 import theme from "../../../../theme";
@@ -15,10 +16,14 @@ export default {
     excludeStories: /.*_data$/, 
 };
 
+export const actions_data = {
+  fetch_subscriptions: action('fetch_subscriptions'),
+}
+
 storiesOf('LoggedIn/components/subscription/SubscriptionTable', module)
 .addDecorator(muiTheme(theme))
 .add('Default', () => {
-    const transactions = [];
+    const subscription_contents = [];
     const iterations = 32;
     const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5);
     const transactionTemplates = [
@@ -63,20 +68,21 @@ storiesOf('LoggedIn/components/subscription/SubscriptionTable', module)
         ];
       const transaction = {
         id: i,
-        description: randomTransactionTemplate.description,
-        balanceChange: randomTransactionTemplate.balanceChange,
-        paidUntil: curUnix + oneMonthSeconds,
-        timestamp: curUnix,
+        username: randomTransactionTemplate.description,
+        english_class: randomTransactionTemplate.balanceChange,
+        skype_link: curUnix + oneMonthSeconds,
+        date_joined: curUnix,
       };
       curUnix += oneMonthSeconds;
-      transactions.push(transaction);
+      subscription_contents.push(transaction);
     }
-    transactions.reverse();
+    subscription_contents.reverse();
     return (<div>
       <CssBaseline />
       <GlobalStyles />
       <SubscriptionTable 
-        transactions={transactions}
+        subscription_contents={{"results":subscription_contents}}
+        {...actions_data}
       />
     </div>
 )})
