@@ -10,9 +10,7 @@ import {
 } from "@material-ui/core";
 import EnhancedTableHead from "../../../shared/components/EnhancedTableHead";
 import ColorfulChip from "../../../shared/components/ColorfulChip";
-import unixToDateString from "../../../shared/functions/unixToDateString";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
-import currencyPrettyPrint from "../../../shared/functions/currencyPrettyPrint";
 
 const styles = theme => ({
   tableWrapper: {
@@ -105,26 +103,17 @@ function SubscriptionTable(props) {
                     {subscription.username}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {subscription.english_class > 0 ? (
                       <ColorfulChip
-                        label={`+${currencyPrettyPrint(
-                          subscription.english_class
-                        )}`}
+                        label={subscription.english_class}
                         color={theme.palette.secondary.main}
                       />
-                    ) : (
-                      <ColorfulChip
-                        label={currencyPrettyPrint(subscription.english_class)}
-                        color={theme.palette.error.dark}
-                      />
-                    )}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {unixToDateString(subscription.date_joined)}
+                    {subscription.date_joined}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {subscription.skype_link
-                      ? unixToDateString(subscription.skype_link)
+                      ? subscription.skype_link
                       : ""}
                   </TableCell>
                 </TableRow>

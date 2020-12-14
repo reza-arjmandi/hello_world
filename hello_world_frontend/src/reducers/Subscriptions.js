@@ -15,7 +15,7 @@ export default function Subscriptions(state={'results': []}, action) {
                     let _res = {};
                     _res['skype_link']=skype_link;
                     _res['english_class']=english_class;
-                    _res['english_class']=member['date_joined'];
+                    _res['date_joined']=member['date_joined'];
                     _res['username']=member['owner'];
                     result['results'].push(_res)
                 });
