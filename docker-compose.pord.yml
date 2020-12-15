@@ -55,7 +55,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - ssl_cert_volume:/etc/nginx/certs
-      - nginx_proxy_conf:/etc/nginx/conf.d/:ro
+      - nginx_proxy_conf:/etc/nginx/conf.d
 
 volumes:
   postgres_data: 
@@ -84,6 +84,6 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /root/hello_world/nginx_proxy_conf/
+      device: /root/hello_world/nginx_proxy_conf
 
   static_volume:
