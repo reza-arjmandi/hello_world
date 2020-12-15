@@ -1,6 +1,7 @@
 import React, {Fragment, useRef, useCallback, useState, useEffect } 
   from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {
@@ -132,6 +133,7 @@ function NavBar(props) {
     fetch_profile_avatar,
     profile_avatar,
     log_out,
+    history,
   } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
@@ -204,9 +206,12 @@ function NavBar(props) {
       },
     },
     {
-      link: "/",
+      // link: "/",
       name: "Logout",
-      onClick: log_out,
+      onClick: ()=>{
+        log_out();
+        history.push("/")
+      },
       icon: {
         desktop: (
           <PowerSettingsNewIcon className="text-white" fontSize="small" />
@@ -349,4 +354,4 @@ NavBar.propTypes = {
   openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
-export default withWidth()(withStyles(styles, { withTheme: true })(NavBar));
+export default withRouter(withWidth()(withStyles(styles, { withTheme: true })(NavBar)));
