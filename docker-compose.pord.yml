@@ -55,7 +55,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - ssl_cert_volume:/etc/nginx/certs
-      - ./nginx_proxy_conf/www.halloenglish.com.conf:/etc/nginx/conf.d/www.halloenglish.com.conf:ro
+      - nginx_proxy_conf:/etc/nginx/conf.d/www.halloenglish.com.conf:ro
 
 volumes:
   postgres_data: 
@@ -78,5 +78,12 @@ volumes:
       o: bind
       type: none
       device: /root/halloenglish.com.ssl.certificate
+  
+  nginx_proxy_conf:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /root/hello_world/nginx_proxy_conf/www.halloenglish.com.conf
 
   static_volume:
