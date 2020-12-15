@@ -55,6 +55,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
       - ssl_cert_volume:/etc/nginx/certs
+      - ./nginx_proxy_conf/www.halloenglish.com.conf:/etc/nginx/conf.d/www.halloenglish.com.conf:ro
 
 volumes:
   postgres_data: 
