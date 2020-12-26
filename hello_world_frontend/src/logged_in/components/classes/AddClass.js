@@ -78,19 +78,20 @@ function AddClass(props) {
 
   const handleUpload = useCallback(() => {
     setLoading(true);
+    create_english_class(
+      {"title": title,
+       "description": description,
+       "date_time": date_time.toISOString(),
+       "skype_link": skype_link,
+       "image": files[0],
+       "capacity": capacity
+      }
+    );
     setTimeout(() => {
       pushMessageToSnackbar({
         text: "Your post has been uploaded",
       });
-      create_english_class(
-        {"title": title,
-         "description": description,
-         "date_time": date_time.toISOString(),
-         "skype_link": skype_link,
-         "image": files[0],
-         "capacity": capacity
-        }
-      )
+      
       onClose();
       fetch_english_classes();
     }, 1500);
