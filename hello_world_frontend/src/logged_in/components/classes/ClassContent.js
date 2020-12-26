@@ -18,6 +18,8 @@ import SelfAligningImage from "../../../shared/components/SelfAligningImage";
 import HighlightedInformation from 
   "../../../shared/components/HighlightedInformation";
 
+import toLocaleDateTime from '../../../shared/functions/toLocaleDateTime';
+
 const styles = {
   dBlock: { display: "block" },
   dNone: { display: "none" },
@@ -67,7 +69,7 @@ function ClassContent(props) {
                   <SelfAligningImage
                     src={post['image']}
                     title={post['title']}
-                    date_time={post['date_time']}
+                    date_time={toLocaleDateTime(post['date_time'])}
                     options={[
                       {
                         name: "Detail",

@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import toLocaleDateTime from '../../../shared/functions/toLocaleDateTime';
 
 const useStyles = makeStyles({
     root: {
@@ -58,7 +59,7 @@ function SubscribeEnglishClass(props) {
               {selected_english_class["title"]}
             </Typography>
             <Typography gutterBottom variant="h6" component="h4">
-              {selected_english_class["date_time"]}
+              {toLocaleDateTime(selected_english_class["date_time"])}
             </Typography>
             <Typography gutterBottom variant="h6" component="h4">
               capacity:{selected_english_class["capacity"]}

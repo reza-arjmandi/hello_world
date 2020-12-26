@@ -76,9 +76,6 @@ function AddClass(props) {
   );
 
   const handleUpload = useCallback(() => {
-    console.log(title);
-    console.log(description);
-    console.log(skype_link);
     setLoading(true);
     setTimeout(() => {
       pushMessageToSnackbar({
