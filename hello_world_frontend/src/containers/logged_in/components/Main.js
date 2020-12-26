@@ -7,6 +7,7 @@ import {
     set_auth_token,
     set_email,
     remove_profile_info,
+    clear_selected_english_class,
 }
 from "../../../actions"
 
@@ -77,7 +78,10 @@ const map_dispatch_to_props = dispatch => ({
     },
     fetch_subscriptions: (url = null) => {
         dispatch(fetch_subscriptions(url));
-    }
+    },
+    clear_selected_english_class: () => {
+        dispatch(clear_selected_english_class());
+    },
 });
 
 export default connect(

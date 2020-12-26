@@ -8,6 +8,7 @@ function EnglishClass(props) {
   const {
     fetch_class_by_id,
     selected_english_class,
+    clear_selected_english_class,
     pushMessageToSnackbar,
     profile_info,
     closeAddPostModal,
@@ -66,6 +67,7 @@ function EnglishClass(props) {
       update_english_class={update_english_class}
       selected_english_class={selected_english_class}
       subscribe_english_class={subscribe_english_class}
+      clear_selected_english_class={clear_selected_english_class}
     />
   }
 }

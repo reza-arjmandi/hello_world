@@ -26,14 +26,16 @@ function SubscribeEnglishClass(props) {
     pushMessageToSnackbar,
     subscribe_english_class,
     selected_english_class,
+    clear_selected_english_class,
     onClose,
     history,
   } = props;
 
   const on_back = useCallback(() => {
     history.push("/c/classes");
+    clear_selected_english_class();
     onClose();
-  }, [history, onClose]);
+  }, [history, clear_selected_english_class, onClose]);
 
   const on_subscribe = useCallback(()=> {
     subscribe_english_class(selected_english_class['url'])

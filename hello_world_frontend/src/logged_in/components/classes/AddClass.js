@@ -16,6 +16,7 @@ function AddClass(props) {
     ImageCropper,
     onClose,
     create_english_class,
+    fetch_english_classes,
   } = props;
 
   const [files, setFiles] = useState([]);
@@ -91,6 +92,7 @@ function AddClass(props) {
         }
       )
       onClose();
+      fetch_english_classes();
     }, 1500);
   }, [setLoading, onClose, pushMessageToSnackbar, 
     title, description, date_time, skype_link, files, 

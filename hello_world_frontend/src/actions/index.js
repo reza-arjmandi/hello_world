@@ -234,3 +234,7 @@ export const fetch_subscriptions_request_failure = (error) => ({
     type: types.FETCH_SUBSCRIPTIONS_REQUEST_FAILURE,
     error
 });
+
+export const clear_selected_english_class = () => ({
+    type: types.CLEAR_SELECTED_ENGLISH_CLASS,
+});

@@ -34,6 +34,7 @@ function Classes(props) {
       DateTimePicker={DateTimePicker}
       pushMessageToSnackbar={pushMessageToSnackbar}
       create_english_class={create_english_class}
+      fetch_english_classes={fetch_english_classes}
     />
   }
   return <ClassContent

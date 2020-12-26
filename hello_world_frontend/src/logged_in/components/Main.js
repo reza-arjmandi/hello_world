@@ -38,6 +38,7 @@ function Main(props) {
     class_contents,
     create_english_class,
     selected_english_class,
+    clear_selected_english_class,
     fetch_class_by_id,
     update_english_class,
     delete_english_class,
@@ -178,6 +179,7 @@ function Main(props) {
           log_out={log_out}
           create_english_class={create_english_class}
           selected_english_class={selected_english_class}
+          clear_selected_english_class={clear_selected_english_class}
           fetch_class_by_id={fetch_class_by_id}
           update_english_class={update_english_class}
           delete_english_class={delete_english_class}

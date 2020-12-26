@@ -65,6 +65,7 @@ function Routing(props) {
     log_out,
     create_english_class,
     selected_english_class,
+    clear_selected_english_class,
     fetch_class_by_id,
     update_english_class,
     delete_english_class,
@@ -97,6 +98,7 @@ function Routing(props) {
           pushMessageToSnackbar={pushMessageToSnackbar}
           create_english_class={create_english_class}
           selected_english_class={selected_english_class}
+          clear_selected_english_class={clear_selected_english_class}
           fetch_class_by_id={fetch_class_by_id}
           isAddPostPaperOpen={isAddPostPaperOpen}
           closeAddPostModal={closeAddPostModal}
