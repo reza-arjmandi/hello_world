@@ -58,6 +58,7 @@ function EnglishClass(props) {
       openAddPostModal={openAddPostModal}
       selected_english_class={selected_english_class}
       delete_english_class={delete_english_class}
+      clear_selected_english_class={clear_selected_english_class}
     />
   }
   else{

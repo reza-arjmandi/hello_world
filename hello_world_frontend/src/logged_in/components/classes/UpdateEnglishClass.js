@@ -20,6 +20,7 @@ function UpdateEnglishClass(props) {
     delete_english_class,
     selected_english_class,
     onClose,
+    clear_selected_english_class,
     history,
   } = props;
 
@@ -37,6 +38,7 @@ function UpdateEnglishClass(props) {
   const delete_class = useCallback(() => {
     delete_english_class(selected_english_class["url"]);
     history.push("/c/classes");
+    clear_selected_english_class();
     onClose();
   }, [
     delete_english_class,
@@ -47,6 +49,7 @@ function UpdateEnglishClass(props) {
   
   const on_back = useCallback(() => {
     history.push("/c/classes");
+    clear_selected_english_class();
     onClose();
   }, [history, onClose]);
 
