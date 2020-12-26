@@ -37,9 +37,10 @@ function ClassContent(props) {
     openAddPostModal,
     classes,
     profile_info, 
+    english_classes_page,
+    set_english_classes_page,
     history,
   } = props;
-  const [page, setPage] = useState(0);
 
   const on_detail = useCallback((class_content) => {
     history.push(`/c/classes/${class_content['id']}`);
@@ -47,16 +48,19 @@ function ClassContent(props) {
 
   const handle_change_page = useCallback(
     (__, page_number) => {
-      if(page_number > page && class_contents['next']) {
+      if(page_number > english_classes_page && class_contents['next']) {
         fetch_english_classes(class_contents['next'])
-        setPage(page_number);
+        set_english_classes_page(page_number);
       }
-      if(page_number < page && class_contents['previous']) {
+      if(page_number < english_classes_page && class_contents['previous']) {
         fetch_english_classes(class_contents['previous'])
-        setPage(page_number);
+        set_english_classes_page(page_number);
       }
     },
-    [setPage, class_contents, fetch_english_classes, page]
+    [set_english_classes_page, 
+      class_contents, 
+      fetch_english_classes, 
+      english_classes_page]
   );
 
   const printـimage_grid = useCallback(() => {
@@ -116,7 +120,7 @@ function ClassContent(props) {
         component="div"
         count={class_contents['count']}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={english_classes_page}
         backIconButtonProps={{
           "aria-label": "Previous Page",
         }}

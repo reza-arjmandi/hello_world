@@ -33,6 +33,7 @@ function Main(props) {
     fetch_profile_info,
     fetch_profile_avatar,
     fetch_english_classes,
+    fetch_english_classes_by_page_number,
     profile_avatar,
     log_out,
     class_contents,
@@ -173,6 +174,7 @@ function Main(props) {
           selectClasses={selectClasses}
           selectSubscription={selectSubscription}
           fetch_english_classes={fetch_english_classes}
+          fetch_english_classes_by_page_number={fetch_english_classes_by_page_number}
           profile_info={profile_info} 
           send_profile_info_handle={send_profile_info_handle}
           update_profile_info={send_profile_info_handle}

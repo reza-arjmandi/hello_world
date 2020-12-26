@@ -56,6 +56,7 @@ function Routing(props) {
     subscription_contents,
     fetch_subscriptions,
     fetch_english_classes,
+    fetch_english_classes_by_page_number,
     selectDashboard,
     selectClasses,
     selectSubscription,
@@ -73,6 +74,7 @@ function Routing(props) {
   } = props;
 
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
+  const [english_classes_page, set_english_classes_page] = useState(0);
 
   const openAddPostModal = useCallback(() => {
     setIsAddPostPaperOpen(true);
@@ -119,12 +121,15 @@ function Routing(props) {
           pushMessageToSnackbar={pushMessageToSnackbar}
           class_contents={class_contents}
           fetch_english_classes={fetch_english_classes}
+          fetch_english_classes_by_page_number={fetch_english_classes_by_page_number}
           selectClasses={selectClasses}
           profile_info={profile_info}
           create_english_class={create_english_class}
           isAddPostPaperOpen={isAddPostPaperOpen}
           closeAddPostModal={closeAddPostModal}
           openAddPostModal={openAddPostModal}
+          english_classes_page={english_classes_page}
+          set_english_classes_page={set_english_classes_page}
         />
         <PropsRoute
           path="/c/subscription"

@@ -321,6 +321,41 @@ export function fetch_english_classes(url = null) {
   }
 }
 
+export function fetch_english_classes_by_page_number(page_number = 0) {
+
+  return function (dispatch) {
+
+    dispatch(actions.fetch_english_classes_request())
+
+    const _url = `${api_address}/english_class/?page=${page_number+1}` ;
+
+    return fetch(_url, {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer'
+    })
+    .then(
+      response => {
+        if(response['status'] === 200) {
+          response.json().then(
+            json => dispatch(actions.fetch_english_classes_request_success(json)));
+        }
+        else {
+          response.json().then(
+            json => dispatch(actions.fetch_english_classes_request_failure(json)));
+        }
+      }
+    ).catch(error => 
+      dispatch(actions.fetch_english_classes_request_failure(error))
+    );
+  }
+}
+
 export function create_english_class(english_class) {
 
   return function (dispatch, getState) {

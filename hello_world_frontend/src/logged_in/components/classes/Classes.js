@@ -13,17 +13,20 @@ function Classes(props) {
     pushMessageToSnackbar,
     class_contents,
     fetch_english_classes,
+    fetch_english_classes_by_page_number,
     profile_info,
     create_english_class,
     isAddPostPaperOpen,
     closeAddPostModal,
     openAddPostModal,
+    english_classes_page,
+    set_english_classes_page,
   } = props;
 
   useEffect(() => {
-    fetch_english_classes();
+    fetch_english_classes_by_page_number(english_classes_page);
     selectClasses();
-  }, [selectClasses, fetch_english_classes]);
+  }, [selectClasses, fetch_english_classes, class_contents['url']]);
 
   if (isAddPostPaperOpen) {
     return <AddClass
@@ -43,6 +46,8 @@ function Classes(props) {
     fetch_english_classes={fetch_english_classes}
     pushMessageToSnackbar={pushMessageToSnackbar}
     profile_info={profile_info}
+    english_classes_page={english_classes_page}
+    set_english_classes_page={set_english_classes_page}
   />
 }
 
