@@ -84,20 +84,20 @@ function AddClass(props) {
       pushMessageToSnackbar({
         text: "Your post has been uploaded",
       });
-      console.log(files[0])
       create_english_class(
         {"title": title,
          "description": description,
          "date_time": date_time.toISOString(),
          "skype_link": skype_link,
          "image": files[0],
-         "capacity": 2
+         "capacity": capacity
         }
       )
       onClose();
     }, 1500);
   }, [setLoading, onClose, pushMessageToSnackbar, 
-    title, description, date_time, skype_link, files, create_english_class]);
+    title, description, date_time, skype_link, files, 
+    create_english_class, capacity]);
 
   return (
     <Fragment>
