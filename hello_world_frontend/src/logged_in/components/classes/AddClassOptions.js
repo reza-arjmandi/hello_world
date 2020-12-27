@@ -134,7 +134,7 @@ function AddClassOptions(props) {
         </span>
       </Dropzone>
     );
-  }, [onDrop, files, classes, deleteItem]);
+  }, [onDrop, files, classes, deleteItem, current_image]);
 
   const inputs = useCallback(
     [

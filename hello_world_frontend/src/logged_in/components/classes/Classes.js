@@ -26,7 +26,12 @@ function Classes(props) {
   useEffect(() => {
     fetch_english_classes_by_page_number(english_classes_page);
     selectClasses();
-  }, [selectClasses, fetch_english_classes, class_contents['url']]);
+  }, [
+    selectClasses, 
+    fetch_english_classes, 
+    class_contents, 
+    fetch_english_classes_by_page_number,
+    english_classes_page]);
 
   if (isAddPostPaperOpen) {
     return <AddClass

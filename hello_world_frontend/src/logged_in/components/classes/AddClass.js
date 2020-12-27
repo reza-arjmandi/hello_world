@@ -97,7 +97,7 @@ function AddClass(props) {
     }, 1500);
   }, [setLoading, onClose, pushMessageToSnackbar, 
     title, description, date_time, skype_link, files, 
-    create_english_class, capacity]);
+    create_english_class, capacity, fetch_english_classes]);
 
   return (
     <Fragment>

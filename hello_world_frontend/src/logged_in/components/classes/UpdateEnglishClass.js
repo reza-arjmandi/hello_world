@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback, useEffect } from "react";
+import React, { Fragment, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Button, Box } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
@@ -45,13 +45,14 @@ function UpdateEnglishClass(props) {
     selected_english_class,
     history,
     onClose,
+    clear_selected_english_class,
   ]);
   
   const on_back = useCallback(() => {
     history.push("/c/classes");
     clear_selected_english_class();
     onClose();
-  }, [history, onClose]);
+  }, [history, onClose, clear_selected_english_class]);
 
   const on_delete = useCallback(() => {
     set_is_delete_class_dialog_open(true);
