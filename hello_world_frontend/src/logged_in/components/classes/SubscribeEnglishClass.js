@@ -75,9 +75,9 @@ function SubscribeEnglishClass(props) {
           <Button size="small" onClick={on_back}>
             Back
           </Button>
-          <Button size="small" color="primary">
+          {/* <Button size="small" color="primary">
             Share
-          </Button>
+          </Button> */}
           <Button size="small" color="primary" onClick={on_subscribe}>
             Subscribe
           </Button>

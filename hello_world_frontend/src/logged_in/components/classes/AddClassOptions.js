@@ -70,6 +70,7 @@ function AddClassOptions(props) {
     set_description,
     date_time,
     set_date_time,
+    current_image,
   } = props;
 
   const handle_change = useCallback(
@@ -107,12 +108,14 @@ function AddClassOptions(props) {
   );
 
   const print_file = useCallback(() => {
-    if (files[0]) {
+    const preview_img = files[0] ? files[0].preview : current_image;
+
+    if (preview_img) {
       return (
         <div className={classes.imgWrapper}>
           <img
             alt="uploaded item"
-            src={files[0].preview}
+            src={preview_img}
             className={classes.img}
             style={{ height: 148 }}
           />
@@ -178,7 +181,7 @@ function AddClassOptions(props) {
             emojiSet="google"
             onChange={handle_change_description}  
             name="description"
-            value={description}
+            value_={description}
           />
         )}
       </Box>

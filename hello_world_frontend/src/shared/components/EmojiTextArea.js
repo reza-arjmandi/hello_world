@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback } from "react";
+import React, { Fragment, useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
@@ -75,10 +75,13 @@ function EmojiTextarea(props) {
     maxCharacters,
     emojiSet,
     inputClassName,
-    onChange
+    onChange,
+    value_
   } = props;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+
+  
   const [characters, setCharacters] = useState(0);
 
   const onSelectEmoji = useCallback(
@@ -123,6 +126,12 @@ function EmojiTextarea(props) {
   const toggleOpen = useCallback(() => {
     setOpen(!open);
   }, [open, setOpen]);
+
+  useEffect(()=> {
+    if(value_) {
+      setValue(value_)
+    }
+  }, [setValue, value_]) 
 
   return (
     <Fragment>

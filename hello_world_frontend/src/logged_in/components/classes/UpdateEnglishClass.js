@@ -61,11 +61,12 @@ function UpdateEnglishClass(props) {
   const [loading, setLoading] = useState(false);
   const [cropperFile, setCropperFile] = useState(null);
 
-  const [title, set_title] = useState("");
-  const [skype_link, set_skype_link] = useState("");
-  const [capacity, set_capacity] = useState("");
-  const [description, set_description] = useState("");
-  const [date_time, set_date_time] = useState(new Date());
+  const [title, set_title] = useState(selected_english_class["title"]);
+  const [skype_link, set_skype_link] = useState(selected_english_class["skype_link"]);
+  const [capacity, set_capacity] = useState(selected_english_class["capacity"]);
+  const [description, set_description] = useState(selected_english_class["description"]);
+  const [date_time, set_date_time] = useState(new Date(selected_english_class["date_time"]));
+  const [current_image, set_current_image] = useState(selected_english_class["image"]);
   
   const acceptDrop = useCallback(
     (file) => {
@@ -103,6 +104,7 @@ function UpdateEnglishClass(props) {
   const deleteItem = useCallback(() => {
     setCropperFile(null);
     setFiles([]);
+    set_current_image(null);
   }, [setCropperFile, setFiles]);
 
   const onCrop = useCallback(
@@ -115,43 +117,35 @@ function UpdateEnglishClass(props) {
     [acceptDrop, cropperFile, setCropperFile]
   );
 
-  useEffect(() => {
-    set_description(selected_english_class["description"])
-    onCrop(selected_english_class["image"]);
-    set_title(selected_english_class["title"])
-    set_skype_link(selected_english_class["skype_link"])
-    set_capacity(selected_english_class["capacity"])
-    set_date_time(new Date(selected_english_class["date_time"]))
-},
-  [setFiles, 
-  selected_english_class, 
-  set_title, 
-  set_skype_link, 
-  set_description, 
-  set_date_time, 
-  onCrop]);
-
   const handleUpdate = useCallback(() => {
     setLoading(true);
     setTimeout(() => {
       pushMessageToSnackbar({
         text: "Your post has been updated",
       });
-      update_english_class(
-        selected_english_class["url"],
-        {"title": title,
-         "description": description,
-         "date_time": date_time.toISOString(),
-         "skype_link": skype_link,
-        //  "image": files[0],
-         "capacity": 2
-        }
-      )
+      const updated_data = {"title": title,
+       "description": description,
+       "date_time": date_time.toISOString(),
+       "skype_link": skype_link,
+       "capacity": capacity
+      };
+      if(files[0]) {
+        updated_data["image"] = files[0]
+      }
+      update_english_class(selected_english_class["url"], updated_data);
       on_back();
     }, 1500);
-  }, [setLoading, pushMessageToSnackbar, 
-    title, description, date_time, skype_link, 
-    on_back, selected_english_class, update_english_class]);
+  }, [setLoading, 
+    pushMessageToSnackbar, 
+    title, 
+    description, 
+    date_time, 
+    skype_link, 
+    on_back, 
+    selected_english_class, 
+    update_english_class, 
+    capacity, 
+    files]);
 
   return (
     <Fragment>
@@ -180,6 +174,7 @@ function UpdateEnglishClass(props) {
             set_description={set_description}
             date_time={date_time}
             set_date_time={set_date_time}
+            current_image={current_image}
           />
         }
         actions={
@@ -202,7 +197,7 @@ function UpdateEnglishClass(props) {
               onClick={handleUpdate}
               variant="contained"
               color="secondary"
-              disabled={files.length === 0 || loading}
+              disabled={loading}
             >
               Update {loading && <ButtonCircularProgress />}
             </Button>
