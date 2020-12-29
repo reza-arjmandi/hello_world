@@ -11,13 +11,13 @@ function EnglishClass(props) {
     clear_selected_english_class,
     pushMessageToSnackbar,
     profile_info,
-    closeAddPostModal,
+    close_update_class_page,
     Dropzone,
     EmojiTextArea,
     DateTimePicker,
     ImageCropper,
-    openAddPostModal,
-    isAddPostPaperOpen,
+    open_update_class_page,
+    is_update_class_page_open,
     selectClasses,
     update_english_class,
     delete_english_class,
@@ -28,14 +28,14 @@ function EnglishClass(props) {
 
   useEffect(()=>{
     selectClasses();
-    openAddPostModal();
+    open_update_class_page();
     if(selected_english_class) {
       return;
     }
     fetch_class_by_id(class_id)
   }, [
     selectClasses, 
-    openAddPostModal, 
+    open_update_class_page, 
     fetch_class_by_id, 
     class_id, 
     selected_english_class]);
@@ -45,17 +45,16 @@ function EnglishClass(props) {
   }
   
   if(
-    isAddPostPaperOpen 
+    is_update_class_page_open 
     && selected_english_class['owner'] === profile_info['owner']) {
     return <UpdateEnglishClass 
-      onClose={closeAddPostModal}
+      onClose={close_update_class_page}
       EmojiTextArea={EmojiTextArea}
       ImageCropper={ImageCropper}
       Dropzone={Dropzone}
       DateTimePicker={DateTimePicker}
       pushMessageToSnackbar={pushMessageToSnackbar}
       update_english_class={update_english_class}
-      openAddPostModal={openAddPostModal}
       selected_english_class={selected_english_class}
       delete_english_class={delete_english_class}
       clear_selected_english_class={clear_selected_english_class}
@@ -63,7 +62,7 @@ function EnglishClass(props) {
   }
   else{
     return <SubscribeEnglishClass 
-      onClose={closeAddPostModal}
+      onClose={close_update_class_page}
       pushMessageToSnackbar={pushMessageToSnackbar}
       update_english_class={update_english_class}
       selected_english_class={selected_english_class}

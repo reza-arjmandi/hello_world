@@ -74,6 +74,7 @@ function Routing(props) {
   } = props;
 
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
+  const [is_update_class_page_open, set_is_update_class_page_open] = useState(false);
   const [english_classes_page, set_english_classes_page] = useState(0);
   const [is_my_classes_filtered, set_is_my_classes_filtered] = useState(false);
 
@@ -84,6 +85,14 @@ function Routing(props) {
   const closeAddPostModal = useCallback(() => {
     setIsAddPostPaperOpen(false);
   }, [setIsAddPostPaperOpen]);
+
+  const open_update_class_page = useCallback(() => {
+    set_is_update_class_page_open(true);
+  }, [set_is_update_class_page_open]);
+
+  const close_update_class_page = useCallback(() => {
+    set_is_update_class_page_open(false);
+  }, [set_is_update_class_page_open]);
 
   return (
     <div className={classes.wrapper}>
@@ -103,9 +112,9 @@ function Routing(props) {
           selected_english_class={selected_english_class}
           clear_selected_english_class={clear_selected_english_class}
           fetch_class_by_id={fetch_class_by_id}
-          isAddPostPaperOpen={isAddPostPaperOpen}
-          closeAddPostModal={closeAddPostModal}
-          openAddPostModal={openAddPostModal}
+          is_update_class_page_open={is_update_class_page_open}
+          close_update_class_page={close_update_class_page}
+          open_update_class_page={open_update_class_page}
           selectClasses={selectClasses}
           update_english_class={update_english_class}
           delete_english_class={delete_english_class}
