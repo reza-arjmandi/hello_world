@@ -67,7 +67,9 @@ function SubscribeEnglishClass(props) {
               capacity:{selected_english_class["capacity"]}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {selected_english_class["description"]}
+              <pre style={{ fontFamily: 'inherit' }}>
+                {selected_english_class["description"]}
+              </pre>
             </Typography>
           </CardContent>
         </CardActionArea>
