@@ -19,13 +19,10 @@ class EnglishClassViewSet(ModelViewSet):
         _class = serializer.save(owner=self.request.user)
         send_mail(
             'Your English Class',
-            "<html><body>"
-            "<b>Congratulations.</b><br/>"
-            "<b>You've created the English class successfully.</b><br/>"
-            "<b>You can share, edit and delete your class through following link:</b><br/>"
-            f"https://www.halloenglish.com/c/classes/{_class.id}"
-            "</body></html>"
-            ,
+            "Congratulations."
+            "You've created the English class successfully."
+            "You can share, edit and delete your class through following link:"
+            f"https://www.halloenglish.com/c/classes/{_class.id}",
             'HelloWorld@halloenglish.com',
             [self.request.user],
             fail_silently=False,
