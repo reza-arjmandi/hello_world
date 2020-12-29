@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import DetailsIcon from '@material-ui/icons/Details';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 import SelfAligningImage from "../../../shared/components/SelfAligningImage";
 import HighlightedInformation from 
@@ -39,8 +41,24 @@ function ClassContent(props) {
     profile_info, 
     english_classes_page,
     set_english_classes_page,
+    is_my_classes_filtered,
+    set_is_my_classes_filtered,
     history,
   } = props;
+
+  const handle_change_my_classes = useCallback(() => {
+    if(!is_my_classes_filtered){
+      set_english_classes_page(0);
+    }
+    else {
+      set_english_classes_page(0);
+    }
+    set_is_my_classes_filtered(!is_my_classes_filtered);
+
+  }, [is_my_classes_filtered, 
+    set_english_classes_page,
+    set_is_my_classes_filtered, 
+    fetch_english_classes]);
 
   const on_detail = useCallback((class_content) => {
     history.push(`/c/classes/${class_content['id']}`);
@@ -104,14 +122,30 @@ function ClassContent(props) {
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6">English Classes</Typography>
         { profile_info && profile_info.user_type === "teacher" &&
-          <Button
-          variant="contained"
-          color="secondary"
-          onClick={openAddPostModal}
-          disableElevation
-          >
-            Add English Class
-          </Button>
+        <Grid
+          container
+          direction="column"
+          justify="flex-end"
+          alignItems="flex-end"
+        > 
+            <Button
+            variant="contained"
+            color="secondary"
+            onClick={openAddPostModal}
+            disableElevation
+            >
+              Add English Class
+            </Button>
+            <FormControlLabel
+            control={
+              <Switch 
+                checked={is_my_classes_filtered} 
+                onChange={handle_change_my_classes} 
+                name="checkedA" 
+              />}
+            label="My classes"
+            />
+          </Grid>
         }
       </Toolbar>
       <Divider />

@@ -75,6 +75,7 @@ function Routing(props) {
 
   const [isAddPostPaperOpen, setIsAddPostPaperOpen] = useState(false);
   const [english_classes_page, set_english_classes_page] = useState(0);
+  const [is_my_classes_filtered, set_is_my_classes_filtered] = useState(false);
 
   const openAddPostModal = useCallback(() => {
     setIsAddPostPaperOpen(true);
@@ -130,6 +131,8 @@ function Routing(props) {
           openAddPostModal={openAddPostModal}
           english_classes_page={english_classes_page}
           set_english_classes_page={set_english_classes_page}
+          is_my_classes_filtered={is_my_classes_filtered}
+          set_is_my_classes_filtered={set_is_my_classes_filtered}
         />
         <PropsRoute
           path="/c/subscription"

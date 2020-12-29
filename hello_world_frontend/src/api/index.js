@@ -286,48 +286,23 @@ export function fetch_videos() {
   }
 }
 
-export function fetch_english_classes(url = null) {
+export function fetch_english_classes(url = null, page_number = null, is_mine = false) {
 
-  return function (dispatch) {
-
-    dispatch(actions.fetch_english_classes_request())
-
-    const _url = url===null ? `${api_address}/english_class/` : url;
-
-    return fetch(_url, {
-      method: 'GET',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer'
-    })
-    .then(
-      response => {
-        if(response['status'] === 200) {
-          response.json().then(
-            json => dispatch(actions.fetch_english_classes_request_success(json)));
-        }
-        else {
-          response.json().then(
-            json => dispatch(actions.fetch_english_classes_request_failure(json)));
-        }
-      }
-    ).catch(error => 
-      dispatch(actions.fetch_english_classes_request_failure(error))
-    );
-  }
-}
-
-export function fetch_english_classes_by_page_number(page_number = 0) {
-
-  return function (dispatch) {
+  return function (dispatch, getState) {
 
     dispatch(actions.fetch_english_classes_request())
 
-    const _url = `${api_address}/english_class/?page=${page_number+1}` ;
+    var _url = url===null ? `${api_address}/english_class/` : url;
+
+    if(!url && page_number) {
+      _url = `${_url}?page=${page_number+1}`
+    }
+
+    if(!url && is_mine) {
+      let state = getState();
+      const owner = state.ProfileInfo.owner; 
+      _url = `${_url}?owner=${owner}`
+    }
 
     return fetch(_url, {
       method: 'GET',

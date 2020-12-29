@@ -16,7 +16,6 @@ import {
     fetch_profile_info,
     fetch_profile_avatar,
     fetch_english_classes,
-    fetch_english_classes_by_page_number,
     create_english_class,
     fetch_class_by_id,
     update_english_class,
@@ -59,11 +58,11 @@ const map_dispatch_to_props = dispatch => ({
 
         dispatch(remove_profile_info());
     },
-    fetch_english_classes: (url = null) => {
-        dispatch(fetch_english_classes(url));
+    fetch_english_classes: (url = null, is_mine = false) => {
+        dispatch(fetch_english_classes(url, null, is_mine));
     },
     fetch_english_classes_by_page_number: (page_number = 0) => {
-        dispatch(fetch_english_classes_by_page_number(page_number));
+        dispatch(fetch_english_classes(null, page_number));
     },
     create_english_class: (english_class) => {
         dispatch(create_english_class(english_class));
