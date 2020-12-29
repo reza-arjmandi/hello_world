@@ -2,10 +2,11 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.authentication import TokenAuthentication
 
+from django.core.mail import send_mail
+
 from api.models import EnglishClass
 from api.serializers import EnglishClassSerializer
 from api.permissions import IsTeacherOrReadOnly
-
 
 class EnglishClassViewSet(ModelViewSet):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
@@ -15,7 +16,17 @@ class EnglishClassViewSet(ModelViewSet):
     serializer_class = EnglishClassSerializer
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        _class = serializer.save(owner=self.request.user)
+        send_mail(
+            'Your English Class',
+            "<b>Congratulations.</b><br/>"
+            "<b>You've created the English class successfully.</b><br/>"
+            "<b>You can share, edit and delete your class through following link:</b><br/>"
+            f"https://www.halloenglish.com/c/classes/{_class.id}",
+            'HelloWorld@halloenglish.com',
+            [self.request.user],
+            fail_silently=False,
+        )
 
     def get_queryset(self):
         owner = self.request.query_params.get('owner', None)
