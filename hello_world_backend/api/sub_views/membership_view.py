@@ -49,7 +49,7 @@ class MembershipViewSet(ModelViewSet):
             "Join to the English class through following link in Skype application: "
             f"{_class.skype_link}."
             "The class will be hold on: "
-            f"{_local_date_time}.",
+            f"{_local_date_time.date()} {_local_date_time.time()}.",
             'HelloWorld@halloenglish.com',
             [self.request.user],
             fail_silently=False,
