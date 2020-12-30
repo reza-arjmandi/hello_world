@@ -11,6 +11,8 @@ from api.models import ProfileInfo
 from api.serializers import MembershipSerializer
 from api.permissions import IsAdminOrOwner
 
+import pytz
+
 class ClassIsFull(APIException):
     status_code = 400
     default_detail = 'The class is full'
@@ -35,13 +37,19 @@ class MembershipViewSet(ModelViewSet):
                 raise ClassIsFull()
             _class.capacity = _class.capacity - 1
             _class.save()
+
+            timezone_converter = pytz.timezone(
+                self.request.user.ProfileInfo.timezone)
+            _local_date_time = timezone_converter.new_york_tz.normalize(
+                _class.date_time)
+
             send_mail(
             'English Class Subscription',
             "You’ve subscribed to the English class successfully."
             "Join to the English class through following link in Skype application: "
             f"{_class.skype_link}."
             "The class will be hold on: "
-            f"{_class.date_time}.",
+            f"{_local_date_time}.",
             'HelloWorld@halloenglish.com',
             [self.request.user],
             fail_silently=False,
