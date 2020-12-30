@@ -38,8 +38,10 @@ class MembershipViewSet(ModelViewSet):
             send_mail(
             'English Class Subscription',
             "You’ve subscribed to the English class successfully."
-            "Join to the English class through following link: "
-            f"{_class.skype_link}",
+            "Join to the English class through following link in Skype application: "
+            f"{_class.skype_link}."
+            "The class will be hold on: "
+            f"{_class.date_time}.",
             'HelloWorld@halloenglish.com',
             [self.request.user],
             fail_silently=False,
