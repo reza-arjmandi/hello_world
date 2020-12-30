@@ -39,8 +39,8 @@ class MembershipViewSet(ModelViewSet):
             _class.save()
 
             timezone_converter = pytz.timezone(
-                self.request.user.ProfileInfo.timezone)
-            _local_date_time = timezone_converter.new_york_tz.normalize(
+                self.request.user.ProfileInfo.all()[0].timezone)
+            _local_date_time = timezone_converter.normalize(
                 _class.date_time)
 
             send_mail(
