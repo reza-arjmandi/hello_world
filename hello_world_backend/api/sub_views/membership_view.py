@@ -4,6 +4,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import APIException
 
+from django.core.mail import send_mail
+
 from api.models import Membership
 from api.models import ProfileInfo
 from api.serializers import MembershipSerializer
@@ -32,5 +34,23 @@ class MembershipViewSet(ModelViewSet):
             if _class.capacity == 0:
                 raise ClassIsFull()
             _class.capacity = _class.capacity - 1
-            _class.save() 
+            _class.save()
+            send_mail(
+            'English Class Subscription',
+            "You’ve subscribed to the English class successfully."
+            "Join to the English class through following link: "
+            f"{_class.skype_link}",
+            'HelloWorld@halloenglish.com',
+            [self.request.user],
+            fail_silently=False,
+            )
+            send_mail(
+            'English Class Subscription',
+            "Congratulation."
+            f"A new subscription in the {_class.title} class: {self.request.user}",
+            'HelloWorld@halloenglish.com',
+            [_class.owner.username],
+            fail_silently=False,
+            )
         serializer.save()
+        

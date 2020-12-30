@@ -21,7 +21,7 @@ class EnglishClassViewSet(ModelViewSet):
             'Your English Class',
             "Congratulations."
             "You've created the English class successfully."
-            "You can share, edit and delete your class through following link:"
+            "You can share, edit and delete your class through following link: "
             f"https://www.halloenglish.com/c/classes/{_class.id}",
             'HelloWorld@halloenglish.com',
             [self.request.user],
